@@ -13,7 +13,7 @@ const Product = db.define('student', {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     allowNull: false
   },
   inventoryQuantity: {
