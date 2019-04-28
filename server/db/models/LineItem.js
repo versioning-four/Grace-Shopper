@@ -11,7 +11,7 @@ const LineItem = db.define('lineitem', {
     type: Sequelize.INTEGER,
     defaultValue: 1,
     validate: {
-      min: 1
+      min: 0
     }
   },
   orderid: {
