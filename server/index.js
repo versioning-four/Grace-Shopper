@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const syncAndSeed = require('./seed')
+const syncAndSeed = require('./db/seed')
 
 const port = process.env.PORT || 3000
 
