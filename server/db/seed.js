@@ -31,4 +31,4 @@ const syncAndSeed = () => {
     })
 }
 
-module.export = syncAndSeed
+module.exports = syncAndSeed
