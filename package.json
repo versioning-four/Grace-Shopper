@@ -5,6 +5,7 @@
   "main": "db.js",
   "dependencies": {
     "express": "^4.16.4",
+    "pg": "^7.10.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "sequelize": "^5.7.6"
@@ -32,7 +33,7 @@
     "postinstall": "npm run webpack",
     "webpack": "webpack",
     "webpack:dev": "npm run webpack -- --mode=development --watch",
-    "start:dev": "npm run webpack:dev & nodemon server.js --ignore src/ --ignore dist/"
+    "start:dev": "npm run webpack:dev & nodemon server --ignore src/ --ignore dist/"
   },
   "keywords": [],
   "author": "",
