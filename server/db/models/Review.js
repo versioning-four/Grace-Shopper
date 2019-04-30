@@ -14,9 +14,9 @@ const Review = db.define('review', {
     allowNull: false,
     validate: {
       notEmpty: true,
-      min: {
-        args: [30],
-        msg: 'Review must be at least 30 characters'
+      len: {
+        args: [30, 5000],
+        msg: 'Review must be at least 30 characters... and less than 5,000.'
       }
     }
   },
@@ -24,7 +24,7 @@ const Review = db.define('review', {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      min: 0,
+      min: 1,
       max: 5
     }
   }
