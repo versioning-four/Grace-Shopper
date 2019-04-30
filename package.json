@@ -24,7 +24,9 @@
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
+    "jest": "^24.7.1",
     "nodemon": "^1.18.11",
+    "supertest": "^4.0.2",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1"
   },
@@ -33,7 +35,8 @@
     "postinstall": "npm run webpack",
     "webpack": "webpack",
     "webpack:dev": "npm run webpack -- --mode=development --watch",
-    "start:dev": "npm run webpack:dev & nodemon server --ignore src/ --ignore dist/"
+    "start:dev": "npm run webpack:dev & nodemon server --ignore src/ --ignore dist/ --ignore tests/",
+    "test": "DATABASE_URL=postgres://localhost/grace_shopper_db_test jest ./tests/*.spec.js --watch --runInBand --verbose"
   },
   "keywords": [],
   "author": "",

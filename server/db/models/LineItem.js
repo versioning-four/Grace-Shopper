@@ -6,7 +6,10 @@ const LineItem = db.define('lineitem', {
     type: Sequelize.INTEGER,
     defaultValue: 1,
     validate: {
-      min: 0
+      min: {
+        args: [0],
+        msg: 'quantity of item in order must be zero or greater'
+      }
     }
   }
 })
