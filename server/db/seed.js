@@ -51,7 +51,7 @@ const syncAndSeed = () => {
     })
     .then(() => {
       //CREATE REVIEW DATA
-      return createdSeedInstance(Review, [
+      return createdSeedInstances(Review, [
         { title: `A real let down.`, content: 'Poor at starting fires. Poor at attracting/creating angry mobs. Will not buy again.', rating: 1, userId: 1, productId: 2},
         { title: `They're Fantastoc!!!`, content: `These are the best Cornish Cross Broiler Chicks I've ever had! And I know good Cornish Cross Broiler Chicks!`, rating: 5, userId: 1, productId: 3},
         { title: `Doubt I'll buy again`, content: `I was really hoping to achieve so much with this pitchfork and it really didn't work out the way I had hoped. Disappointing to say the least.`, rating: 3, userId: 2, productId: 2},
