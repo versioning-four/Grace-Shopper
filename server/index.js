@@ -8,6 +8,7 @@ const port = process.env.PORT || 3000
 app.use(express.json())
 
 app.use('/api/users', require('./api/User'))
+app.use('/api/products', require('./api/Product'))
 app.use('/api/orders', require('./api/Order'))
 app.use('/api/lineitems', require('./api/LineItem'))
 app.use('/api/reviews', require('./api/Review'))
