@@ -35,6 +35,6 @@ router.delete('/:id', (req, res, next) => {
                 id: req.params.id
             }
     })
-    .then(() => res.status(204))
+    .then(() => res.sendStatus(204))
     .catch(next)
 })
