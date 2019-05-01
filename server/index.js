@@ -13,7 +13,6 @@ app.use('/api/orders', require('./api/Order'))
 app.use('/api/lineitems', require('./api/LineItem'))
 app.use('/api/reviews', require('./api/Review'))
 
-
 app.get('/app.js', (req, res, next) =>
   res.sendFile(path.join(__dirname, '..', 'dist', 'main.js'))
 )
