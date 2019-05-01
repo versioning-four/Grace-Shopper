@@ -1,4 +1,13 @@
-import { GET_ALL_PRODUCTS } from './constants'
+import { LOGGED_IN_USER, GET_ALL_PRODUCTS } from './constants'
+
+export const loginReducer = ( state = {}, action) => {
+    switch (action.type) {
+        case LOGGED_IN_USER:
+            return action.user
+        default:
+            return state
+    }
+}
 
 export const productReducer = (state = [], action) => {
   switch (action.type) {
@@ -6,5 +15,5 @@ export const productReducer = (state = [], action) => {
       return action.products
     default:
       return state
-  }
 }
+
