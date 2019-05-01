@@ -15,11 +15,11 @@ app.use('/api/reviews', require('./api/Review'))
 
 
 app.get('/app.js', (req, res, next) =>
-  res.sendFile(path.join(__dirname, 'dist', 'main.js'))
+  res.sendFile(path.join(__dirname, '..', 'dist', 'main.js'))
 )
 
 app.get('/', (req, res, next) =>
-  res.sendFile(path.join(__dirname, 'index.html'))
+  res.sendFile(path.join(__dirname, '..', 'index.html'))
 )
 
 syncAndSeed().then(() =>
