@@ -19,6 +19,7 @@ class App extends Component {
       <Router>
         <Route component={ Nav } />
         <Route exact path='/' component={ Home } />
+        <Route exact path='/home' component={ Home } />
         <Route exact path='/login' component={ Login } />
         <Route exact path="/products" component={Products} />
         <Route path="/products/:id" component={SingleProduct} />

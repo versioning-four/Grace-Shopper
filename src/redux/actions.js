@@ -26,4 +26,5 @@ export const getAllProductsThunk = () => {
     return axios
       .get('/api/products')
       .then(({ data }) => dispatch(getAllProducts(data)))
+  }
 }

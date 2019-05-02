@@ -15,5 +15,5 @@ export const productReducer = (state = [], action) => {
       return action.products
     default:
       return state
+  }
 }
-
