@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { LOGGED_IN_USER } from './constants'
-import { GET_ALL_PRODUCTS } from './constants'
+import { LOGGED_IN_USER, GET_ALL_PRODUCTS } from './constants'
 
 //action creator
 const getLoggedUser = user => ({
@@ -17,7 +16,7 @@ const getAllProducts = products => ({
 export const loginUserThunk = user => {
   return dispatch => {
     return axios
-      .put('/login', user)
+      .put('/api/users/login', user)
       .then(({ data }) => dispatch(getLoggedUser(data)))
   }
 }
