@@ -21,6 +21,20 @@ app.get('/', (req, res, next) =>
   res.sendFile(path.join(__dirname, '..', 'index.html'))
 )
 
+//error handling
+app.use((error, req, res, next) => {
+  let errors = [error]
+
+  if (error.errors) {
+    errors = error.errors.map(err => err.message)
+  } else if (error.original) {
+    errors = [error.original.message]
+  }
+
+  console.error(errors)
+  res.status(error.status || 500).send({ errors })
+})
+
 syncAndSeed().then(() =>
   app.listen(port, () => console.log(`listening on port ${port}`))
 )
