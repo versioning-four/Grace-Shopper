@@ -2,10 +2,20 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const syncAndSeed = require('./db/seed')
+const volleyball = require('volleyball')
+const session = require('express-session')
 
 const port = process.env.PORT || 3000
 
+app.use(
+  session({
+    secret: 'our website can definitely be hacked',
+    resave: false,
+    saveUninitialized: false
+  })
+)
 app.use(express.json())
+app.use(volleyball)
 
 app.use('/api/users', require('./api/User'))
 app.use('/api/products', require('./api/Product'))
