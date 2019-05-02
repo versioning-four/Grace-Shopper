@@ -103,10 +103,10 @@ const syncAndSeed = () => {
       //CREATE ORDER DATA
       return createdSeedInstances(Order, [
         { userId: 1 },
+        { status: 'completed', userId: 2 },
         { userId: 2 },
-        { userId: null },
         { userId: 4 },
-        { userId: 4 }
+        { status: 'completed', userId: 4 }
       ])
     })
     .then(() => {
