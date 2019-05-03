@@ -31,10 +31,8 @@ class Login extends Component {
           return orders.find(order => order.status === 'pending')
         })
         .then(order => {
-          console.log(order)
           return order ? orderLineitems(user.id, order.id) : null
         })
-        .then(() => console.log(store.getState()))
         .then(() => history.push('/home'))
     }
   }
