@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import store from '../redux/store'
 
-import { loginUserThunk } from '../redux/actions'
+import {
+  loginUserThunk,
+  getAllUserOrdersThunk,
+  getOrderLineitemsThunk
+} from '../redux/actions'
 
 class Login extends Component {
   constructor() {
@@ -17,11 +22,25 @@ class Login extends Component {
     this.setState({ [ev.target.name]: ev.target.value })
   }
 
+  componentDidUpdate(prevProps) {
+    const { history, user, orderLineitems } = this.props
+    if (prevProps.user.id !== this.props.user.id) {
+      this.props
+        .userOrders(user.id)
+        .then(({ orders }) => {
+          return orders.find(order => order.status === 'pending')
+        })
+        .then(order => {
+          return order ? orderLineitems(user.id, order.id) : null
+        })
+        .then(() => history.push('/home'))
+    }
+  }
+
   handleSubmit = ev => {
     ev.preventDefault()
-    const { history } = this.props
 
-    this.props.login(this.state).then(() => history.push('/home'))
+    return this.props.login(this.state)
   }
 
   render() {
@@ -52,11 +71,21 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    userOrdersState: state.userOrders
+  }
+}
+
 const mapDispatchToProps = dispatch => ({
-  login: user => dispatch(loginUserThunk(user))
+  login: user => dispatch(loginUserThunk(user)),
+  userOrders: userId => dispatch(getAllUserOrdersThunk(userId)),
+  orderLineitems: (userId, orderId) =>
+    dispatch(getOrderLineitemsThunk(userId, orderId))
 })
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Login)

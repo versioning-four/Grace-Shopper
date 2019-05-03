@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const { User } = require('../db/models/index')
+const { User, LineItem, Order } = require('../db/models/index')
 
 module.exports = router
 
@@ -39,5 +39,44 @@ router.put('/login', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
   User.destroy({ where: { id: req.params.id } })
     .then(() => res.status(204).send('User deleted'))
+    .catch(next)
+})
+
+router.post('/:userId/orders/:orderId/lineitem', (req, res, next) => {
+  LineItem.create(req.body)
+    .then(lineitem => res.json(lineitem))
+    .catch(next)
+})
+
+router.get('/:userId/orders/:orderId/lineitems', (req, res, next) => {
+  LineItem.findAll({
+    where: {
+      orderId: req.params.orderId
+    }
+  })
+    .then(lineitems => res.json(lineitems))
+    .catch(next)
+})
+
+router.post('/:userId/orders', (req, res, next) => {
+  Order.create(req.body)
+    .then(order => res.json(order))
+    .catch(next)
+})
+
+router.get('/:userId/orders/', (req, res, next) => {
+  Order.findAll({
+    where: {
+      userId: req.params.userId
+    }
+  })
+    .then(orders => res.json(orders))
+    .catch(next)
+})
+
+router.put('/:userId/orders/:orderId', (req, res, next) => {
+  Order.findByPk(req.params.orderId)
+    .then(order => order.update(req.body))
+    .then(order => res.json(order))
     .catch(next)
 })

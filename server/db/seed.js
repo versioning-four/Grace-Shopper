@@ -49,7 +49,7 @@ const syncAndSeed = () => {
         }
       ])
     })
-    .then(()=> {
+    .then(() => {
       //CREATE CATEGORY DATA
       return createdSeedInstances(Category, [
         { id: 1, name: 'Big' },
@@ -127,7 +127,7 @@ const syncAndSeed = () => {
       //CREATE LINEITEM DATA
       return createdSeedInstances(LineItem, [
         { quantity: 0, orderId: 2, productId: 5 },
-        { quantity: 70, orderId: 4, productId: 1 },
+        { quantity: 70, orderId: 1, productId: 1 },
         { quantity: 6, orderId: 3, productId: 1 },
         { quantity: 15, orderId: 5, productId: 3 },
         { quantity: 2, orderId: 5, productId: 3 }
