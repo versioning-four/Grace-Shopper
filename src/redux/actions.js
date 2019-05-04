@@ -1,10 +1,12 @@
 import axios from 'axios'
 import {
-  LOGGED_IN_USER,
   GET_ALL_PRODUCTS,
-  ADD_TO_CART,
   GET_ALL_USER_ORDERS,
-  GET_ORDER_LINEITEMS
+  GET_ORDER_LINEITEMS,
+  ADD_TO_CART,
+  LOGGED_IN_USER,
+  GET_ALL_USERS,
+  GET_ALL_REVIEWS
 } from './constants'
 
 //action creator
@@ -33,14 +35,19 @@ const getOrderLineitems = lineitems => ({
   lineitems
 })
 
+const getAllReviews = reviews => ({
+  type: GET_ALL_REVIEWS,
+  reviews
+})
+
+const getAllUsers = users => ({
+  type: GET_ALL_USERS,
+  users
+})
+
 //thunks
-export const loginUserThunk = user => {
-  return dispatch => {
-    return axios.put('/api/users/login', user).then(({ data }) => {
-      dispatch(getLoggedUser(data))
-    })
-  }
-}
+
+//products thunks
 
 export const getAllProductsThunk = () => {
   return dispatch => {
@@ -50,14 +57,7 @@ export const getAllProductsThunk = () => {
   }
 }
 
-export const addToCartThunk = (userId, lineitem) => {
-  const { orderId } = lineitem
-  return dispatch => {
-    return axios
-      .post(`/api/users/${userId}/orders/${orderId}/lineitem`, lineitem)
-      .then(({ data }) => dispatch(addToCart(data)))
-  }
-}
+//orders thunks
 
 export const getAllUserOrdersThunk = userId => {
   return dispatch => {
@@ -72,5 +72,42 @@ export const getOrderLineitemsThunk = (userId, orderId) => {
     return axios
       .get(`/api/users/${userId}/orders/${orderId}/lineitems`)
       .then(({ data }) => dispatch(getOrderLineitems(data)))
+  }
+}
+
+export const addToCartThunk = (userId, lineitem) => {
+  const { orderId } = lineitem
+  return dispatch => {
+    return axios
+      .post(`/api/users/${userId}/orders/${orderId}/lineitem`, lineitem)
+      .then(({ data }) => dispatch(addToCart(data)))
+  }
+}
+
+//users thunks
+
+export const loginUserThunk = user => {
+  return dispatch => {
+    return axios.put('/api/users/login', user).then(({ data }) => {
+      dispatch(getLoggedUser(data))
+    })
+  }
+}
+
+export const getAllUsersThunk = () => {
+  return dispatch => {
+    return axios
+      .get('/api/users')
+      .then(({ data }) => dispatch(getAllUsers(data)))
+  }
+}
+
+//reviews thunks
+
+export const getAllReviewsThunk = () => {
+  return dispatch => {
+    return axios
+      .get('/api/reviews/')
+      .then(({ data }) => dispatch(getAllReviews(data)))
   }
 }
