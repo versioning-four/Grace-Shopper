@@ -4,7 +4,9 @@ import {
   categoryReducer,
   loginReducer,
   cartReducer,
-  userOrdersReducer
+  userOrdersReducer,
+  reviewsReducer,
+  usersReducer
 } from './reducer'
 import thunk from 'redux-thunk'
 import loggerMiddleware from 'redux-logger'
@@ -14,7 +16,9 @@ const reducer = combineReducers({
   categories: categoryReducer,
   user: loginReducer,
   cart: cartReducer,
-  userOrders: userOrdersReducer
+  userOrders: userOrdersReducer,
+  reviews: reviewsReducer,
+  users: usersReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk, loggerMiddleware))

@@ -6,7 +6,9 @@ import {
   GET_ALL_USER_ORDERS,
   GET_ORDER_LINEITEMS,
   UPDATE_PRODUCT,
-  UPDATE_LINE_ITEM
+  UPDATE_LINE_ITEM,
+  GET_ALL_REVIEWS,
+  GET_ALL_USERS
 } from './constants'
 
 export const loginReducer = (state = {}, action) => {
@@ -59,6 +61,24 @@ export const userOrdersReducer = (state = [], action) => {
   switch (action.type) {
     case GET_ALL_USER_ORDERS:
       return action.orders
+    default:
+      return state
+  }
+}
+
+export const reviewsReducer = (state = [], action) => {
+  switch (action.type) {
+    case GET_ALL_REVIEWS:
+      return action.reviews
+    default:
+      return state
+  }
+}
+
+export const usersReducer = (state = [], action) => {
+  switch (action.type) {
+    case GET_ALL_USERS:
+      return action.users
     default:
       return state
   }
