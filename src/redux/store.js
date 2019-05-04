@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import {
   productReducer,
+  categoryReducer,
   loginReducer,
   cartReducer,
   userOrdersReducer
@@ -10,6 +11,7 @@ import loggerMiddleware from 'redux-logger'
 
 const reducer = combineReducers({
   products: productReducer,
+  categories: categoryReducer,
   user: loginReducer,
   cart: cartReducer,
   userOrders: userOrdersReducer

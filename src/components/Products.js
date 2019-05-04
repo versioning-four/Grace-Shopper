@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { makePriceCurrencyFormat } from '../HelperFunctions'
+import CategorySelector from './CategorySelector'
 
 class Products extends Component {
   render() {
-    const { products } = this.props
+    const { products, history, categoryName } = this.props
     return (
       <div>
+        <CategorySelector history={history} />
+        <h4>{`${categoryName} Products`}</h4>
         {products.map(product => {
           const { id, name, price, image } = product
           return (
@@ -28,7 +31,18 @@ class Products extends Component {
   }
 }
 
-const mapStateToProps = ({ products }) => ({ products })
+const mapStateToProps = ({ products, categories }, { match: { params } }) => {
+  const { categoryId } = params
+  return {
+    products: categoryId
+      ? products.filter(product => product.id === Number(categoryId))
+      : products,
+    categoryName:
+      categoryId && categories[0]
+        ? categories.find(c => c.id === Number(categoryId)).name
+        : 'All'
+  }
+}
 
 const mapDispatchToProps = {}
 

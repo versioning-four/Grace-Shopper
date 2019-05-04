@@ -2,6 +2,7 @@ import axios from 'axios'
 import {
   LOGGED_IN_USER,
   GET_ALL_PRODUCTS,
+  GET_ALL_CATEGORIES,
   ADD_TO_CART,
   GET_ALL_USER_ORDERS,
   GET_ORDER_LINEITEMS,
@@ -18,6 +19,11 @@ const getLoggedUser = user => ({
 const getAllProducts = products => ({
   type: GET_ALL_PRODUCTS,
   products
+})
+
+const getAllCategories = categories => ({
+  type: GET_ALL_CATEGORIES,
+  categories
 })
 
 const addToCart = lineitem => ({
@@ -61,6 +67,14 @@ export const getAllProductsThunk = () => {
     return axios
       .get('/api/products')
       .then(({ data }) => dispatch(getAllProducts(data)))
+  }
+}
+
+export const getAllCategoriesThunk = () => {
+  return dispatch => {
+    return axios
+      .get('/api/categories')
+      .then(({ data }) => dispatch(getAllCategories(data)))
   }
 }
 

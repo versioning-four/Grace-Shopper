@@ -1,6 +1,7 @@
 import {
   LOGGED_IN_USER,
   GET_ALL_PRODUCTS,
+  GET_ALL_CATEGORIES,
   ADD_TO_CART,
   GET_ALL_USER_ORDERS,
   GET_ORDER_LINEITEMS,
@@ -25,6 +26,15 @@ export const productReducer = (state = [], action) => {
       return state.map(product =>
         product.id === action.productId ? action.product : product
       )
+    default:
+      return state
+  }
+}
+
+export const categoryReducer = (state = [], action) => {
+  switch (action.type) {
+    case GET_ALL_CATEGORIES:
+      return action.categories
     default:
       return state
   }
