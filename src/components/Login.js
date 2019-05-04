@@ -28,7 +28,7 @@ class Login extends Component {
       this.props
         .userOrders(user.id)
         .then(({ orders }) => {
-          return orders.find(order => order.status === 'pending')
+          return orders.find(order => order.status === 'cart')
         })
         .then(order => {
           return order ? orderLineitems(user.id, order.id) : null
