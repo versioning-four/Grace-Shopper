@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { makePriceCurrencyFormat } from '../HelperFunctions'
 
 class Products extends Component {
   render() {
@@ -18,7 +19,7 @@ class Products extends Component {
                 {' '}
                 <Link to={`/products/${id}`}>{name}</Link>{' '}
               </li>
-              <li>{`$${price}`}</li>
+              <li>{makePriceCurrencyFormat(price)}</li>
             </ul>
           )
         })}

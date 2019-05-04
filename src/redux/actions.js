@@ -4,7 +4,9 @@ import {
   GET_ALL_PRODUCTS,
   ADD_TO_CART,
   GET_ALL_USER_ORDERS,
-  GET_ORDER_LINEITEMS
+  GET_ORDER_LINEITEMS,
+  UPDATE_LINE_ITEM,
+  UPDATE_PRODUCT
 } from './constants'
 
 //action creator
@@ -31,6 +33,18 @@ const getAllUserOrders = orders => ({
 const getOrderLineitems = lineitems => ({
   type: GET_ORDER_LINEITEMS,
   lineitems
+})
+
+const updateLineitem = (lineitemId, lineitem) => ({
+  type: UPDATE_LINE_ITEM,
+  lineitemId,
+  lineitem
+})
+
+const updateProduct = (productId, product) => ({
+  type: UPDATE_PRODUCT,
+  productId,
+  product
 })
 
 //thunks
@@ -72,5 +86,24 @@ export const getOrderLineitemsThunk = (userId, orderId) => {
     return axios
       .get(`/api/users/${userId}/orders/${orderId}/lineitems`)
       .then(({ data }) => dispatch(getOrderLineitems(data)))
+  }
+}
+
+export const updateLineitemThunk = (userId, orderId, lineitemid, lineitem) => {
+  return dispatch => {
+    return axios
+      .put(
+        `/api/users/${userId}/orders/${orderId}/lineitems/${lineitemid}`,
+        lineitem
+      )
+      .then(({ data }) => dispatch(updateLineitem(lineitemid, data)))
+  }
+}
+
+export const updateProductThunk = (productId, product) => {
+  return dispatch => {
+    return axios
+      .put(`/api/products/${productId}`, product)
+      .then(({ data }) => dispatch(updateProduct(productId, data)))
   }
 }

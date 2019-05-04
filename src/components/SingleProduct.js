@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addToCartThunk } from '../redux/actions'
+import { makePriceCurrencyFormat } from '../HelperFunctions'
 
 const SingleProduct = ({ product }) => {
   const { id, description, name, price, image } = product
@@ -11,7 +12,7 @@ const SingleProduct = ({ product }) => {
       </div>
       <ul>
         <li>{name}</li>
-        <li>{price}</li>
+        <li>{makePriceCurrencyFormat(price)}</li>
         <li>{description}</li>
       </ul>
       <button type="button">Add to cart</button>
