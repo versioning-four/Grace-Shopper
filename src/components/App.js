@@ -8,6 +8,7 @@ import Nav from './Nav'
 import Login from './Login'
 import Products from './Products'
 import SingleProduct from './SingleProduct'
+import Cart from './Cart'
 
 class App extends Component {
   componentDidMount() {
@@ -22,6 +23,7 @@ class App extends Component {
         <Route exact path="/home" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/products" component={Products} />
+        <Route exact path="/cart" component={Cart} />
         <Route path="/products/:id" component={SingleProduct} />
       </Router>
     )
