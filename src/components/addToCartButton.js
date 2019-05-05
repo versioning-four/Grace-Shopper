@@ -8,18 +8,18 @@ class AddToCartButton extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  async handleClick(userId, orderId, lineitem) {
-    await this.props.addToCart(userId, orderId, lineitem)
+  handleClick(loggedInUserId, orderId, lineitem) {
+    this.props.addToCart(loggedInUserId, orderId, lineitem)
   }
 
   render() {
-    const { product, userId, orderId } = this.props
+    const { product, loggedInUserId, orderId } = this.props
     return (
       <div>
         <button
           type="button"
           onClick={() =>
-            this.handleClick(userId, orderId, {
+            this.handleClick(loggedInUserId, orderId, {
               productId: product.id,
               quantity: 1
             })
@@ -32,19 +32,19 @@ class AddToCartButton extends Component {
   }
 }
 
-const mapStateToProps = ({ user, userOrders }) => {
+const mapStateToProps = ({ loggedInUser, userOrders }) => {
   console.log(userOrders)
   const findOrderId = userOrders.find(order => order.status === 'cart')
   return {
-    userId: user.id,
+    loggedInUserId: loggedInUser.id,
     orderId: findOrderId ? findOrderId.id : 0
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addToCart: (userId, orderId, product) =>
-      dispatch(addToCartThunk(userId, orderId, product))
+    addToCart: (loggedInUserId, orderId, product) =>
+      dispatch(addToCartThunk(loggedInUserId, orderId, product))
   }
 }
 
