@@ -115,11 +115,10 @@ export const getOrderLineitemsThunk = (userId, orderId) => {
   }
 }
 
-export const addToCartThunk = (userId, lineitem) => {
-  const { orderId } = lineitem
+export const addToCartThunk = (userId, orderId, lineitem) => {
   return dispatch => {
     return axios
-      .post(`/api/users/${userId}/orders/${orderId}/lineitem`, lineitem)
+      .post(`/api/users/${userId}/orders/${orderId}/lineitems`, lineitem)
       .then(({ data }) => dispatch(addToCart(data)))
   }
 }
@@ -162,6 +161,3 @@ export const getAllReviewsThunk = () => {
       .then(({ data }) => dispatch(getAllReviews(data)))
   }
 }
-
-
-

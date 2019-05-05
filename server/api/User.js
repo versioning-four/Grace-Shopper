@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const { User, LineItem, Order} = require('../db/models/index')
+const { User, LineItem, Order } = require('../db/models/index')
 
 module.exports = router
 
@@ -42,7 +42,7 @@ router.delete('/:id', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/:userId/orders/:orderId/lineitem', (req, res, next) => {
+router.post('/:userId/orders/:orderId/lineitems', (req, res, next) => {
   LineItem.create(req.body)
     .then(lineitem => res.json(lineitem))
     .catch(next)
