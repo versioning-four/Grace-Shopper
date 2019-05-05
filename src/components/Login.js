@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import store from '../redux/store'
 
 import {
   loginUserThunk,
@@ -14,7 +13,8 @@ class Login extends Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      error: ''
     }
   }
 
@@ -28,7 +28,7 @@ class Login extends Component {
       this.props
         .userOrders(user.id)
         .then(({ orders }) => {
-          return orders.find(order => order.status === 'pending')
+          return orders.find(order => order.status === 'cart')
         })
         .then(order => {
           return order ? orderLineitems(user.id, order.id) : null
@@ -40,11 +40,13 @@ class Login extends Component {
   handleSubmit = ev => {
     ev.preventDefault()
 
-    return this.props.login(this.state)
+    return this.props
+      .login(this.state)
+      .catch(({ response: { data } }) => this.setState({ error: data.errors }))
   }
 
   render() {
-    const { email, password } = this.state
+    const { email, password, error } = this.state
     const { handleChange, handleSubmit } = this
 
     return (
@@ -64,6 +66,17 @@ class Login extends Component {
           placeholder="Enter your password"
           onChange={handleChange}
         />
+
+        {error &&
+          (Array.isArray(error) ? (
+            <ul>
+              {error.map((e, idx) => (
+                <li key={idx}>{e}</li>
+              ))}
+            </ul>
+          ) : (
+            <div>{error[0]}</div>
+          ))}
 
         <button type="submit">Log in</button>
       </form>
@@ -89,3 +102,8 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Login)
+
+/*{error && (Array.isArray(error) ? (<ul>
+  {error.map}
+
+  </ul>) : <div>{error}</div>)}*/

@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import {
   productReducer,
+  categoryReducer,
   loginReducer,
   cartReducer,
   userOrdersReducer,
@@ -8,9 +9,11 @@ import {
   usersReducer
 } from './reducer'
 import thunk from 'redux-thunk'
+import loggerMiddleware from 'redux-logger'
 
 const reducer = combineReducers({
   products: productReducer,
+  categories: categoryReducer,
   user: loginReducer,
   cart: cartReducer,
   userOrders: userOrdersReducer,
@@ -18,6 +21,6 @@ const reducer = combineReducers({
   users: usersReducer
 })
 
-const store = createStore(reducer, applyMiddleware(thunk))
+const store = createStore(reducer, applyMiddleware(thunk, loggerMiddleware))
 
 export default store

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { addToCartThunk } from '../redux/actions'
+import { makePriceCurrencyFormat } from '../HelperFunctions'
 import { findUserNameById } from './App'
 
 const SingleProduct = props => {
@@ -14,7 +15,7 @@ const SingleProduct = props => {
       </div>
       <ul>
         <li>{name}</li>
-        <li>{price}</li>
+        <li>{makePriceCurrencyFormat(price)}</li>
         <li>{description}</li>
       </ul>
       <ul>

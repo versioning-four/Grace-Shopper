@@ -24,7 +24,6 @@ app.use('/api/lineitems', require('./api/LineItem'))
 app.use('/api/reviews', require('./api/Review'))
 app.use('/api/categories', require('./api/Category'))
 
-
 app.get('/app.js', (req, res, next) =>
   res.sendFile(path.join(__dirname, '..', 'dist', 'main.js'))
 )
@@ -35,12 +34,13 @@ app.get('/', (req, res, next) =>
 
 //error handling
 app.use((error, req, res, next) => {
-  let errors = [error]
-
+  let errors
   if (error.errors) {
     errors = error.errors.map(err => err.message)
   } else if (error.original) {
     errors = [error.original.message]
+  } else {
+    errors = [error.message]
   }
 
   console.error(errors)

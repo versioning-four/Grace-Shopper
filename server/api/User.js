@@ -80,3 +80,13 @@ router.put('/:userId/orders/:orderId', (req, res, next) => {
     .then(order => res.json(order))
     .catch(next)
 })
+
+router.put(
+  '/:userId/orders/:orderId/lineitems/:lineitemid',
+  (req, res, next) => {
+    LineItem.findByPk(req.params.lineitemid)
+      .then(lineitem => lineitem.update(req.body))
+      .then(lineitem => res.json(lineitem))
+      .catch(next)
+  }
+)
