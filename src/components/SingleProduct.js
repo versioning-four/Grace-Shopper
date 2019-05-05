@@ -39,9 +39,7 @@ const SingleProduct = props => {
           ))}
       </ul>
       <AddToCartButton product={props.product} />
-      <button type="button" disabled={productInCart}>
-        Add to cart
-      </button>
+
       {productInCart && (
         <small>
           Item already in cart. Go to <Link to="/cart">cart</Link> to change
