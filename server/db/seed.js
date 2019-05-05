@@ -62,46 +62,51 @@ const syncAndSeed = () => {
       //CREATE PRODUCT DATA
       return createdSeedInstances(Product, [
         {
+          id: 1,
           name: 'Vibrant Green Tractor',
           description:
             'Make all of your neighbors jealous when they see you cruising through your cornfields on this heavy duty tractor. Price includes 2-year warranty.',
           price: 2500.0,
-          inventoryQuantity: 1,
+          inventoryQuantity: 100,
           categoryId: 1,
           image:
             'https://images.pexels.com/photos/327378/pexels-photo-327378.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
         },
         {
+          id: 2,
           name: 'Four Prong Pitchfork',
           description:
             'Start a mob or a fire with this premium forged steel pitchfork.',
           price: 25.0,
-          inventoryQuantity: 2,
+          inventoryQuantity: 200,
           categoryId: 2,
           image:
             'https://images.unsplash.com/photo-1553217420-88b3b61aa2e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
         },
         {
+          id: 3,
           name: 'Cornish Cross Broiler Chicks (12 count)',
           description:
             'Deal of a lifetime: you get not one, not two, but one doxen Cornish Cross Broiler Chicks (the breed of chicken that changed our dinner habits) for our unbeatable price.',
           price: 35.0,
-          inventoryQuantity: 12,
+          inventoryQuantity: 120,
           categoryId: 3,
           image:
             'https://images.pexels.com/photos/583677/pexels-photo-583677.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
         },
         {
+          id: 4,
           name: 'Rustic Wooden Birdhouse',
           description:
             'Perfect for your covered front porch, entryway or kitchen, this charming galvanized birdhouse says "welcome to the coop" to everyone who crosses it.',
           price: 705.0,
-          inventoryQuantity: 5,
+          inventoryQuantity: 500,
           categoryId: 4,
           image:
             'https://images.pexels.com/photos/150282/pexels-photo-150282.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
         },
         {
+          id: 5,
           name: 'Hay',
           description:
             'Quality hay is importamt to the upkeep of your farm and we are here to provide it for you!',

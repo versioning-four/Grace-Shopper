@@ -10,7 +10,7 @@ const navTabs = [
 ]
 
 const Nav = props => {
-  const { user } = props
+  const { loggedInUser } = props
   return (
     <ul>
       {navTabs.map(tab => {
@@ -21,8 +21,8 @@ const Nav = props => {
         )
       })}
       <li>
-        <Link to={user.id ? '/logout' : '/login'}>
-          {user.id ? 'Log Out' : 'Log In'}
+        <Link to={loggedInUser.id ? '/logout' : '/login'}>
+          {loggedInUser.id ? 'Log Out' : 'Log In'}
         </Link>
       </li>
     </ul>
@@ -31,7 +31,7 @@ const Nav = props => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    loggedInUser: state.loggedInUser
   }
 }
 

@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const { User, LineItem, Order} = require('../db/models/index')
+const { User, LineItem, Order } = require('../db/models/index')
 
 module.exports = router
 
@@ -59,8 +59,14 @@ router.get('/:userId/orders/:orderId/lineitems', (req, res, next) => {
 })
 
 router.post('/:userId/orders', (req, res, next) => {
-  Order.create(req.body)
-    .then(order => res.json(order))
+  Order.findOrCreate({
+    where: {
+      status: 'cart',
+      userId: req.params.userId
+    },
+    default: req.body
+  })
+    .then(order => res.json(order[0]))
     .catch(next)
 })
 

@@ -14,7 +14,7 @@ import loggerMiddleware from 'redux-logger'
 const reducer = combineReducers({
   products: productReducer,
   categories: categoryReducer,
-  user: loginReducer,
+  loggedInUser: loginReducer,
   cart: cartReducer,
   userOrders: userOrdersReducer,
   reviews: reviewsReducer,

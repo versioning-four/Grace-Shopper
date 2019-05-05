@@ -9,10 +9,16 @@ import {
   UPDATE_PRODUCT,
   LOGGED_IN_USER,
   GET_ALL_USERS,
-  GET_ALL_REVIEWS
+  GET_ALL_REVIEWS,
+  CREATE_OR_FIND_ORDER
 } from './constants'
 
 //action creator
+const createOrFindOrder = order => ({
+  type: CREATE_OR_FIND_ORDER,
+  order
+})
+
 const getLoggedUser = user => ({
   type: LOGGED_IN_USER,
   user
@@ -105,6 +111,14 @@ export const getAllUserOrdersThunk = userId => {
   }
 }
 
+export const createOrFindOrderThunk = (userId, newOrder) => {
+  return dispatch => {
+    return axios
+      .post(`/api/users/${userId}/orders`, newOrder)
+      .then(({ data }) => dispatch(createOrFindOrder(data)))
+  }
+}
+
 //lineitems/cart thunks
 
 export const getOrderLineitemsThunk = (userId, orderId) => {
@@ -162,6 +176,3 @@ export const getAllReviewsThunk = () => {
       .then(({ data }) => dispatch(getAllReviews(data)))
   }
 }
-
-
-

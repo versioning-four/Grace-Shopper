@@ -8,7 +8,8 @@ import {
   UPDATE_PRODUCT,
   UPDATE_LINE_ITEM,
   GET_ALL_REVIEWS,
-  GET_ALL_USERS
+  GET_ALL_USERS,
+  CREATE_OR_FIND_ORDER
 } from './constants'
 
 export const loginReducer = (state = {}, action) => {
@@ -61,6 +62,8 @@ export const userOrdersReducer = (state = [], action) => {
   switch (action.type) {
     case GET_ALL_USER_ORDERS:
       return action.orders
+    case CREATE_OR_FIND_ORDER:
+      return [...state, action.order]
     default:
       return state
   }
