@@ -122,7 +122,10 @@ const mapStateToProps = ({ user, userOrders, products, cart }) => {
       totalItemPrice: (item.quantity * item.price).toFixed(2)
     }))
   const totalCartPrice = cartTransformed[0]
-    ? cartTransformed.reduce((acc, item) => acc + item.totalItemPrice, 0)
+    ? cartTransformed.reduce(
+        (acc, item) => acc + Number(item.totalItemPrice),
+        0
+      )
     : 0
   return {
     cart: cartTransformed,

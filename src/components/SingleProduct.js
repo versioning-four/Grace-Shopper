@@ -6,8 +6,8 @@ import { makePriceCurrencyFormat } from '../HelperFunctions'
 import { findUserNameById } from './App'
 
 const SingleProduct = props => {
-  const { id, description, name, price, image } = props.product
-  const { reviews, users } = props
+  const { description, name, price, image } = props.product
+  const { reviews, users, productInCart } = props
   return (
     <div>
       <div>
@@ -37,21 +37,30 @@ const SingleProduct = props => {
             </ul>
           ))}
       </ul>
-      <button type="button">Add to cart</button>
+      <button type="button" disabled={productInCart}>
+        Add to cart
+      </button>
+      {productInCart && (
+        <small>
+          Item already in cart. Go to <Link to="/cart">cart</Link> to change
+          quantity
+        </small>
+      )}
     </div>
   )
 }
 
 const mapStateToProps = (
-  { products, reviews, users },
+  { products, reviews, users, cart },
   { match: { params } }
 ) => {
+  const product =
+    products.length && products.find(p => p.id === Number(params.id))
   return {
-    product:
-      products.length &&
-      products.find(product => product.id === Number(params.id)),
+    product,
     reviews: reviews.filter(review => review.productId === Number(params.id)),
-    users
+    users,
+    productInCart: cart.map(item => item.productId).includes(product.id)
   }
 }
 
