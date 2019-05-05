@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 
 import {
   loginUserThunk,
-  getAllUserOrdersThunk,
-  getOrderLineitemsThunk
+  getOrderLineitemsThunk,
+  createOrFindOrderThunk
 } from '../redux/actions'
 
 class Login extends Component {
@@ -23,15 +23,12 @@ class Login extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { history, user, orderLineitems } = this.props
-    if (prevProps.user.id !== this.props.user.id) {
+    const { history, loggedInUser, orderLineitems } = this.props
+    if (prevProps.loggedInUser.id !== this.props.loggedInUser.id) {
       this.props
-        .userOrders(user.id)
-        .then(({ orders }) => {
-          return orders.find(order => order.status === 'cart')
-        })
-        .then(order => {
-          return order ? orderLineitems(user.id, order.id) : null
+        .createOrFindOrder(loggedInUser.id, { loggedInUserId: loggedInUser.id })
+        .then(({ order }) => {
+          return orderLineitems(loggedInUser.id, order.id)
         })
         .then(() => history.push('/home'))
     }
@@ -86,16 +83,16 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
-    userOrdersState: state.userOrders
+    loggedInUser: state.loggedInUser
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   login: user => dispatch(loginUserThunk(user)),
-  userOrders: userId => dispatch(getAllUserOrdersThunk(userId)),
   orderLineitems: (userId, orderId) =>
-    dispatch(getOrderLineitemsThunk(userId, orderId))
+    dispatch(getOrderLineitemsThunk(userId, orderId)),
+  createOrFindOrder: (userId, newOrder) =>
+    dispatch(createOrFindOrderThunk(userId, newOrder))
 })
 
 export default connect(

@@ -105,7 +105,7 @@ class Cart extends Component {
   }
 }
 
-const mapStateToProps = ({ user, userOrders, products, cart }) => {
+const mapStateToProps = ({ loggedInUser, userOrders, products, cart }) => {
   const productsMap = products.reduce((acc, product) => {
     const { name, price, inventoryQuantity } = product
     const selectedProductFields = { name, price, inventoryQuantity }
@@ -127,7 +127,7 @@ const mapStateToProps = ({ user, userOrders, products, cart }) => {
   return {
     cart: cartTransformed,
     totalCartPrice,
-    userId: user.id,
+    userId: loggedInUser.id,
     orderId: userOrders.id
   }
 }
