@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { addToCartThunk } from '../redux/actions'
 import { makePriceCurrencyFormat } from '../HelperFunctions'
 import { findUserNameById } from './App'
+import AddToCartButton from './AddToCartButton'
 
 const SingleProduct = props => {
   const { id, description, name, price, image } = props.product
@@ -37,7 +38,7 @@ const SingleProduct = props => {
             </ul>
           ))}
       </ul>
-      <button type="button">Add to cart</button>
+      <AddToCartButton product={props.product} />
     </div>
   )
 }
@@ -57,7 +58,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = dispatch => {
   return {
-    addToCart: (userId, lineitem) => dispatch(addToCartThunk(userId, lineitem))
+    addToCart: (userId, product) => dispatch(addToCartThunk(userId, product))
   }
 }
 
