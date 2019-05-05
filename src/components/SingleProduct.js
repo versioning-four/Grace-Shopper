@@ -8,7 +8,7 @@ import AddToCartButton from './AddToCartButton'
 
 const SingleProduct = props => {
   const { description, name, price, image } = props.product
-  const { reviews, users, productInCart } = props
+  const { reviews, users } = props
   return (
     <div>
       <div>
@@ -21,7 +21,7 @@ const SingleProduct = props => {
       </ul>
       <ul>
         <h1>Reviews</h1>
-        {reviews.length &&
+        {reviews.length ? (
           users.length &&
           reviews.map(review => (
             <ul key={review.id}>
@@ -36,31 +36,24 @@ const SingleProduct = props => {
               </li>
               <li>{review.content}</li>
             </ul>
-          ))}
+          ))
+        ) : (
+          <div>No reviews</div>
+        )}
       </ul>
       <AddToCartButton product={props.product} />
-
-      {productInCart && (
-        <small>
-          Item already in cart. Go to <Link to="/cart">cart</Link> to change
-          quantity
-        </small>
-      )}
     </div>
   )
 }
 
 const mapStateToProps = (
-  { products, reviews, users, cart },
+  { products, reviews, users },
   { match: { params } }
 ) => {
-  const product =
-    products.length && products.find(p => p.id === Number(params.id))
   return {
-    product,
+    product: products.length && products.find(p => p.id === Number(params.id)),
     reviews: reviews.filter(review => review.productId === Number(params.id)),
-    users,
-    productInCart: cart.map(item => item.productId).includes(product.id)
+    users
   }
 }
 

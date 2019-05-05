@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addToCartThunk } from '../redux/actions'
+import { Link } from 'react-router-dom'
 
 class AddToCartButton extends Component {
   constructor() {
@@ -13,7 +14,7 @@ class AddToCartButton extends Component {
   }
 
   render() {
-    const { product, loggedInUserId, orderId } = this.props
+    const { product, loggedInUserId, orderId, productInCart } = this.props
     return (
       <div>
         <button
@@ -24,20 +25,27 @@ class AddToCartButton extends Component {
               quantity: 1
             })
           }
+          disabled={productInCart}
         >
           Add To Cart
         </button>
+        {productInCart && (
+          <small>
+            Item already in cart. Go to <Link to="/cart">cart</Link> to change
+            quantity
+          </small>
+        )}
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ loggedInUser, userOrders }) => {
-  console.log(userOrders)
+const mapStateToProps = ({ loggedInUser, userOrders, cart }, { product }) => {
   const findOrderId = userOrders.find(order => order.status === 'cart')
   return {
     loggedInUserId: loggedInUser.id,
-    orderId: findOrderId ? findOrderId.id : 0
+    orderId: findOrderId ? findOrderId.id : 0,
+    productInCart: cart.map(item => item.productId).includes(product.id)
   }
 }
 
