@@ -172,7 +172,6 @@ export const removeFromCartThunk = (userId, orderId, lineitemId) => {
     return axios
       .delete(`/api/users/${userId}/orders/${orderId}/lineitems/${lineitemId}`)
       .then(() => {
-        console.log('here')
         dispatch(getOrderLineitemsThunk(userId, orderId))
       })
   }
