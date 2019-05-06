@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { findProductNameById } from './App'
+import { findProductNameById } from '../HelperFunctions'
 
 const SingleUser = props => {
   const { reviews, user, products } = props

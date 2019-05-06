@@ -7,7 +7,6 @@ import {
   getAllUsersThunk,
   getAllCategoriesThunk
 } from '../redux/actions'
-
 import Home from './Home'
 import Nav from './Nav'
 import Login from './Login'
@@ -15,22 +14,22 @@ import Products from './Products'
 import SingleProduct from './SingleProduct'
 import Cart from './Cart'
 import SingleUser from './SingleUser'
-
-//helper functions
-export const findUserNameById = (id, arr) => {
-  const user = arr.find(item => item.id === id)
-  return `${user.firstName} ${user.lastName}`
-}
-
-export const findProductNameById = (id, arr) => {
-  const product = arr.find(item => item.id === id)
-  return `${product.name}`
-}
+import CheckoutPage from './CheckoutPage'
 
 class App extends Component {
   componentDidMount() {
-    const { getAllCategories, getAllProducts, getAllReviews, getAllUsers } = this.props
-    return Promise.all([getAllCategories(), getAllProducts(), getAllUsers(), getAllReviews()])
+    const {
+      getAllCategories,
+      getAllProducts,
+      getAllReviews,
+      getAllUsers
+    } = this.props
+    return Promise.all([
+      getAllCategories(),
+      getAllProducts(),
+      getAllUsers(),
+      getAllReviews()
+    ])
   }
 
   render() {
@@ -39,6 +38,7 @@ class App extends Component {
         <Route component={Nav} />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/checkoutpage" component={CheckoutPage} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/products" component={Products} />

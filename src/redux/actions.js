@@ -10,7 +10,9 @@ import {
   LOGGED_IN_USER,
   GET_ALL_USERS,
   GET_ALL_REVIEWS,
-  CREATE_OR_FIND_ORDER
+  CREATE_OR_FIND_ORDER,
+  UPDATE_ORDER,
+  RESET_CART_TO_EMPTY
 } from './constants'
 
 //action creator
@@ -71,6 +73,14 @@ const getAllUsers = users => ({
   users
 })
 
+const updateOrder = (orderId, order) => ({
+  type: UPDATE_ORDER,
+  orderId,
+  order
+})
+
+export const resetCartToEmpty = () => ({ type: RESET_CART_TO_EMPTY })
+
 //thunks
 
 //products thunks
@@ -116,6 +126,14 @@ export const createOrFindOrderThunk = (userId, newOrder) => {
     return axios
       .post(`/api/users/${userId}/orders`, newOrder)
       .then(({ data }) => dispatch(createOrFindOrder(data)))
+  }
+}
+
+export const updateOrderThunk = (userId, orderId, order) => {
+  return dispatch => {
+    return axios
+      .put(`/api/users/${userId}/orders/${orderId}`, order)
+      .then(({ data }) => dispatch(updateOrder(orderId, data)))
   }
 }
 

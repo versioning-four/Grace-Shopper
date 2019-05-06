@@ -8,3 +8,13 @@ export const makePriceCurrencyFormat = number => {
   }
   return string
 }
+
+export const findUserNameById = (id, arr) => {
+  const user = arr.find(item => item.id === id)
+  return `${user.firstName} ${user.lastName}`
+}
+
+export const findProductNameById = (id, arr) => {
+  const product = arr.find(item => item.id === id)
+  return `${product.name}`
+}
