@@ -9,7 +9,9 @@ import {
   UPDATE_LINE_ITEM,
   GET_ALL_REVIEWS,
   GET_ALL_USERS,
-  CREATE_OR_FIND_ORDER
+  CREATE_OR_FIND_ORDER,
+  UPDATE_ORDER,
+  RESET_CART_TO_EMPTY
 } from './constants'
 
 export const loginReducer = (state = {}, action) => {
@@ -53,6 +55,8 @@ export const cartReducer = (state = [], action) => {
       return state.map(item =>
         item.id === action.lineitemId ? action.lineitem : item
       )
+    case RESET_CART_TO_EMPTY:
+      return []
     default:
       return state
   }
@@ -64,6 +68,10 @@ export const userOrdersReducer = (state = [], action) => {
       return action.orders
     case CREATE_OR_FIND_ORDER:
       return [...state, action.order]
+    case UPDATE_ORDER:
+      return state.map(order =>
+        order.id === action.orderId ? action.order : order
+      )
     default:
       return state
   }

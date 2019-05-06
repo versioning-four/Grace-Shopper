@@ -3,7 +3,7 @@ const Sequelize = require('sequelize')
 
 const Order = db.define('order', {
   status: {
-    type: Sequelize.ENUM('cart', 'completed'),
+    type: Sequelize.ENUM('cart', 'completed', 'in-progress'),
     defaultValue: 'cart'
   }
 })
