@@ -96,3 +96,16 @@ router.put(
       .catch(next)
   }
 )
+
+router.delete(
+  '/:userId/orders/:orderId/lineitems/:lineitemid/',
+  (req, res, next) => {
+    LineItem.destroy({
+      where: {
+        id: req.params.lineitemid
+      }
+    })
+      .then(() => res.sendStatus(204))
+      .catch(next)
+  }
+)

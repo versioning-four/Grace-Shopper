@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { updateLineitemThunk } from '../redux/actions'
+import { updateLineitemThunk, removeFromCartThunk } from '../redux/actions'
 import { makePriceCurrencyFormat } from '../HelperFunctions'
 
 class SingleCartItem extends Component {
@@ -25,7 +25,7 @@ class SingleCartItem extends Component {
   }
 
   render() {
-    const { cartItem, userId, orderId } = this.props
+    const { cartItem, userId, orderId, removeFromCart } = this.props
     const { updateCartQuantity, handleQuantityChange } = this
     const { quantityChange } = this.state
 
@@ -39,6 +39,7 @@ class SingleCartItem extends Component {
     } = cartItem
     const disableIncreaseButton =
       Number(quantity) + Number(quantityChange) > inventoryQuantity
+
     return (
       <li key={id} className="list-group-item">
         <ul>
@@ -91,23 +92,34 @@ class SingleCartItem extends Component {
           )}
         </ul>
         <ul>{`Price: ${makePriceCurrencyFormat(totalItemPrice)}`}</ul>
-        <button type="button">Remove item from cart</button>
+        <button
+          type="button"
+          onClick={() => {
+            removeFromCart(userId, orderId, id)
+          }}
+        >
+          Remove item from cart
+        </button>
       </li>
     )
   }
 }
 
-const mapStateToProps = ({ loggedInUser, userOrders }) => ({
-  userId: loggedInUser.id,
-  orderId: userOrders.id
-})
+const mapStateToProps = ({ loggedInUser, userOrders }) => {
+  return {
+    userId: loggedInUser.id,
+    orderId: userOrders.find(order => order.status === 'cart').id
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     updateLineitem: (userId, orderId, lineitemId, lineitem) =>
       dispatch(updateLineitemThunk(userId, orderId, lineitemId, lineitem)),
     updateProduct: (productId, product) =>
-      dispatch(updateProductThunk(productId, product))
+      dispatch(updateProductThunk(productId, product)),
+    removeFromCart: (userId, orderId, lineitemId) =>
+      dispatch(removeFromCartThunk(userId, orderId, lineitemId))
   }
 }
 
