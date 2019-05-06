@@ -10,7 +10,9 @@ class CategorySelector extends Component {
   }
 
   handleChange = ({ target }) => {
-    this.setState({ [target.name]: target.value })
+    this.setState({ [target.name]: target.value }, () =>
+      this.goToCategoryRoute()
+    )
   }
 
   goToCategoryRoute = () => {
@@ -22,15 +24,12 @@ class CategorySelector extends Component {
   }
 
   render() {
-    const { handleChange, goToCategoryRoute } = this
-    const { categorySelected } = this.state
     return (
       <div>
         <select
-          value={categorySelected}
-          onChange={handleChange}
+          value={this.state.categorySelected}
+          onChange={this.handleChange}
           name="categorySelected"
-          onClick={goToCategoryRoute}
         >
           {this.props.categories.map(category => {
             const { id, name } = category
