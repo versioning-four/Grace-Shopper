@@ -7,7 +7,7 @@ import {
   GET_ALL_CATEGORIES,
   UPDATE_LINE_ITEM,
   UPDATE_PRODUCT,
-  LOGGED_IN_USER,
+  SET_CURRENT_USER,
   GET_ALL_USERS,
   GET_ALL_REVIEWS,
   CREATE_OR_FIND_ORDER,
@@ -22,8 +22,8 @@ const createOrFindOrder = order => ({
   order
 })
 
-const getLoggedUser = user => ({
-  type: LOGGED_IN_USER,
+const setCurrentUser = user => ({
+  type: SET_CURRENT_USER,
   user
 })
 
@@ -122,14 +122,6 @@ export const getAllUserOrdersThunk = userId => {
   }
 }
 
-export const createOrFindOrderThunk = (userId, newOrder) => {
-  return dispatch => {
-    return axios
-      .post(`/api/users/${userId}/orders`, newOrder)
-      .then(({ data }) => dispatch(createOrFindOrder(data)))
-  }
-}
-
 export const updateOrderThunk = (userId, orderId, order) => {
   return dispatch => {
     return axios
@@ -148,11 +140,28 @@ export const getOrderLineitemsThunk = (userId, orderId) => {
   }
 }
 
+export const processAfterLoginThunk = (userId, newOrder) => {
+  return async dispatch => {
+    const order = await axios.post(`/api/users/${userId}/orders`, newOrder)
+    dispatch(createOrFindOrder(order.data))
+    return dispatch(getOrderLineitemsThunk(userId, order.data.id))
+  }
+}
+
+export const createNewOrderThunk = userId => {
+  return dispatch => {
+    axios
+      .post(`/api/users/${userId}/orders`, { userId })
+      .then(({ data }) => dispatch(createOrFindOrder(data)))
+  }
+}
+
 export const addToCartThunk = (userId, orderId, lineitem) => {
   return dispatch => {
     return axios
       .post(`/api/users/${userId}/orders/${orderId}/lineitems`, lineitem)
       .then(({ data }) => dispatch(addToCart(data)))
+      .then(() => axios.post(`/api/users/${userId}/orders`, { userId }))
   }
 }
 
@@ -181,9 +190,25 @@ export const removeFromCartThunk = (userId, orderId, lineitemId) => {
 
 export const loginUserThunk = user => {
   return dispatch => {
-    return axios.put('/api/users/login', user).then(({ data }) => {
-      dispatch(getLoggedUser(data))
+    return axios.put('/api/auth/login', user).then(({ data }) => {
+      dispatch(setCurrentUser(data))
     })
+  }
+}
+
+export const logoutUserThunk = () => {
+  return dispatch => {
+    return axios.delete('/api/auth').then(() => {
+      dispatch(setCurrentUser({}))
+    })
+  }
+}
+
+export const checkForUserThunk = () => {
+  return dispatch => {
+    return axios
+      .get('/api/auth')
+      .then(({ data }) => dispatch(setCurrentUser(data)))
   }
 }
 

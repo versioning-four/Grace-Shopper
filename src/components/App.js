@@ -5,7 +5,9 @@ import {
   getAllProductsThunk,
   getAllReviewsThunk,
   getAllUsersThunk,
-  getAllCategoriesThunk
+  getAllCategoriesThunk,
+  checkForUserThunk,
+  processAfterLoginThunk
 } from '../redux/actions'
 import Home from './Home'
 import Nav from './Nav'
@@ -22,7 +24,9 @@ class App extends Component {
       getAllCategories,
       getAllProducts,
       getAllReviews,
-      getAllUsers
+      getAllUsers,
+      checkForUser,
+      processAfterLogin
     } = this.props
     return Promise.all([
       getAllCategories(),
@@ -30,6 +34,8 @@ class App extends Component {
       getAllUsers(),
       getAllReviews()
     ])
+      .then(() => checkForUser())
+      .then(({ user: { id } }) => id && processAfterLogin(id, { userId: id }))
   }
 
   render() {
@@ -61,7 +67,10 @@ const mapDispatchToProps = dispatch => {
     getAllProducts: () => dispatch(getAllProductsThunk()),
     getAllCategories: () => dispatch(getAllCategoriesThunk()),
     getAllReviews: () => dispatch(getAllReviewsThunk()),
-    getAllUsers: () => dispatch(getAllUsersThunk())
+    getAllUsers: () => dispatch(getAllUsersThunk()),
+    checkForUser: () => dispatch(checkForUserThunk()),
+    processAfterLogin: (userId, newOrder) =>
+      dispatch(processAfterLoginThunk(userId, newOrder))
   }
 }
 

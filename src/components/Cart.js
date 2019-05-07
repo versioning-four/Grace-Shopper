@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {
   updateProductThunk,
   updateOrderThunk,
-  createOrFindOrderThunk,
+  createNewOrderThunk,
   resetCartToEmpty
 } from '../redux/actions'
 import { makePriceCurrencyFormat } from '../HelperFunctions'
@@ -100,7 +100,7 @@ const mapDispatchToProps = dispatch => {
     updateOrder: (userId, orderId, order) =>
       dispatch(updateOrderThunk(userId, orderId, order)),
     createNewOrder: (userId, newOrder) =>
-      dispatch(createOrFindOrderThunk(userId, newOrder)),
+      dispatch(createNewOrderThunk(userId, newOrder)),
     resetCartToEmpty: () => dispatch(resetCartToEmpty())
   }
 }

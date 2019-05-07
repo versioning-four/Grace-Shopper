@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import {
-  loginUserThunk,
-  getOrderLineitemsThunk,
-  createOrFindOrderThunk
-} from '../redux/actions'
+import { loginUserThunk, processAfterLoginThunk } from '../redux/actions'
 
 class Login extends Component {
   constructor() {
@@ -23,13 +19,10 @@ class Login extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { history, loggedInUser, orderLineitems } = this.props
+    const { history, loggedInUser } = this.props
     if (prevProps.loggedInUser.id !== this.props.loggedInUser.id) {
-      this.props
-        .createOrFindOrder(loggedInUser.id, { loggedInUserId: loggedInUser.id })
-        .then(({ order }) => {
-          return orderLineitems(loggedInUser.id, order.id)
-        })
+      return this.props
+        .processAfterLogin(loggedInUser.id, { userId: loggedInUser.id })
         .then(() => history.push('/home'))
     }
   }
@@ -89,18 +82,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   login: user => dispatch(loginUserThunk(user)),
-  orderLineitems: (userId, orderId) =>
-    dispatch(getOrderLineitemsThunk(userId, orderId)),
-  createOrFindOrder: (userId, newOrder) =>
-    dispatch(createOrFindOrderThunk(userId, newOrder))
+  processAfterLogin: (userId, newOrder) =>
+    dispatch(processAfterLoginThunk(userId, newOrder))
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Login)
-
-/*{error && (Array.isArray(error) ? (<ul>
-  {error.map}
-
-  </ul>) : <div>{error}</div>)}*/
