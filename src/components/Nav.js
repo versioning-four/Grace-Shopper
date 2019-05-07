@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 const navTabs = [
   { name: 'Home', path: '/home' },
   { name: 'Products', path: '/products' },
-  { name: 'User', path: '/users' },
+  { name: 'User', path: '/users/1' },
   { name: 'Cart', path: '/cart' }
 ]
 

@@ -16,26 +16,6 @@ router.get('/:id', (req, res, next) => {
     .catch(next)
 })
 
-router.put('/login', (req, res, next) => {
-  User.findOne({
-    where: {
-      email: req.body.email,
-      password: req.body.password
-    }
-  })
-    .then(user => {
-      if (user) {
-        req.session.userId = user.id
-        res.send(user)
-      } else {
-        const err = new Error('Incorrect credentials')
-        err.status = 401
-        next(err)
-      }
-    })
-    .catch(next)
-})
-
 router.delete('/:id', (req, res, next) => {
   User.destroy({ where: { id: req.params.id } })
     .then(() => res.status(204).send('User deleted'))
@@ -53,6 +33,21 @@ router.get('/:userId/orders/:orderId/lineitems', (req, res, next) => {
     where: {
       orderId: req.params.orderId
     }
+  })
+    .then(lineitems => res.json(lineitems))
+    .catch(next)
+})
+
+router.get('/:userId/lineitems', (req, res, next) => {
+  LineItem.findAll({
+    include: [
+      {
+        model: Order,
+        where: {
+          userId: req.params.userId
+        }
+      }
+    ]
   })
     .then(lineitems => res.json(lineitems))
     .catch(next)
@@ -93,6 +88,19 @@ router.put(
     LineItem.findByPk(req.params.lineitemid)
       .then(lineitem => lineitem.update(req.body))
       .then(lineitem => res.json(lineitem))
+      .catch(next)
+  }
+)
+
+router.delete(
+  '/:userId/orders/:orderId/lineitems/:lineitemid/',
+  (req, res, next) => {
+    LineItem.destroy({
+      where: {
+        id: req.params.lineitemid
+      }
+    })
+      .then(() => res.sendStatus(204))
       .catch(next)
   }
 )

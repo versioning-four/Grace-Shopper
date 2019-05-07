@@ -35,7 +35,7 @@ const mapStateToProps = ({ products, categories }, { match: { params } }) => {
   const { categoryId } = params
   return {
     products: categoryId
-      ? products.filter(product => product.id === Number(categoryId))
+      ? products.filter(product => product.categoryId === Number(categoryId))
       : products,
     categoryName:
       categoryId && categories[0]

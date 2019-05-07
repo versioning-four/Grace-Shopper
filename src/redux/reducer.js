@@ -1,5 +1,5 @@
 import {
-  LOGGED_IN_USER,
+  SET_CURRENT_USER,
   GET_ALL_PRODUCTS,
   GET_ALL_CATEGORIES,
   ADD_TO_CART,
@@ -9,12 +9,24 @@ import {
   UPDATE_LINE_ITEM,
   GET_ALL_REVIEWS,
   GET_ALL_USERS,
-  CREATE_OR_FIND_ORDER
+  CREATE_OR_FIND_ORDER,
+  UPDATE_ORDER,
+  RESET_CART_TO_EMPTY,
+  GET_USER_LINEITEMS
 } from './constants'
+
+export const userLineitemsReducer = (state = [], action) => {
+  switch (action.type) {
+    case GET_USER_LINEITEMS:
+      return action.lineitems
+    default:
+      return state
+  }
+}
 
 export const loginReducer = (state = {}, action) => {
   switch (action.type) {
-    case LOGGED_IN_USER:
+    case SET_CURRENT_USER:
       return action.user
     default:
       return state
@@ -53,6 +65,8 @@ export const cartReducer = (state = [], action) => {
       return state.map(item =>
         item.id === action.lineitemId ? action.lineitem : item
       )
+    case RESET_CART_TO_EMPTY:
+      return []
     default:
       return state
   }
@@ -64,6 +78,10 @@ export const userOrdersReducer = (state = [], action) => {
       return action.orders
     case CREATE_OR_FIND_ORDER:
       return [...state, action.order]
+    case UPDATE_ORDER:
+      return state.map(order =>
+        order.id === action.orderId ? action.order : order
+      )
     default:
       return state
   }
