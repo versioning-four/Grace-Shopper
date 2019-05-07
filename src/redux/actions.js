@@ -12,7 +12,8 @@ import {
   GET_ALL_REVIEWS,
   CREATE_OR_FIND_ORDER,
   UPDATE_ORDER,
-  RESET_CART_TO_EMPTY
+  RESET_CART_TO_EMPTY,
+  REMOVE_FROM_CART
 } from './constants'
 
 //action creator
@@ -172,6 +173,16 @@ export const updateLineitemThunk = (userId, orderId, lineitemid, lineitem) => {
         lineitem
       )
       .then(({ data }) => dispatch(updateLineitem(lineitemid, data)))
+  }
+}
+
+export const removeFromCartThunk = (userId, orderId, lineitemId) => {
+  return dispatch => {
+    return axios
+      .delete(`/api/users/${userId}/orders/${orderId}/lineitems/${lineitemId}`)
+      .then(() => {
+        dispatch(getOrderLineitemsThunk(userId, orderId))
+      })
   }
 }
 
