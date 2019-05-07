@@ -38,6 +38,21 @@ router.get('/:userId/orders/:orderId/lineitems', (req, res, next) => {
     .catch(next)
 })
 
+router.get('/:userId/lineitems', (req, res, next) => {
+  LineItem.findAll({
+    include: [
+      {
+        model: Order,
+        where: {
+          userId: req.params.userId
+        }
+      }
+    ]
+  })
+    .then(lineitems => res.json(lineitems))
+    .catch(next)
+})
+
 router.post('/:userId/orders', (req, res, next) => {
   Order.findOrCreate({
     where: {

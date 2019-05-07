@@ -13,10 +13,16 @@ import {
   CREATE_OR_FIND_ORDER,
   UPDATE_ORDER,
   RESET_CART_TO_EMPTY,
-  REMOVE_FROM_CART
+  REMOVE_FROM_CART,
+  GET_USER_LINEITEMS
 } from './constants'
 
 //action creator
+const getUsersLineitems = lineitems => ({
+  type: GET_USER_LINEITEMS,
+  lineitems
+})
+
 const createOrFindOrder = order => ({
   type: CREATE_OR_FIND_ORDER,
   order
@@ -217,6 +223,14 @@ export const getAllUsersThunk = () => {
     return axios
       .get('/api/users')
       .then(({ data }) => dispatch(getAllUsers(data)))
+  }
+}
+
+export const getUsersLineitemsThunk = userId => {
+  return dispatch => {
+    return axios
+      .get(`/api/users/${userId}/lineitems`)
+      .then(({ data }) => dispatch(getUsersLineitems(data)))
   }
 }
 

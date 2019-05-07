@@ -11,8 +11,18 @@ import {
   GET_ALL_USERS,
   CREATE_OR_FIND_ORDER,
   UPDATE_ORDER,
-  RESET_CART_TO_EMPTY
+  RESET_CART_TO_EMPTY,
+  GET_USER_LINEITEMS
 } from './constants'
+
+export const userLineitemsReducer = (state = [], action) => {
+  switch (action.type) {
+    case GET_USER_LINEITEMS:
+      return action.lineitems
+    default:
+      return state
+  }
+}
 
 export const loginReducer = (state = {}, action) => {
   switch (action.type) {
