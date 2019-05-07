@@ -25,7 +25,7 @@ router.put('/:lineitemid', (req, res, next) => {
     .catch(next)
 })
 
-router.delete(':lineitemid', (req, res, next) => {
+router.delete('/:lineitemid', (req, res, next) => {
   LineItem.destroy({
     where: {
       id: req.params.lineitemid

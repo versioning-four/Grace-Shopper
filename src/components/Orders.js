@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { getUsersLineitemsThunk } from '../redux/actions'
+import { getAllUsersLineitemsThunk } from '../redux/actions/userLineitems'
 
 class Orders extends Component {
   componentDidMount() {
@@ -43,7 +43,7 @@ const mapStateToProps = ({ userLineitems }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getUserLineitems: userId => dispatch(getUsersLineitemsThunk(userId))
+  getUserLineitems: userId => dispatch(getAllUsersLineitemsThunk(userId))
 })
 
 export default connect(

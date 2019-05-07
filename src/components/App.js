@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import {
-  getAllProductsThunk,
-  getAllReviewsThunk,
-  getAllUsersThunk,
-  getAllCategoriesThunk,
-  checkForUserThunk,
-  processAfterLoginThunk
-} from '../redux/actions'
+import { processAfterLoginThunk } from '../redux/actions/shared'
+import { getAllUsersThunk } from '../redux/actions/users'
+import { getAllReviewsThunk } from '../redux/actions/reviews'
+import { checkForUserThunk } from '../redux/actions/login'
+import { getAllProductsThunk } from '../redux/actions/product'
+import { getAllCategoriesThunk } from '../redux/actions/category'
 import Home from './Home'
 import Nav from './Nav'
 import Login from './Login'

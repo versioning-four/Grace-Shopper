@@ -1,9 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-
-import { logoutUserThunk } from '../redux/actions'
-import { findProductNameById } from '../HelperFunctions'
+import { logoutUserThunk } from '../redux/actions/login'
 import Reviews from './Reviews'
 import Orders from './Orders'
 
@@ -23,9 +20,7 @@ const SingleUser = props => {
   let loggedIn
   if (user) loggedIn = user.id === loggedInUser.id ? loggedInUser.id : false
   if (!loggedIn) {
-    return (
-      <Reviews user={user.id && user} reviews={reviews} products={products} />
-    )
+    return <Reviews user={user || {}} reviews={reviews} products={products} />
   }
   return (
     <div>
