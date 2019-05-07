@@ -55,7 +55,7 @@ class App extends Component {
             component={Products}
           />
           <Route path="/products/:id" component={SingleProduct} />
-          <Route path="/users/:id" component={SingleUser} />
+          <Route path="/users/:id/:filter?" component={SingleUser} />
         </Switch>
       </Router>
     )
