@@ -17,6 +17,8 @@ app.use(
 app.use(express.json())
 app.use(volleyball)
 
+app.use(express.static(path.join(__dirname, '..', 'public')))
+
 app.use('/api/users', require('./api/User'))
 app.use('/api/products', require('./api/Product'))
 app.use('/api/orders', require('./api/Order'))
