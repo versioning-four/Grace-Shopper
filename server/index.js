@@ -17,6 +17,23 @@ app.use(
 app.use(express.json())
 app.use(volleyball)
 
+app.use(
+  '/api/users/:userId/orders/:orderId/lineitems',
+  (req, res, next) => {
+    req.userId = req.params.userId
+    req.orderId = req.params.orderId
+    next()
+  },
+  require('./api/lineitemsbyuserandorder')
+)
+app.use(
+  '/api/users/:userId/orders/',
+  (req, res, next) => {
+    req.userId = req.params.userId
+    next()
+  },
+  require('./api/ordersbyuser')
+)
 app.use('/api/users', require('./api/User'))
 app.use('/api/products', require('./api/Product'))
 app.use('/api/orders', require('./api/Order'))
