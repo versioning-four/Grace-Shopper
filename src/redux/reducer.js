@@ -1,5 +1,5 @@
 import {
-  LOGGED_IN_USER,
+  SET_CURRENT_USER,
   GET_ALL_PRODUCTS,
   GET_ALL_CATEGORIES,
   ADD_TO_CART,
@@ -16,7 +16,7 @@ import {
 
 export const loginReducer = (state = {}, action) => {
   switch (action.type) {
-    case LOGGED_IN_USER:
+    case SET_CURRENT_USER:
       return action.user
     default:
       return state

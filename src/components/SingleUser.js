@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-
+import { logoutUserThunk } from '../redux/actions'
 import { findProductNameById } from '../HelperFunctions'
 
 const SingleUser = props => {
-  const { reviews, user, products } = props
+  const { reviews, user, products, logoutUser, history } = props
   return (
     <div>
       <h1>Reviews</h1>
@@ -24,6 +24,14 @@ const SingleUser = props => {
           <li>{review.content}</li>
         </ul>
       ))}
+      <button
+        type="button"
+        onClick={() => {
+          logoutUser().then(() => history.push('/home'))
+        }}
+      >
+        Logout
+      </button>
     </div>
   )
 }
@@ -40,7 +48,13 @@ const mapStateToProps = (
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    logoutUser: () => dispatch(logoutUserThunk())
+  }
+}
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(SingleUser)
