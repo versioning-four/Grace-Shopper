@@ -106,9 +106,10 @@ class SingleCartItem extends Component {
 }
 
 const mapStateToProps = ({ loggedInUser, userOrders }) => {
+  const cartOrder = userOrders.find(order => order.status === 'cart')
   return {
     userId: loggedInUser.id,
-    orderId: userOrders.find(order => order.status === 'cart').id
+    orderId: cartOrder && cartOrder.id
   }
 }
 
