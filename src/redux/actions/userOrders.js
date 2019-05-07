@@ -1,8 +1,9 @@
 import axios from 'axios'
 import {
-  CREATE_OR_FIND_ORDER,
   UPDATE_ORDER,
-  GET_ALL_USER_ORDERS
+  CREATE_ORDER,
+  SET_USER_ORDERS,
+  SET_USER_ORDERS_ON_LOGIN
 } from '../constants'
 
 const updateOrder = (orderId, order) => ({
@@ -11,13 +12,18 @@ const updateOrder = (orderId, order) => ({
   order
 })
 
-const getAllUserOrders = orders => ({
-  type: GET_ALL_USER_ORDERS,
+const setUserOrders = orders => ({
+  type: SET_USER_ORDERS,
   orders
 })
 
-export const createOrFindOrder = order => ({
-  type: CREATE_OR_FIND_ORDER,
+export const setUserOrdersOnLogin = orders => ({
+  type: SET_USER_ORDERS_ON_LOGIN,
+  orders
+})
+
+export const createOrder = order => ({
+  type: CREATE_ORDER,
   order
 })
 
@@ -25,7 +31,7 @@ export const getAllUserOrdersThunk = userId => {
   return dispatch => {
     return axios
       .get(`/api/users/${userId}/orders`)
-      .then(({ data }) => dispatch(getAllUserOrders(data)))
+      .then(({ data }) => dispatch(setUserOrders(data)))
   }
 }
 
@@ -41,6 +47,6 @@ export const createNewOrderThunk = userId => {
   return dispatch => {
     axios
       .post(`/api/users/${userId}/orders`, { userId })
-      .then(({ data }) => dispatch(createOrFindOrder(data)))
+      .then(({ data }) => dispatch(createOrder(data)))
   }
 }

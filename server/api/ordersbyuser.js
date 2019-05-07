@@ -2,15 +2,20 @@ const router = require('express').Router()
 const { Order } = require('../db/models/index')
 module.exports = router
 
-router.post('/', (req, res, next) => {
-  Order.findOrCreate({
+router.get('/cart', (req, res, next) => {
+  Order.findOne({
     where: {
       status: 'cart',
       userId: req.userId
-    },
-    default: req.body
+    }
   })
-    .then(order => res.json(order[0]))
+    .then(order => res.json(order))
+    .catch(next)
+})
+
+router.post('', (req, res, next) => {
+  Order.create(req.body)
+    .then(order => res.json(order))
     .catch(next)
 })
 

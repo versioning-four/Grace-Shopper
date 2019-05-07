@@ -1,64 +1,76 @@
-import React from 'react'
+/* eslint-disable complexity */
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { logoutUserThunk } from '../redux/actions/login'
+import { getAllUserOrdersThunk } from '../redux/actions/userOrders'
+import { getAllUsersLineitemsThunk } from '../redux/actions/userLineitems'
 import Reviews from './Reviews'
 import Orders from './Orders'
 
-const SingleUser = props => {
-  const {
-    reviews,
-    user,
-    products,
-    loggedInUser,
-    userProfileReviews,
-    history,
-    match,
-    userOrders,
-    logoutUser
-  } = props
-  console.log('user', user)
-  let loggedIn
-  if (user) loggedIn = user.id === loggedInUser.id ? loggedInUser.id : false
-  if (!loggedIn) {
-    return <Reviews user={user || {}} reviews={reviews} products={products} />
+class SingleUser extends Component {
+  componentDidMount() {
+    const { userId } = this.props
+    return Promise.all([
+      this.props.getAllUserOrders(userId),
+      this.props.getAllUsersLineitems(userId)
+    ])
   }
-  return (
-    <div>
-      <button
-        type="button"
-        onClick={() => {
-          logoutUser().then(() => history.push('/home'))
-        }}
-      >
-        Logout
-      </button>
+
+  render() {
+    const {
+      reviews,
+      user,
+      products,
+      loggedInUser,
+      userProfileReviews,
+      history,
+      match,
+      userOrders,
+      logoutUser
+    } = this.props
+    let loggedIn
+    if (user) loggedIn = user.id === loggedInUser.id ? loggedInUser.id : false
+    if (!loggedIn) {
+      return <Reviews user={user || {}} reviews={reviews} products={products} />
+    }
+    return (
       <div>
         <button
           type="button"
-          onClick={() => history.push(`/users/${loggedIn}/orders`)}
+          onClick={() => {
+            logoutUser().then(() => history.push('/home'))
+          }}
         >
-          Your orders
+          Logout
         </button>
-        <button
-          type="button"
-          onClick={() => history.push(`/users/${loggedIn}/reviews`)}
-        >
-          Your Reviews
-        </button>
-      </div>
+        <div>
+          <button
+            type="button"
+            onClick={() => history.push(`/users/${loggedIn}/orders`)}
+          >
+            Your orders
+          </button>
+          <button
+            type="button"
+            onClick={() => history.push(`/users/${loggedIn}/reviews`)}
+          >
+            Your Reviews
+          </button>
+        </div>
 
-      {match.params.filter === 'reviews' && (
-        <Reviews
-          user={user.id && user}
-          reviews={userProfileReviews}
-          products={products}
-        />
-      )}
-      {match.params.filter === 'orders' && (
-        <Orders user={user.id && user} userOrders={userOrders} />
-      )}
-    </div>
-  )
+        {match.params.filter === 'reviews' && (
+          <Reviews
+            user={user.id && user}
+            reviews={userProfileReviews}
+            products={products}
+          />
+        )}
+        {match.params.filter === 'orders' && (
+          <Orders user={user.id && user} userOrders={userOrders} />
+        )}
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = (
@@ -79,7 +91,9 @@ const mapStateToProps = (
 }
 const mapDispatchToProps = dispatch => {
   return {
-    logoutUser: () => dispatch(logoutUserThunk())
+    logoutUser: () => dispatch(logoutUserThunk()),
+    getAllUserOrders: userId => dispatch(getAllUserOrdersThunk(userId)),
+    getAllUsersLineitems: userId => dispatch(getAllUsersLineitemsThunk(userId))
   }
 }
 
