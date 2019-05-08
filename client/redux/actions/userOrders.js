@@ -1,10 +1,5 @@
 import axios from 'axios'
-import {
-  UPDATE_ORDER,
-  CREATE_ORDER,
-  SET_USER_ORDERS,
-  SET_USER_ORDERS_ON_LOGIN
-} from '../constants'
+import { UPDATE_ORDER, CREATE_ORDER, SET_USER_ORDERS } from '../constants'
 
 const updateOrder = (orderId, order) => ({
   type: UPDATE_ORDER,
@@ -12,19 +7,19 @@ const updateOrder = (orderId, order) => ({
   order
 })
 
-const setUserOrders = orders => ({
+const createOrder = order => ({
+  type: CREATE_ORDER,
+  order
+})
+
+export const setUserOrders = orders => ({
   type: SET_USER_ORDERS,
   orders
 })
 
-export const setUserOrdersOnLogin = orders => ({
-  type: SET_USER_ORDERS_ON_LOGIN,
-  orders
-})
-
-export const createOrder = order => ({
-  type: CREATE_ORDER,
-  order
+export const resetUserOdersToEmpty = () => ({
+  type: SET_USER_ORDERS,
+  orders: []
 })
 
 export const getAllUserOrdersThunk = userId => {

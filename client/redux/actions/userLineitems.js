@@ -1,10 +1,15 @@
 import axios from 'axios'
-import { GET_USER_LINEITEMS } from '../constants'
+import { SET_USER_LINEITEMS } from '../constants'
 
 //action creator
 const getUsersLineitems = lineitems => ({
-  type: GET_USER_LINEITEMS,
+  type: SET_USER_LINEITEMS,
   lineitems
+})
+
+export const resetUserLineItemsToEmpty = () => ({
+  type: SET_USER_LINEITEMS,
+  lineitems: []
 })
 
 export const getAllUsersLineitemsThunk = userId => {
