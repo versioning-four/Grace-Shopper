@@ -17,6 +17,7 @@ import SingleProduct from './SingleProduct'
 import Cart from './Cart'
 import SingleUser from './SingleUser'
 import CheckoutPage from './CheckoutPage'
+import Footer from './Footer'
 
 class App extends Component {
   componentDidMount() {
@@ -57,6 +58,7 @@ class App extends Component {
           <Route path="/products/:id" component={SingleProduct} />
           <Route path="/users/:id/:filter?" component={SingleUser} />
         </Switch>
+        <Route component={Footer} />
       </Router>
     )
   }

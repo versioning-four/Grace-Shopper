@@ -12,20 +12,24 @@ const navTabs = [
 const Nav = props => {
   const { loggedInUser } = props
   return (
-    <ul>
-      {navTabs.map(tab => {
-        return (
-          <Link key={tab.name} to={tab.path}>
-            <li>{tab.name}</li>
-          </Link>
-        )
-      })}
-      <li>
-        <Link to={loggedInUser.id ? '/logout' : '/login'}>
-          {loggedInUser.id ? 'Log Out' : 'Log In'}
-        </Link>
-      </li>
-    </ul>
+    <div>
+      <nav className="navbar">
+        <ul>
+          {navTabs.map(tab => {
+            return (
+              <Link key={tab.name} to={tab.path}>
+                <li>{tab.name}</li>
+              </Link>
+            )
+          })}
+          <li>
+            <Link to={loggedInUser.id ? '/logout' : '/login'}>
+              {loggedInUser.id ? 'Log Out' : 'Log In'}
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    </div>
   )
 }
 
