@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addToCartThunk } from '../redux/actions'
+import { addToCartThunk } from '../redux/actions/cart'
 import { Link } from 'react-router-dom'
 
 class AddToCartButton extends Component {

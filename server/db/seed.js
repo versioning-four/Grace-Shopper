@@ -13,6 +13,7 @@ const syncAndSeed = () => {
       //CREATE USER DATA
       return createdSeedInstances(User, [
         {
+          id: 1,
           firstName: 'John',
           lastName: 'Smith',
           email: 'johnsmith@aol.com',
@@ -20,6 +21,7 @@ const syncAndSeed = () => {
           password: '12345'
         },
         {
+          id: 2,
           firstName: 'Jes',
           lastName: 'sica',
           email: 'jessica@aol.com',
@@ -27,6 +29,7 @@ const syncAndSeed = () => {
           password: '98765'
         },
         {
+          id: 3,
           firstName: 'James',
           lastName: 'Earl',
           email: 'jamesearl@aol.com',
@@ -34,6 +37,7 @@ const syncAndSeed = () => {
           password: 'james'
         },
         {
+          id: 4,
           firstName: 'Jasmine',
           lastName: 'Jazz',
           email: 'jasminejazz@aol.com',
@@ -41,6 +45,7 @@ const syncAndSeed = () => {
           password: 'jazzy123'
         },
         {
+          id: 5,
           firstName: 'Johnny',
           lastName: 'Boy',
           email: 'johnnyboy@aol.com',
@@ -121,6 +126,7 @@ const syncAndSeed = () => {
     .then(() => {
       //CREATE ORDER DATA
       return createdSeedInstances(Order, [
+        { status: 'completed', userId: 1 },
         { userId: 1 },
         { status: 'completed', userId: 2 },
         { userId: 2 },

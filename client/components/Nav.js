@@ -5,13 +5,12 @@ import { connect } from 'react-redux'
 const navTabs = [
   { name: 'Home', path: '/home' },
   { name: 'Products', path: '/products' },
-  { name: 'User', path: '/users/1' },
   { name: 'Cart', path: '/cart' }
 ]
 
-const Nav = props => {
-  const { loggedInUser } = props
+const Nav = ({ loggedInUser }) => {
   return (
+<<<<<<< HEAD:src/components/Nav.js
     <div>
       <nav className="navbar">
         <ul>
@@ -30,16 +29,25 @@ const Nav = props => {
         </ul>
       </nav>
     </div>
+=======
+    <ul>
+      {navTabs.map(tab => {
+        return (
+          <Link key={tab.name} to={tab.path}>
+            <li>{tab.name}</li>
+          </Link>
+        )
+      })}
+      <li>
+        <Link to={loggedInUser.id ? `/users/${loggedInUser.id}` : '/login'}>
+          {loggedInUser.id ? 'My Account' : 'Log In'}
+        </Link>
+      </li>
+    </ul>
+>>>>>>> a133d944fc4159f4eeb4d88e79fa3d4336463dba:client/components/Nav.js
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    loggedInUser: state.loggedInUser
-  }
-}
+const mapStateToProps = ({ loggedInUser }) => ({ loggedInUser })
 
-export default connect(
-  mapStateToProps,
-  null
-)(Nav)
+export default connect(mapStateToProps)(Nav)

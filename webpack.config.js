@@ -1,4 +1,5 @@
 module.exports = {
+  entry: './client/index.js',
   devtool: 'eval',
   module: {
     rules: [
@@ -9,4 +10,4 @@ module.exports = {
       }
     ]
   }
-};
+}

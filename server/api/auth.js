@@ -34,5 +34,5 @@ router.put('/login', (req, res, next) => {
 })
 
 router.delete('/', (req, res, next) => {
-  req.session.destroy(() => res.sendStatus(204)).catch(next)
+  req.session.destroy(() => res.sendStatus(204))
 })
