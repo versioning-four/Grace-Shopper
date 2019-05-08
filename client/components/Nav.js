@@ -29,7 +29,4 @@ const Nav = ({ loggedInUser }) => {
 
 const mapStateToProps = ({ loggedInUser }) => ({ loggedInUser })
 
-export default connect(
-  mapStateToProps,
-  null
-)(Nav)
+export default connect(mapStateToProps)(Nav)
