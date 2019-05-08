@@ -17,7 +17,10 @@ import SingleProduct from './SingleProduct'
 import Cart from './Cart'
 import SingleUser from './SingleUser'
 import CheckoutPage from './CheckoutPage'
+<<<<<<< HEAD
 import Footer from './Footer'
+=======
+>>>>>>> 93f6df2cfb342789a7ce639eacf56694fcf441a7
 
 class App extends Component {
   componentDidMount() {

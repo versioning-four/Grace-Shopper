@@ -3,7 +3,11 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { addToCartThunk } from '../redux/actions'
 import { makePriceCurrencyFormat, findUserNameById } from '../HelperFunctions'
+<<<<<<< HEAD
 import AddToCartButton from './AddToCartButton'
+=======
+import AddToCartButton from './addToCartButton'
+>>>>>>> 93f6df2cfb342789a7ce639eacf56694fcf441a7
 
 const SingleProduct = props => {
   const { description, name, price, image } = props.product
