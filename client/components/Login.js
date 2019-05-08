@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { loginUserThunk, processAfterLoginThunk } from '../redux/actions'
+import { processAfterLoginThunk } from '../redux/actions/shared'
+import { loginUserThunk } from '../redux/actions/login'
 
 class Login extends Component {
   constructor() {
@@ -23,7 +24,7 @@ class Login extends Component {
     if (prevProps.loggedInUser.id !== this.props.loggedInUser.id) {
       return this.props
         .processAfterLogin(loggedInUser.id, { userId: loggedInUser.id })
-        .then(() => history.push('/home'))
+        .then(() => history.push(`/users/${loggedInUser.id}`))
     }
   }
 

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { resetCartToEmpty } from '../redux/actions/cart'
+import { updateProductThunk } from '../redux/actions/product'
 import {
-  updateProductThunk,
   updateOrderThunk,
-  createNewOrderThunk,
-  resetCartToEmpty
-} from '../redux/actions'
+  createNewOrderThunk
+} from '../redux/actions/userOrders'
 import { makePriceCurrencyFormat } from '../HelperFunctions'
 import SingleCartItem from './SingleCartItem'
 

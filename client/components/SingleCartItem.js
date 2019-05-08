@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { updateLineitemThunk, removeFromCartThunk } from '../redux/actions'
+import { updateLineitemThunk, removeFromCartThunk } from '../redux/actions/cart'
 import { makePriceCurrencyFormat } from '../HelperFunctions'
 
 class SingleCartItem extends Component {
@@ -106,9 +106,10 @@ class SingleCartItem extends Component {
 }
 
 const mapStateToProps = ({ loggedInUser, userOrders }) => {
+  const cartOrder = userOrders.find(order => order.status === 'cart')
   return {
     userId: loggedInUser.id,
-    orderId: userOrders.find(order => order.status === 'cart').id
+    orderId: cartOrder && cartOrder.id
   }
 }
 
@@ -116,8 +117,6 @@ const mapDispatchToProps = dispatch => {
   return {
     updateLineitem: (userId, orderId, lineitemId, lineitem) =>
       dispatch(updateLineitemThunk(userId, orderId, lineitemId, lineitem)),
-    updateProduct: (productId, product) =>
-      dispatch(updateProductThunk(productId, product)),
     removeFromCart: (userId, orderId, lineitemId) =>
       dispatch(removeFromCartThunk(userId, orderId, lineitemId))
   }
