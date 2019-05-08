@@ -15,6 +15,7 @@ import SingleProduct from './SingleProduct'
 import Cart from './Cart'
 import SingleUser from './SingleUser'
 import CheckoutPage from './CheckoutPage'
+import SignUp from './SignUp'
 
 class App extends Component {
   componentDidMount() {
@@ -54,6 +55,7 @@ class App extends Component {
           />
           <Route path="/products/:id" component={SingleProduct} />
           <Route path="/users/:id/:filter?" component={SingleUser} />
+          <Route path="/signup" component={SignUp} />
         </Switch>
       </Router>
     )

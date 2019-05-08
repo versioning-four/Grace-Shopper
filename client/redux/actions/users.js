@@ -13,3 +13,11 @@ export const getAllUsersThunk = () => {
       .then(({ data }) => dispatch(getAllUsers(data)))
   }
 }
+
+export const signUpThunk = user => {
+  return dispatch => {
+    return axios
+      .post('/api/users', user)
+      .then(() => dispatch(getAllUsersThunk()))
+  }
+}
