@@ -4,6 +4,15 @@ const path = require('path')
 const syncAndSeed = require('./db/seed')
 const volleyball = require('volleyball')
 const session = require('express-session')
+const lineitemsbyuserandorder = require('./api/lineitemsbyuserandorder')
+const ordersbyuser = require('./api/ordersbyuser')
+const user = require('./api/User')
+const product = require('./api/Product')
+const order = require('./api/Order')
+const lineitem = require('./api/LineItem')
+const review = require('./api/Review')
+const category = require('./api/Category')
+const auth = require('./api/auth')
 
 const port = process.env.PORT || 3000
 
@@ -24,7 +33,7 @@ app.use(
     req.orderId = req.params.orderId
     next()
   },
-  require('./api/lineitemsbyuserandorder')
+  lineitemsbyuserandorder
 )
 app.use(
   '/api/users/:userId/orders/',
@@ -32,15 +41,15 @@ app.use(
     req.userId = req.params.userId
     next()
   },
-  require('./api/ordersbyuser')
+  ordersbyuser
 )
-app.use('/api/users', require('./api/User'))
-app.use('/api/products', require('./api/Product'))
-app.use('/api/orders', require('./api/Order'))
-app.use('/api/lineitems', require('./api/LineItem'))
-app.use('/api/reviews', require('./api/Review'))
-app.use('/api/categories', require('./api/Category'))
-app.use('/api/auth', require('./api/auth'))
+app.use('/api/users', user)
+app.use('/api/products', product)
+app.use('/api/orders', order)
+app.use('/api/lineitems', lineitem)
+app.use('/api/reviews', review)
+app.use('/api/categories', category)
+app.use('/api/auth', auth)
 
 app.get('/app.js', (req, res, next) =>
   res.sendFile(path.join(__dirname, '..', 'dist', 'main.js'))
