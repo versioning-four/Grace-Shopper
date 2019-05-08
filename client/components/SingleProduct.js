@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { addToCartThunk } from '../redux/actions'
 import { makePriceCurrencyFormat, findUserNameById } from '../HelperFunctions'
 import AddToCartButton from './addToCartButton'
 
@@ -56,13 +55,4 @@ const mapStateToProps = (
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addToCart: (userId, product) => dispatch(addToCartThunk(userId, product))
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SingleProduct)
+export default connect(mapStateToProps)(SingleProduct)

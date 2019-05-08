@@ -3,16 +3,17 @@ import {
   GET_ALL_PRODUCTS,
   GET_ALL_CATEGORIES,
   ADD_TO_CART,
-  GET_ALL_USER_ORDERS,
   GET_ORDER_LINEITEMS,
   UPDATE_PRODUCT,
   UPDATE_LINE_ITEM,
   GET_ALL_REVIEWS,
   GET_ALL_USERS,
-  CREATE_OR_FIND_ORDER,
+  SET_USER_ORDERS,
+  SET_USER_ORDERS_ON_LOGIN,
   UPDATE_ORDER,
   RESET_CART_TO_EMPTY,
-  GET_USER_LINEITEMS
+  GET_USER_LINEITEMS,
+  CREATE_ORDER
 } from './constants'
 
 export const userLineitemsReducer = (state = [], action) => {
@@ -74,9 +75,11 @@ export const cartReducer = (state = [], action) => {
 
 export const userOrdersReducer = (state = [], action) => {
   switch (action.type) {
-    case GET_ALL_USER_ORDERS:
+    case SET_USER_ORDERS:
       return action.orders
-    case CREATE_OR_FIND_ORDER:
+    case SET_USER_ORDERS_ON_LOGIN:
+      return state.length ? state : action.orders
+    case CREATE_ORDER:
       return [...state, action.order]
     case UPDATE_ORDER:
       return state.map(order =>
