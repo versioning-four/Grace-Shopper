@@ -13,6 +13,7 @@ const syncAndSeed = () => {
       //CREATE USER DATA
       return createdSeedInstances(User, [
         {
+          userId: 1,
           firstName: 'John',
           lastName: 'Smith',
           email: 'johnsmith@aol.com',
@@ -20,6 +21,7 @@ const syncAndSeed = () => {
           password: '12345'
         },
         {
+          userId: 2,
           firstName: 'Jes',
           lastName: 'sica',
           email: 'jessica@aol.com',
@@ -27,6 +29,7 @@ const syncAndSeed = () => {
           password: '98765'
         },
         {
+          userId: 3,
           firstName: 'James',
           lastName: 'Earl',
           email: 'jamesearl@aol.com',
@@ -34,6 +37,7 @@ const syncAndSeed = () => {
           password: 'james'
         },
         {
+          userId: 4,
           firstName: 'Jasmine',
           lastName: 'Jazz',
           email: 'jasminejazz@aol.com',
@@ -41,6 +45,7 @@ const syncAndSeed = () => {
           password: 'jazzy123'
         },
         {
+          userId: 5,
           firstName: 'Johnny',
           lastName: 'Boy',
           email: 'johnnyboy@aol.com',
@@ -138,17 +143,19 @@ const syncAndSeed = () => {
         { status: 'completed', userId: 2 },
         { userId: 2 },
         { userId: 4 },
-        { status: 'completed', userId: 4 }
+        { status: 'completed', userId: 4 },
+        { status: 'completed', userId: 1 }
       ])
     })
     .then(() => {
       //CREATE LINEITEM DATA
       return createdSeedInstances(LineItem, [
-        { quantity: 0, orderId: 2, productId: 5 },
+        { quantity: 10, orderId: 1, productId: 5 },
         { quantity: 70, orderId: 1, productId: 1 },
         { quantity: 6, orderId: 3, productId: 1 },
         { quantity: 15, orderId: 5, productId: 3 },
-        { quantity: 2, orderId: 5, productId: 3 }
+        { quantity: 2, orderId: 5, productId: 3 },
+        { quantity: 20, orderId: 7, productId: 6 }
       ])
     })
     .then(() => {
