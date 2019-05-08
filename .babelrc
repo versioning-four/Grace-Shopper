@@ -1,9 +1,9 @@
 {
-    "presets" : [
-      "@babel/preset-react",
-      "@babel/preset-env"
-    ],
-    "plugins": [
+  "presets": [
+    "@babel/preset-react",
+    ["@babel/preset-env", { "targets": { "node": "current" } }]
+  ],
+  "plugins": [
     // Stage 2
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
     "@babel/plugin-proposal-function-sent",
