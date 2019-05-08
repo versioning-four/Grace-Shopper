@@ -55,7 +55,8 @@ const syncAndSeed = () => {
         { id: 1, name: 'Big' },
         { id: 2, name: 'Farming Stuff' },
         { id: 3, name: 'Multipacks' },
-        { id: 4, name: 'Bird Accessories' }
+        { id: 4, name: 'Bird Accessories' },
+        { id: 5, name: 'Swag' }
       ])
     })
     .then(() => {
@@ -115,6 +116,17 @@ const syncAndSeed = () => {
           categoryId: 2,
           image:
             'https://images.pexels.com/photos/126588/pexels-photo-126588.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
+        },
+        {
+          id: 6,
+          name: 'Authentic Texas Straw Cowboy Hat',
+          description:
+            'Made with the highest quality of straw imported from Amarillo, TX, this cowboy hat complete with adjustable sweatband and a 4-inch brim will provide you with all the necessary equipment to dress for the job you want.',
+          price: 3000.0,
+          inventoryQuantity: 250,
+          categoryId: 5,
+          image:
+            'https://images.pexels.com/photos/2250519/pexels-photo-2250519.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
         }
       ])
     })
