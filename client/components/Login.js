@@ -22,7 +22,7 @@ class Login extends Component {
 
     return this.props
       .login(this.state)
-      .then(() => history.push(`/products`))
+      .then(() => history.push(`/home`))
       .catch(({ response: { data } }) => this.setState({ error: data.errors }))
   }
 
