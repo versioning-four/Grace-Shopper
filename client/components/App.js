@@ -50,9 +50,13 @@ class App extends Component {
             path="/products/category/:categoryId"
             component={Products}
           />
-          <Route path="/products/:id" component={SingleProduct} />
-          <Route path="/users/:id/:filter?" component={SingleUser} />
-          <Route path="/signup" component={SignUp} />
+          <Route exact path="/products/:id" component={SingleProduct} />
+          <Route
+            exact
+            path="/users/:id/:filter?/:adminFilter?"
+            component={SingleUser}
+          />
+          <Route exact path="/signup" component={SignUp} />
         </Switch>
       </Router>
     )

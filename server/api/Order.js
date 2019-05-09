@@ -9,6 +9,16 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+router.get('/in-progress', (req, res, next) => {
+  Order.findAll({
+    where: {
+      status: 'in-progress'
+    }
+  })
+    .then(orders => res.json(orders))
+    .catch(next)
+})
+
 router.post('/', (req, res, next) => {
   Order.create(req.body)
     .then(order => res.json(order))
