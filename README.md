@@ -3,4 +3,4 @@
 - npm run start:dev
 
 # heroku-link
-- https://versioning-4-graceshopper.herokuapp.com/#/
+- https://versioning-4.herokuapp.com/#/

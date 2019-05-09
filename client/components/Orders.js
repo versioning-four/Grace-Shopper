@@ -15,6 +15,7 @@ const Orders = ({ userOrders, userLineitems, products }) => {
   return (
     <div>
       {mappedLineitems.map(order => {
+        let total = 0
         return (
           order.status === 'completed' && (
             <div key={order.id}>
@@ -22,6 +23,7 @@ const Orders = ({ userOrders, userLineitems, products }) => {
                 Order Number: {order.id}
                 {order.lineitems.map(item => {
                   const product = findProductInformationById(item.id, products)
+                  total += item.quantity * product.price
                   return (
                     <div key={item.id}>
                       <img src={product.image} />
@@ -34,6 +36,7 @@ const Orders = ({ userOrders, userLineitems, products }) => {
                   )
                 })}
               </ul>
+              Order Total: {makePriceCurrencyFormat(total)}
             </div>
           )
         )
