@@ -25,14 +25,17 @@ class AdminPage extends Component {
       return <div>Sorry you don't have acess to this page</div>
     return (
       <div>
-        <button
-          type="button"
-          onClick={() => {
-            logoutUser().then(() => history.push('/home'))
-          }}
-        >
-          Logout
-        </button>
+        <div>
+          <button
+            type="button"
+            onClick={() => {
+              logoutUser().then(() => history.push('/home'))
+            }}
+          >
+            Logout
+          </button>
+        </div>
+        <br />
         <div>
           <Link to={`/admin/users/${loggedInUser.id}/allorders`}>
             <button type="button">View all orders in progress</button>
@@ -44,8 +47,12 @@ class AdminPage extends Component {
             <button type="button">View all current products</button>
           </Link>
         </div>
-
+        <br />
         <div>
+          <div>
+            <button type="button">Add a Product</button>
+          </div>
+          <br />
           {match.params.adminFilter === 'allproducts' &&
             products.map(product => {
               return (
@@ -55,7 +62,9 @@ class AdminPage extends Component {
                   <div>On hand: {product.inventoryQuantity}</div>
                   <div>
                     <button type="button">Edit Product</button>
+                    <button type="button">Delete Product</button>
                   </div>
+                  <br />
                 </div>
               )
             })}
