@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
-import { processAfterLoginThunk } from '../redux/actions/shared'
 import { loginUserThunk } from '../redux/actions/login'
 
 class Login extends Component {
@@ -19,29 +17,22 @@ class Login extends Component {
     this.setState({ [ev.target.name]: ev.target.value })
   }
 
-  componentDidUpdate(prevProps) {
-    const { history, loggedInUser } = this.props
-    if (prevProps.loggedInUser.id !== this.props.loggedInUser.id) {
-      return this.props
-        .processAfterLogin(loggedInUser.id, { userId: loggedInUser.id })
-        .then(() => history.push(`/users/${loggedInUser.id}`))
-    }
-  }
-
-  handleSubmit = ev => {
+  handleSubmit = (ev, history) => {
     ev.preventDefault()
 
     return this.props
       .login(this.state)
+      .then(() => history.push(`/home`))
       .catch(({ response: { data } }) => this.setState({ error: data.errors }))
   }
 
   render() {
     const { email, password, error } = this.state
     const { handleChange, handleSubmit } = this
+    const { history } = this.props
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={ev => handleSubmit(ev, this.props.history)}>
         <label>Email</label>
         <input
           name="email"
@@ -70,21 +61,18 @@ class Login extends Component {
           ))}
 
         <button type="submit">Log in</button>
+        <button type="button" onClick={() => history.push(`/signup`)}>
+          Sign Up
+        </button>
       </form>
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    loggedInUser: state.loggedInUser
-  }
-}
+const mapStateToProps = ({ loggedInUser }) => ({ loggedInUser })
 
 const mapDispatchToProps = dispatch => ({
-  login: user => dispatch(loginUserThunk(user)),
-  processAfterLogin: (userId, newOrder) =>
-    dispatch(processAfterLoginThunk(userId, newOrder))
+  login: user => dispatch(loginUserThunk(user))
 })
 
 export default connect(

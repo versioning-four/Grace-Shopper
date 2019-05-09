@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { makePriceCurrencyFormat } from '../HelperFunctions'
 import CategorySelector from './CategorySelector'
+import AddToCartButton from './addToCartButton'
 
 class Products extends Component {
   render() {
@@ -23,6 +24,7 @@ class Products extends Component {
                 <Link to={`/products/${id}`}>{name}</Link>{' '}
               </li>
               <li>{makePriceCurrencyFormat(price)}</li>
+              <AddToCartButton product={product} />
             </ul>
           )
         })}

@@ -23,6 +23,11 @@ const reducer = combineReducers({
   userLineitems: userLineitemsReducer
 })
 
-const store = createStore(reducer, applyMiddleware(thunk, loggerMiddleware))
+let middlewares = [thunk]
+if (process.env.NODE_ENV !== 'production') {
+  middlewares.push(loggerMiddleware)
+}
+
+const store = createStore(reducer, applyMiddleware(...middlewares))
 
 export default store

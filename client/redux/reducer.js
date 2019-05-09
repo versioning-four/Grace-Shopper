@@ -9,7 +9,6 @@ import {
   GET_ALL_REVIEWS,
   GET_ALL_USERS,
   SET_USER_ORDERS,
-  SET_USER_ORDERS_ON_LOGIN,
   UPDATE_ORDER,
   RESET_CART_TO_EMPTY,
   GET_USER_LINEITEMS,
@@ -18,7 +17,7 @@ import {
 
 export const userLineitemsReducer = (state = [], action) => {
   switch (action.type) {
-    case GET_USER_LINEITEMS:
+    case SET_USER_LINEITEMS:
       return action.lineitems
     default:
       return state
@@ -77,8 +76,6 @@ export const userOrdersReducer = (state = [], action) => {
   switch (action.type) {
     case SET_USER_ORDERS:
       return action.orders
-    case SET_USER_ORDERS_ON_LOGIN:
-      return state.length ? state : action.orders
     case CREATE_ORDER:
       return [...state, action.order]
     case UPDATE_ORDER:
