@@ -15,6 +15,7 @@ import Cart from './Cart'
 import SingleUser from './SingleUser'
 import CheckoutPage from './CheckoutPage'
 import SignUp from './SignUp'
+import AdminPage from './AdminPage'
 
 class App extends Component {
   componentDidMount() {
@@ -50,9 +51,14 @@ class App extends Component {
             path="/products/category/:categoryId"
             component={Products}
           />
-          <Route path="/products/:id" component={SingleProduct} />
-          <Route path="/users/:id/:filter?" component={SingleUser} />
-          <Route path="/signup" component={SignUp} />
+          <Route exact path="/products/:id" component={SingleProduct} />
+          <Route exact path="/users/:id/:filter?" component={SingleUser} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route
+            exact
+            path="/admin/users/:id/:adminFilter?"
+            component={AdminPage}
+          />
         </Switch>
       </Router>
     )

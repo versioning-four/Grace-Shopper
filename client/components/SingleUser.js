@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { logoutUserThunk } from '../redux/actions/login'
+import { Link } from 'react-router-dom'
+
 import { getAllUserOrdersThunk } from '../redux/actions/userOrders'
 import { getAllUsersLineitemsThunk } from '../redux/actions/userLineitems'
 import Reviews from './Reviews'
@@ -44,18 +46,13 @@ class SingleUser extends Component {
           Logout
         </button>
         <div>
-          <button
-            type="button"
-            onClick={() => history.push(`/users/${loggedIn}/orders`)}
-          >
-            Your orders
-          </button>
-          <button
-            type="button"
-            onClick={() => history.push(`/users/${loggedIn}/reviews`)}
-          >
-            Your Reviews
-          </button>
+          <Link to={`/users/${loggedIn}/orders`}>
+            <button type="button">Your orders</button>
+          </Link>
+
+          <Link to={`/users/${loggedIn}/reviews`}>
+            <button type="button">Your Reviews</button>
+          </Link>
         </div>
 
         {match.params.filter === 'reviews' && (

@@ -23,6 +23,11 @@ const Nav = ({ loggedInUser }) => {
           {loggedInUser.id ? 'My Account' : 'Log In'}
         </Link>
       </li>
+      {loggedInUser.isAdmin === true && (
+        <li>
+          <Link to={`admin/users/${loggedInUser.id}?`}>Administrator</Link>
+        </li>
+      )}
     </ul>
   )
 }

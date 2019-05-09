@@ -7,7 +7,8 @@ import {
   userOrdersReducer,
   reviewsReducer,
   usersReducer,
-  userLineitemsReducer
+  userLineitemsReducer,
+  inProgressOrdersReducer
 } from './reducer'
 import thunk from 'redux-thunk'
 import loggerMiddleware from 'redux-logger'
@@ -20,7 +21,8 @@ const reducer = combineReducers({
   userOrders: userOrdersReducer,
   reviews: reviewsReducer,
   users: usersReducer,
-  userLineitems: userLineitemsReducer
+  userLineitems: userLineitemsReducer,
+  inProgressOrdersReducer
 })
 
 let middlewares = [thunk]
