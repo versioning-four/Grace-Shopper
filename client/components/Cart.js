@@ -49,7 +49,6 @@ class Cart extends Component {
       resetCartToEmpty
     } = this.props
     const { handleCheckout } = this
-    console.log(cart)
     return (
       <div>
         <ul className="list-group">
