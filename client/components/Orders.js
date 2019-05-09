@@ -18,7 +18,6 @@ const Orders = ({ userOrders, userLineitems, products }) => {
         return (
           order.status === 'completed' && (
             <div key={order.id}>
-              {/* <div>{order.quantity}</div> */}
               <ul>
                 Order Number: {order.id}
                 {order.lineitems.map(item => {
