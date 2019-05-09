@@ -20,10 +20,17 @@ router.delete('/:id', (req, res, next) => {
     .catch(next)
 })
 
+router.post('/', (req, res, next) => {
+  User.create(req.body)
+    .then(user => res.json(user))
+    .catch(next)
+})
+
 router.get('/:userId/lineitems', (req, res, next) => {
   LineItem.findAll({
     include: [
       {
+        attributes: [],
         model: Order,
         where: {
           userId: req.params.userId

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { resetCartToEmpty } from '../redux/actions/cart'
+import { removeAllItemsFromCartThunk } from '../redux/actions/cart'
 import { updateProductThunk } from '../redux/actions/product'
 import {
   updateOrderThunk,
@@ -41,10 +41,16 @@ class Cart extends Component {
   }
 
   render() {
-    const { cart, totalCartPrice, userId, currentOrder } = this.props
+    const {
+      cart,
+      totalCartPrice,
+      userId,
+      currentOrder,
+      removeAllItemsFromCart
+    } = this.props
     const { handleCheckout } = this
     return (
-      <div>
+      <div className="cart-list">
         <ul className="list-group">
           {cart.map(item => (
             <SingleCartItem cartItem={item} key={item.id} />
@@ -54,8 +60,16 @@ class Cart extends Component {
         <button
           type="button"
           onClick={() => handleCheckout(userId, currentOrder)}
+          className="standard-btn"
         >
           Checkout
+        </button>
+        <button
+          type="button"
+          className="remove-btn"
+          onClick={() => removeAllItemsFromCart(userId, currentOrder.id)}
+        >
+          Clear Cart
         </button>
       </div>
     )
@@ -101,7 +115,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(updateOrderThunk(userId, orderId, order)),
     createNewOrder: (userId, newOrder) =>
       dispatch(createNewOrderThunk(userId, newOrder)),
-    resetCartToEmpty: () => dispatch(resetCartToEmpty())
+    removeAllItemsFromCart: (userId, orderId) =>
+      dispatch(removeAllItemsFromCartThunk(userId, orderId))
   }
 }
 

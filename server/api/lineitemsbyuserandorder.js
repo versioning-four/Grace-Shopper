@@ -34,3 +34,13 @@ router.delete('/:lineitemid', (req, res, next) => {
     .then(() => res.sendStatus(204))
     .catch(next)
 })
+
+router.delete('/', (req, res, next) => {
+  LineItem.destroy({
+    where: {
+      orderId: req.orderId
+    }
+  })
+    .then(() => res.sendStatus(204))
+    .catch(next)
+})

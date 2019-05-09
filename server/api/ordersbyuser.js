@@ -13,7 +13,7 @@ router.get('/cart', (req, res, next) => {
     .catch(next)
 })
 
-router.post('', (req, res, next) => {
+router.post('/', (req, res, next) => {
   Order.create(req.body)
     .then(order => res.json(order))
     .catch(next)

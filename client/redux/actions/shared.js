@@ -1,14 +1,14 @@
 import axios from 'axios'
 import { getOrderLineitemsThunk } from './cart'
-import { setUserOrdersOnLogin } from './userOrders'
+import { setUserOrders } from './userOrders'
 
-export const processAfterLoginThunk = (userId, newOrder) => {
+export const processAfterHaveUserThunk = (userId, newOrder) => {
   return async dispatch => {
     let order = await axios.get(`/api/users/${userId}/orders/cart`)
-    if (!order) {
-      order = await axios.post(`/api/users/${userId}/orders/cart`, newOrder)
+    if (!order.data) {
+      order = await axios.post(`/api/users/${userId}/orders`, newOrder)
     }
-    dispatch(setUserOrdersOnLogin([order.data]))
+    dispatch(setUserOrders([order.data]))
     return dispatch(getOrderLineitemsThunk(userId, order.data.id))
   }
 }

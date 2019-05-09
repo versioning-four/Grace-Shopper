@@ -21,7 +21,7 @@ class AddToCartButton extends Component {
     const { handleClick, handleChange } = this
     const { product, loggedInUserId, orderId, productInCart } = this.props
     return (
-      <div>
+      <div className="add-to-cart-button">
         <label htmlFor="quantity">Quantity: </label>
         <input
           type="text"
@@ -32,6 +32,7 @@ class AddToCartButton extends Component {
         />
         <button
           type="button"
+          className="standard-btn"
           onClick={() =>
             handleClick(loggedInUserId, orderId, {
               orderId,

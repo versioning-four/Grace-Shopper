@@ -2,10 +2,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { logoutUserThunk } from '../redux/actions/login'
+import { Link } from 'react-router-dom'
+
 import { getAllUserOrdersThunk } from '../redux/actions/userOrders'
 import { getAllUsersLineitemsThunk } from '../redux/actions/userLineitems'
 import Reviews from './Reviews'
 import Orders from './Orders'
+import AdminPage from './AdminPage'
 
 class SingleUser extends Component {
   componentDidMount() {
@@ -34,9 +37,10 @@ class SingleUser extends Component {
       return <Reviews user={user || {}} reviews={reviews} products={products} />
     }
     return (
-      <div>
+      <div className="single-user">
         <button
           type="button"
+          className="standard-btn"
           onClick={() => {
             logoutUser().then(() => history.push('/home'))
           }}
@@ -44,18 +48,17 @@ class SingleUser extends Component {
           Logout
         </button>
         <div>
-          <button
-            type="button"
-            onClick={() => history.push(`/users/${loggedIn}/orders`)}
-          >
-            Your orders
-          </button>
-          <button
-            type="button"
-            onClick={() => history.push(`/users/${loggedIn}/reviews`)}
-          >
-            Your Reviews
-          </button>
+         <Link to={`/users/${loggedIn}/orders`}>
+            <button type="button" className="standard-btn">Your orders</button>
+          </Link>
+
+          <Link to={`/users/${loggedIn}/reviews`}>
+            <button type="button" className="standard-btn">Your Reviews</button>
+          </Link>
+
+          <Link to={`/users/${loggedIn}/admin`}>
+            <button type="button" className="standard-btn">Admin Tools</button>
+          </Link>
         </div>
 
         {match.params.filter === 'reviews' && (
@@ -68,6 +71,8 @@ class SingleUser extends Component {
         {match.params.filter === 'orders' && (
           <Orders user={user.id && user} userOrders={userOrders} />
         )}
+
+        {match.params.filter === 'admin' && <AdminPage match={match} />}
       </div>
     )
   }
