@@ -20,7 +20,6 @@ class AdminPage extends Component {
       inProgressOrders,
       loggedInUser
     } = this.props
-    console.log('here is match', match)
     if (!loggedInUser.isAdmin)
       return <div>Sorry you don't have acess to this page</div>
     return (
