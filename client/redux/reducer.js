@@ -11,8 +11,9 @@ import {
   SET_USER_ORDERS,
   UPDATE_ORDER,
   RESET_CART_TO_EMPTY,
-  GET_USER_LINEITEMS,
-  CREATE_ORDER
+  SET_USER_LINEITEMS,
+  CREATE_ORDER,
+  GET_IN_PROGRESS_ORDERS
 } from './constants'
 
 export const userLineitemsReducer = (state = [], action) => {
@@ -100,6 +101,15 @@ export const usersReducer = (state = [], action) => {
   switch (action.type) {
     case GET_ALL_USERS:
       return action.users
+    default:
+      return state
+  }
+}
+
+export const inProgressOrdersReducer = (state = [], action) => {
+  switch (action.type) {
+    case GET_IN_PROGRESS_ORDERS:
+      return action.orders
     default:
       return state
   }
