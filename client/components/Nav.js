@@ -10,24 +10,34 @@ const navTabs = [
 
 const Nav = ({ loggedInUser }) => {
   return (
-    <div>
-      <nav className="navbar">
-        <ul>
-          {navTabs.map(tab => {
-            return (
-              <Link key={tab.name} to={tab.path}>
-                <li>{tab.name}</li>
-              </Link>
-            )
-          })}
-          <li>
-            <Link to={loggedInUser.id ? '/logout' : '/login'}>
-              {loggedInUser.id ? 'Log Out' : 'Log In'}
+    <nav className="navbar navbar-expand-md navbar-light fixed-top">
+      <Link className="navbar-brand" to="/home">
+        <img
+          src="https://image.flaticon.com/icons/svg/1689/1689081.svg"
+          width="60"
+          height="60"
+        />
+      </Link>
+      <ul className="navbar-nav mr-auto nav-menu">
+        {navTabs.map(tab => {
+          return (
+            <Link className="nav-link" key={tab.name} to={tab.path}>
+              <li className="nav-item">{tab.name}</li>
             </Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
+          )
+        })}
+      </ul>
+      <ul className="navbar-nav nav-login">
+        <li className="nav-item">
+          <Link
+            className="nav-link"
+            to={loggedInUser.id ? `/users/${loggedInUser.id}` : '/login'}
+          >
+            {loggedInUser.id ? 'My Account' : 'Log In'}
+          </Link>
+        </li>
+      </ul>
+    </nav>
   )
 }
 

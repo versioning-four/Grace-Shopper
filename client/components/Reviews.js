@@ -5,8 +5,8 @@ import { findProductNameById } from '../HelperFunctions'
 
 const Reviews = ({ user, reviews, products }) => {
   return (
-    <div>
-      <h1>Reviews</h1>
+    <div className="reviews-card">
+      <h3>Reviews</h3>
       <h4>by {`${user.firstName} ${user.lastName}`}</h4>
 
       {reviews.map(review => (

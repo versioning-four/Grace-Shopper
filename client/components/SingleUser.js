@@ -34,9 +34,10 @@ class SingleUser extends Component {
       return <Reviews user={user || {}} reviews={reviews} products={products} />
     }
     return (
-      <div>
+      <div className="single-user">
         <button
           type="button"
+          className="standard-btn"
           onClick={() => {
             logoutUser().then(() => history.push('/home'))
           }}
@@ -46,12 +47,14 @@ class SingleUser extends Component {
         <div>
           <button
             type="button"
+            className="standard-btn"
             onClick={() => history.push(`/users/${loggedIn}/orders`)}
           >
             Your orders
           </button>
           <button
             type="button"
+            className="standard-btn"
             onClick={() => history.push(`/users/${loggedIn}/reviews`)}
           >
             Your Reviews

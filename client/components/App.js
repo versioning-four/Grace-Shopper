@@ -14,14 +14,8 @@ import SingleProduct from './SingleProduct'
 import Cart from './Cart'
 import SingleUser from './SingleUser'
 import CheckoutPage from './CheckoutPage'
-<<<<<<< HEAD
-<<<<<<< HEAD
 import Footer from './Footer'
-=======
->>>>>>> 93f6df2cfb342789a7ce639eacf56694fcf441a7
-=======
 import SignUp from './SignUp'
->>>>>>> 244ea681890a5d036b8e06e2e7d270deb26342f4
 
 class App extends Component {
   componentDidMount() {

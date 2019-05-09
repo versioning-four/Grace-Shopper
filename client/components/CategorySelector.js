@@ -30,6 +30,7 @@ class CategorySelector extends Component {
           value={this.state.categorySelected}
           onChange={this.handleChange}
           name="categorySelected"
+          className="standard-btn"
         >
           {this.props.categories.map(category => {
             const { id, name } = category
