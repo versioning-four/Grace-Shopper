@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { processAfterLoginThunk } from '../redux/actions/shared'
+import { checkForUserThunk } from '../redux/actions/login'
 import { getAllUsersThunk } from '../redux/actions/users'
 import { getAllReviewsThunk } from '../redux/actions/reviews'
-import { checkForUserThunk } from '../redux/actions/login'
 import { getAllProductsThunk } from '../redux/actions/product'
 import { getAllCategoriesThunk } from '../redux/actions/category'
 import Home from './Home'
@@ -16,6 +15,7 @@ import Cart from './Cart'
 import SingleUser from './SingleUser'
 import CheckoutPage from './CheckoutPage'
 import Footer from './Footer'
+import SignUp from './SignUp'
 
 class App extends Component {
   componentDidMount() {
@@ -24,17 +24,15 @@ class App extends Component {
       getAllProducts,
       getAllReviews,
       getAllUsers,
-      checkForUser,
-      processAfterLogin
+      checkForUser
     } = this.props
     return Promise.all([
       getAllCategories(),
       getAllProducts(),
       getAllUsers(),
-      getAllReviews()
+      getAllReviews(),
+      checkForUser()
     ])
-      .then(() => checkForUser())
-      .then(({ user: { id } }) => id && processAfterLogin(id, { userId: id }))
   }
 
   render() {
@@ -55,6 +53,7 @@ class App extends Component {
           />
           <Route path="/products/:id" component={SingleProduct} />
           <Route path="/users/:id/:filter?" component={SingleUser} />
+          <Route path="/signup" component={SignUp} />
         </Switch>
         <Route component={Footer} />
       </Router>
@@ -68,9 +67,7 @@ const mapDispatchToProps = dispatch => {
     getAllCategories: () => dispatch(getAllCategoriesThunk()),
     getAllReviews: () => dispatch(getAllReviewsThunk()),
     getAllUsers: () => dispatch(getAllUsersThunk()),
-    checkForUser: () => dispatch(checkForUserThunk()),
-    processAfterLogin: (userId, newOrder) =>
-      dispatch(processAfterLoginThunk(userId, newOrder))
+    checkForUser: () => dispatch(checkForUserThunk())
   }
 }
 
