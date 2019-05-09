@@ -32,6 +32,7 @@ class Login extends Component {
     const { history } = this.props
 
     return (
+      <div className="login-form">
       <form onSubmit={ev => handleSubmit(ev, this.props.history)}>
         <label>Email</label>
         <input
@@ -41,30 +42,33 @@ class Login extends Component {
           onChange={handleChange}
         />
 
-        <label>Password</label>
-        <input
-          name="password"
-          value={password}
-          placeholder="Enter your password"
-          onChange={handleChange}
-        />
+          <label>Password</label>
+          <input
+            name="password"
+            value={password}
+            placeholder="Enter your password"
+            onChange={handleChange}
+          />
 
-        {error &&
-          (Array.isArray(error) ? (
-            <ul>
-              {error.map((e, idx) => (
-                <li key={idx}>{e}</li>
-              ))}
-            </ul>
-          ) : (
-            <div>{error[0]}</div>
-          ))}
+          {error &&
+            (Array.isArray(error) ? (
+              <ul>
+                {error.map((e, idx) => (
+                  <li key={idx}>{e}</li>
+                ))}
+              </ul>
+            ) : (
+              <div>{error[0]}</div>
+            ))}
 
-        <button type="submit">Log in</button>
-        <button type="button" onClick={() => history.push(`/signup`)}>
+      
+
+        <button type="submit" className="standard-btn">Log in</button>
+        <button type="button" className="standard-btn" onClick={() => history.push(`/signup`)}>
           Sign Up
         </button>
       </form>
+    </div>
     )
   }
 }

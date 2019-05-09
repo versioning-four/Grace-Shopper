@@ -50,6 +50,7 @@ class SingleCartItem extends Component {
             {`Quantity: ${quantity}`}
             <button
               type="button"
+              className="standard-btn"
               onClick={() =>
                 updateCartQuantity(
                   userId,
@@ -65,6 +66,7 @@ class SingleCartItem extends Component {
             </button>
             <button
               type="button"
+              className="standard-btn"
               onClick={() =>
                 updateCartQuantity(
                   userId,
@@ -94,6 +96,7 @@ class SingleCartItem extends Component {
         <ul>{`Price: ${makePriceCurrencyFormat(totalItemPrice)}`}</ul>
         <button
           type="button"
+          className="remove-btn"
           onClick={() => {
             removeFromCart(userId, orderId, id)
           }}

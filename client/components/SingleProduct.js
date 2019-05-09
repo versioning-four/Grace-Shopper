@@ -8,17 +8,19 @@ const SingleProduct = props => {
   const { description, name, price, image } = props.product
   const { reviews, users } = props
   return (
-    <div>
-      <div>
-        <img src={image} />
+    <div className="single-product">
+      <div className="single-product-card">
+        <div>
+          <img src={image} className="single-product-img" />
+        </div>
+        <ul>
+          <h3>{name}</h3>
+          <li>{makePriceCurrencyFormat(price)}</li>
+          <li>{description}</li>
+        </ul>
       </div>
-      <ul>
-        <li>{name}</li>
-        <li>{makePriceCurrencyFormat(price)}</li>
-        <li>{description}</li>
-      </ul>
-      <ul>
-        <h1>Reviews</h1>
+      <ul className="reviews-card">
+        <h3>Reviews</h3>
         {reviews.length ? (
           users.length &&
           reviews.map(review => (

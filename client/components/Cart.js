@@ -50,7 +50,7 @@ class Cart extends Component {
     } = this.props
     const { handleCheckout } = this
     return (
-      <div>
+      <div className="cart-list">
         <ul className="list-group">
           {cart.map(item => (
             <SingleCartItem cartItem={item} key={item.id} />
@@ -60,11 +60,13 @@ class Cart extends Component {
         <button
           type="button"
           onClick={() => handleCheckout(userId, currentOrder)}
+          className="standard-btn"
         >
           Checkout
         </button>
         <button
           type="button"
+          className="remove-btn"
           onClick={() => removeAllItemsFromCart(userId, currentOrder.id)}
         >
           Clear Cart

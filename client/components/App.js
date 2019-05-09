@@ -14,6 +14,7 @@ import SingleProduct from './SingleProduct'
 import Cart from './Cart'
 import SingleUser from './SingleUser'
 import CheckoutPage from './CheckoutPage'
+import Footer from './Footer'
 import SignUp from './SignUp'
 
 class App extends Component {
@@ -58,6 +59,7 @@ class App extends Component {
           />
           <Route exact path="/signup" component={SignUp} />
         </Switch>
+        <Route component={Footer} />
       </Router>
     )
   }
