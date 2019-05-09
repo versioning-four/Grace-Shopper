@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { removeAllItemsFromCartThunk } from '../redux/actions/cart'
+import {
+  removeAllItemsFromCartThunk,
+  resetCartToEmpty
+} from '../redux/actions/cart'
 import { updateProductThunk } from '../redux/actions/product'
 import {
   updateOrderThunk,
@@ -116,7 +119,8 @@ const mapDispatchToProps = dispatch => {
     createNewOrder: (userId, newOrder) =>
       dispatch(createNewOrderThunk(userId, newOrder)),
     removeAllItemsFromCart: (userId, orderId) =>
-      dispatch(removeAllItemsFromCartThunk(userId, orderId))
+      dispatch(removeAllItemsFromCartThunk(userId, orderId)),
+    resetCartToEmpty: () => dispatch(resetCartToEmpty)
   }
 }
 
