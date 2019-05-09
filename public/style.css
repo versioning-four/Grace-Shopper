@@ -12,20 +12,156 @@ ul {
 }
 
 nav {
-  display: flex;
+  background-color: white;
+  margin-bottom: 30px;
+}
+
+.navbar-nav {
   flex-direction: row;
+}
+
+.nav-link {
+  flex-direction: row;
+}
+
+.navbar-nav li {
+  padding: 0 25px;
 }
 
 .footer {
   position: fixed;
   height: 70px;
-  padding-top: 27px;
-  padding-bottom: 27px;
+  font-size: 14px;
+  padding: 28px 0;
   width: 100%;
-  color: white;
-  background-color: #0a5679;
+  color: rgba(0, 0, 0, 0.5);
+  background-color: white;
   text-align: center;
   left: 0;
   bottom: 0;
   z-index: 100;
+}
+
+.hero {
+  background-image: url(https://cdn.stocksnap.io/img-thumbs/960w/LJB9IHYKU9.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  background-attachment: fixed;
+}
+
+.hero-text-box {
+  position: absolute;
+  width: 1140px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-60%, -60%);
+  color: white;
+}
+
+.about-us {
+  margin-top: 50px;
+  padding: 50px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.about-us h3 {
+  font-size: 25px;
+}
+
+h3:after {
+  display: block;
+  height: 2px;
+  background-color: rgba(0, 0, 0, 0.5);
+  content: ' ';
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.about-us p {
+  padding-top: 30px;
+  padding-left: 80px;
+  font-size: 18px;
+  text-align: left;
+}
+
+.standard-btn {
+  color: black;
+  background-color: white;
+  border: 1.5px solid black;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 8px;
+}
+
+.remove-btn {
+  color: rgb(220, 0, 0);
+  background-color: white;
+  border: 1.5px solid rgb(220, 0, 0);
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 8px;
+}
+
+.product-list-img {
+  width: 40px;
+  height: 40px;
+}
+
+.single-product-img {
+  width: 350px;
+  height: 350px;
+  margin-bottom: 30px;
+}
+
+.login-form {
+  margin-top: 50px;
+}
+
+.product-list {
+  margin-top: 50px;
+}
+
+.cart-list {
+  margin-top: 50px;
+}
+
+.single-product {
+  margin-top: 10px;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.nav-menu {
+  padding: 15px 0;
+  padding-left: 40px;
+}
+
+.nav-login {
+  padding-right: 120px;
+}
+
+.product-list img {
+  height: 280px;
+  width: 280px;
+}
+
+.reviews-card {
+  margin-bottom: 100px;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.single-product-card {
+  margin: 100px 0;
+}
+
+.add-to-cart-button {
+  margin-bottom: 40px;
+}
+
+.single-user {
+  margin-top: 50px;
 }

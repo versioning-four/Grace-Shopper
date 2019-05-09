@@ -8,24 +8,30 @@ class Products extends Component {
   render() {
     const { products, history, categoryName } = this.props
     return (
-      <div>
+      <div className="product-list">
         <CategorySelector history={history} />
         <h4>{`${categoryName} Products`}</h4>
-        {products.map(product => {
-          const { id, name, price, image } = product
-          return (
-            <ul key={id}>
-              <li>
-                <img src={image} />
-              </li>
-              <li>
-                {' '}
-                <Link to={`/products/${id}`}>{name}</Link>{' '}
-              </li>
-              <li>{makePriceCurrencyFormat(price)}</li>
-            </ul>
-          )
-        })}
+        <div className="container">
+          <div className="row">
+            {products.map(product => {
+              const { id, name, price, image } = product
+              return (
+                <ul key={id}>
+                  <div className="col-4">
+                    <li>
+                      <img src={image} />
+                    </li>
+                    <li>
+                      {' '}
+                      <Link to={`/products/${id}`}>{name}</Link>{' '}
+                    </li>
+                    <li>{makePriceCurrencyFormat(price)}</li>
+                  </div>
+                </ul>
+              )
+            })}
+          </div>
+        </div>
       </div>
     )
   }

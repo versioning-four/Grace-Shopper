@@ -2,31 +2,25 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { makePriceCurrencyFormat, findUserNameById } from '../HelperFunctions'
-<<<<<<< HEAD:src/components/SingleProduct.js
-<<<<<<< HEAD
-import AddToCartButton from './AddToCartButton'
-=======
 import AddToCartButton from './addToCartButton'
->>>>>>> 93f6df2cfb342789a7ce639eacf56694fcf441a7
-=======
-import AddToCartButton from './addToCartButton'
->>>>>>> a133d944fc4159f4eeb4d88e79fa3d4336463dba:client/components/SingleProduct.js
 
 const SingleProduct = props => {
   const { description, name, price, image } = props.product
   const { reviews, users } = props
   return (
-    <div>
-      <div>
-        <img src={image} />
+    <div className="single-product">
+      <div className="single-product-card">
+        <div>
+          <img src={image} className="single-product-img" />
+        </div>
+        <ul>
+          <h3>{name}</h3>
+          <li>{makePriceCurrencyFormat(price)}</li>
+          <li>{description}</li>
+        </ul>
       </div>
-      <ul>
-        <li>{name}</li>
-        <li>{makePriceCurrencyFormat(price)}</li>
-        <li>{description}</li>
-      </ul>
-      <ul>
-        <h1>Reviews</h1>
+      <ul className="reviews-card">
+        <h3>Reviews</h3>
         {reviews.length ? (
           users.length &&
           reviews.map(review => (

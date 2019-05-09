@@ -44,7 +44,7 @@ class Cart extends Component {
     const { cart, totalCartPrice, userId, currentOrder } = this.props
     const { handleCheckout } = this
     return (
-      <div>
+      <div className="cart-list">
         <ul className="list-group">
           {cart.map(item => (
             <SingleCartItem cartItem={item} key={item.id} />
@@ -54,6 +54,7 @@ class Cart extends Component {
         <button
           type="button"
           onClick={() => handleCheckout(userId, currentOrder)}
+          className="standard-btn"
         >
           Checkout
         </button>

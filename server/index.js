@@ -26,17 +26,8 @@ app.use(
 app.use(express.json())
 app.use(volleyball)
 
-<<<<<<< HEAD
 app.use(express.static(path.join(__dirname, '..', 'public')))
 
-app.use('/api/users', require('./api/User'))
-app.use('/api/products', require('./api/Product'))
-app.use('/api/orders', require('./api/Order'))
-app.use('/api/lineitems', require('./api/LineItem'))
-app.use('/api/reviews', require('./api/Review'))
-app.use('/api/categories', require('./api/Category'))
-app.use('/api/auth', require('./api/auth'))
-=======
 app.use(
   '/api/users/:userId/orders/:orderId/lineitems',
   (req, res, next) => {
@@ -61,7 +52,6 @@ app.use('/api/lineitems', lineitem)
 app.use('/api/reviews', review)
 app.use('/api/categories', category)
 app.use('/api/auth', auth)
->>>>>>> a133d944fc4159f4eeb4d88e79fa3d4336463dba
 
 app.get('/app.js', (req, res, next) =>
   res.sendFile(path.join(__dirname, '..', 'dist', 'main.js'))
