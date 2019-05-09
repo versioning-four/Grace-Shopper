@@ -64,7 +64,11 @@ class Cart extends Component {
         >
           Checkout
         </button>
-        <button type="button" onClick={() => resetCartToEmpty()}>
+        <button
+          type="button"
+          className="remove-btn"
+          onClick={() => resetCartToEmpty()}
+        >
           Clear Cart
         </button>
       </div>
