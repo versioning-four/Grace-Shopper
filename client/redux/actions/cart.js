@@ -22,7 +22,7 @@ const updateLineitem = (lineitemId, lineitem) => ({
   lineitem
 })
 
-export const resetCartToEmpty = () => ({ type: RESET_CART_TO_EMPTY })
+export const resetCartToEmptyThunk = () => ({ type: RESET_CART_TO_EMPTY })
 
 export const getOrderLineitemsThunk = (userId, orderId) => {
   return dispatch => {
