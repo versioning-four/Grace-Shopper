@@ -22,7 +22,7 @@ const updateLineitem = (lineitemId, lineitem) => ({
   lineitem
 })
 
-export const resetCartToEmptyThunk = () => ({ type: RESET_CART_TO_EMPTY })
+export const resetCartToEmpty = () => ({ type: RESET_CART_TO_EMPTY })
 
 export const getOrderLineitemsThunk = (userId, orderId) => {
   return dispatch => {
@@ -37,7 +37,6 @@ export const addToCartThunk = (userId, orderId, lineitem) => {
     return axios
       .post(`/api/users/${userId}/orders/${orderId}/lineitems`, lineitem)
       .then(({ data }) => dispatch(addToCart(data)))
-      .then(() => axios.post(`/api/users/${userId}/orders`, { userId }))
   }
 }
 
@@ -59,5 +58,13 @@ export const removeFromCartThunk = (userId, orderId, lineitemId) => {
       .then(() => {
         dispatch(getOrderLineitemsThunk(userId, orderId))
       })
+  }
+}
+
+export const removeAllItemsFromCartThunk = (userId, orderId) => {
+  return dispatch => {
+    return axios
+      .delete(`/api/users/${userId}/orders/${orderId}/lineitems`)
+      .then(() => dispatch(resetCartToEmpty()))
   }
 }

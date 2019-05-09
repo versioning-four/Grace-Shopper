@@ -30,6 +30,7 @@ router.get('/:userId/lineitems', (req, res, next) => {
   LineItem.findAll({
     include: [
       {
+        attributes: [],
         model: Order,
         where: {
           userId: req.params.userId

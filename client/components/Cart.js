@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { resetCartToEmptyThunk } from '../redux/actions/cart'
+import { removeAllItemsFromCartThunk } from '../redux/actions/cart'
 import { updateProductThunk } from '../redux/actions/product'
 import {
   updateOrderThunk,
@@ -46,7 +46,7 @@ class Cart extends Component {
       totalCartPrice,
       userId,
       currentOrder,
-      resetCartToEmpty
+      removeAllItemsFromCart
     } = this.props
     const { handleCheckout } = this
     return (
@@ -67,7 +67,7 @@ class Cart extends Component {
         <button
           type="button"
           className="remove-btn"
-          onClick={() => resetCartToEmpty()}
+          onClick={() => removeAllItemsFromCart(userId, currentOrder.id)}
         >
           Clear Cart
         </button>
@@ -115,7 +115,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(updateOrderThunk(userId, orderId, order)),
     createNewOrder: (userId, newOrder) =>
       dispatch(createNewOrderThunk(userId, newOrder)),
-    resetCartToEmpty: () => dispatch(resetCartToEmptyThunk())
+    removeAllItemsFromCart: (userId, orderId) =>
+      dispatch(removeAllItemsFromCartThunk(userId, orderId))
   }
 }
 
