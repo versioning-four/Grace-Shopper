@@ -8,6 +8,7 @@ import { getAllUserOrdersThunk } from '../redux/actions/userOrders'
 import { getAllUsersLineitemsThunk } from '../redux/actions/userLineitems'
 import Reviews from './Reviews'
 import Orders from './Orders'
+import AdminPage from './AdminPage'
 
 class SingleUser extends Component {
   componentDidMount() {
@@ -53,6 +54,10 @@ class SingleUser extends Component {
           <Link to={`/users/${loggedIn}/reviews`}>
             <button type="button">Your Reviews</button>
           </Link>
+
+          <Link to={`/users/${loggedIn}/admin`}>
+            <button type="button">Admin Tools</button>
+          </Link>
         </div>
 
         {match.params.filter === 'reviews' && (
@@ -65,6 +70,8 @@ class SingleUser extends Component {
         {match.params.filter === 'orders' && (
           <Orders user={user.id && user} userOrders={userOrders} />
         )}
+
+        {match.params.filter === 'admin' && <AdminPage match={match} />}
       </div>
     )
   }

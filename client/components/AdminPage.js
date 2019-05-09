@@ -20,30 +20,20 @@ class AdminPage extends Component {
       inProgressOrders,
       loggedInUser
     } = this.props
-    console.log(match.params)
+    console.log('here is match', match)
     if (!loggedInUser.isAdmin)
       return <div>Sorry you don't have acess to this page</div>
     return (
       <div>
-        <div>
-          <button
-            type="button"
-            onClick={() => {
-              logoutUser().then(() => history.push('/home'))
-            }}
-          >
-            Logout
-          </button>
-        </div>
         <br />
         <div>
-          <Link to={`/admin/users/${loggedInUser.id}/allorders`}>
+          <Link to={`/users/${loggedInUser.id}/admin/allorders`}>
             <button type="button">View all orders in progress</button>
           </Link>
-          <Link to={`/admin/users/${loggedInUser.id}/allusers`}>
+          <Link to={`/users/${loggedInUser.id}/admin/allusers`}>
             <button type="button">View all current users</button>
           </Link>
-          <Link to={`/admin/users/${loggedInUser.id}/allproducts`}>
+          <Link to={`/users/${loggedInUser.id}/admin/allproducts`}>
             <button type="button">View all current products</button>
           </Link>
         </div>
@@ -63,6 +53,23 @@ class AdminPage extends Component {
                   <div>
                     <button type="button">Edit Product</button>
                     <button type="button">Delete Product</button>
+                  </div>
+                  <br />
+                </div>
+              )
+            })}
+
+          {match.params.adminFilter === 'allusers' &&
+            users.map(user => {
+              return (
+                <div key={user.id}>
+                  <h5>
+                    {user.lastName}, {user.firstName}
+                  </h5>
+                  <div>Email: {user.email}</div>
+                  <div>{user.isAdmin ? 'Is an Admin' : 'Not an Admin'}</div>
+                  <div>
+                    <button type="button">Delete User</button>
                   </div>
                   <br />
                 </div>
