@@ -29,6 +29,7 @@ class Login extends Component {
   render() {
     const { email, password, error } = this.state
     const { handleChange, handleSubmit } = this
+    const { history } = this.props
 
     return (
       <form onSubmit={ev => handleSubmit(ev, this.props.history)}>
@@ -60,6 +61,9 @@ class Login extends Component {
           ))}
 
         <button type="submit">Log in</button>
+        <button type="button" onClick={() => history.push(`/signup`)}>
+          Sign Up
+        </button>
       </form>
     )
   }
