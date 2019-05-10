@@ -17,7 +17,7 @@ const Orders = ({ userOrders, userLineitems, products }) => {
       {mappedLineitems.map(order => {
         let total = 0
         return (
-          order.status === 'completed' && (
+          order.status !== 'cart' && (
             <div key={order.id}>
               <ul>
                 Order Number: {order.id}

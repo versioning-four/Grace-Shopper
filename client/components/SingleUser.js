@@ -2,10 +2,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { logoutUserThunk } from '../redux/actions/login'
+import { Link } from 'react-router-dom'
+
 import { getAllUserOrdersThunk } from '../redux/actions/userOrders'
 import { getAllUsersLineitemsThunk } from '../redux/actions/userLineitems'
 import Reviews from './Reviews'
 import Orders from './Orders'
+import AdminPage from './AdminPage'
 
 class SingleUser extends Component {
   componentDidMount() {
@@ -45,6 +48,7 @@ class SingleUser extends Component {
           Logout
         </button>
         <div>
+<<<<<<< HEAD
           <button
             type="button"
             className="standard-btn"
@@ -59,6 +63,19 @@ class SingleUser extends Component {
           >
             Your Reviews
           </button>
+=======
+          <Link to={`/users/${loggedIn}/orders`}>
+            <button type="button">Your orders</button>
+          </Link>
+
+          <Link to={`/users/${loggedIn}/reviews`}>
+            <button type="button">Your Reviews</button>
+          </Link>
+
+          <Link to={`/users/${loggedIn}/admin`}>
+            <button type="button">Admin Tools</button>
+          </Link>
+>>>>>>> 6097f1b6b3b0dc794149c464070d50ba0dcb9de3
         </div>
 
         {match.params.filter === 'reviews' && (
@@ -71,6 +88,8 @@ class SingleUser extends Component {
         {match.params.filter === 'orders' && (
           <Orders user={user.id && user} userOrders={userOrders} />
         )}
+
+        {match.params.filter === 'admin' && <AdminPage match={match} />}
       </div>
     )
   }
