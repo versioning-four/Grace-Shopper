@@ -4,13 +4,15 @@ module.exports = router
 
 router.get('/', (req, res, next) => {
   if (!req.session.userId) {
-    const error = new Error('No user found')
-    error.status = 404
-    next(error)
+    //    const error = new Error('No user found')
+    //  error.status = 404
+    //next(error)
+    res.json({})
+  } else {
+    User.findByPk(req.session.userId)
+      .then(user => res.json(user))
+      .catch(next)
   }
-  User.findByPk(req.session.userId)
-    .then(user => res.json(user))
-    .catch(next)
 })
 
 router.put('/login', (req, res, next) => {

@@ -48,16 +48,27 @@ class SingleUser extends Component {
           Logout
         </button>
         <div>
-         <Link to={`/users/${loggedIn}/orders`}>
-            <button type="button" className="standard-btn">Your orders</button>
+          <Link to={`/users/${loggedIn}/orders`}>
+            <button type="button" className="standard-btn">
+              Your orders
+            </button>
+          </Link>
+          <Link to={`/users/${loggedIn}/orders`}>
+            <button type="button" className="standard-btn">
+              Your orders
+            </button>
           </Link>
 
           <Link to={`/users/${loggedIn}/reviews`}>
-            <button type="button" className="standard-btn">Your Reviews</button>
+            <button type="button" className="standard-btn">
+              Your Reviews
+            </button>
           </Link>
 
           <Link to={`/users/${loggedIn}/admin`}>
-            <button type="button" className="standard-btn">Admin Tools</button>
+            <button type="button" className="standard-btn">
+              Admin Tools
+            </button>
           </Link>
         </div>
 
