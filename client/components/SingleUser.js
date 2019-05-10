@@ -48,34 +48,28 @@ class SingleUser extends Component {
           Logout
         </button>
         <div>
-<<<<<<< HEAD
-          <button
-            type="button"
-            className="standard-btn"
-            onClick={() => history.push(`/users/${loggedIn}/orders`)}
-          >
-            Your orders
-          </button>
-          <button
-            type="button"
-            className="standard-btn"
-            onClick={() => history.push(`/users/${loggedIn}/reviews`)}
-          >
-            Your Reviews
-          </button>
-=======
           <Link to={`/users/${loggedIn}/orders`}>
-            <button type="button">Your orders</button>
+            <button type="button" className="standard-btn">
+              Your orders
+            </button>
+          </Link>
+          <Link to={`/users/${loggedIn}/orders`}>
+            <button type="button" className="standard-btn">
+              Your orders
+            </button>
           </Link>
 
           <Link to={`/users/${loggedIn}/reviews`}>
-            <button type="button">Your Reviews</button>
+            <button type="button" className="standard-btn">
+              Your Reviews
+            </button>
           </Link>
 
           <Link to={`/users/${loggedIn}/admin`}>
-            <button type="button">Admin Tools</button>
+            <button type="button" className="standard-btn">
+              Admin Tools
+            </button>
           </Link>
->>>>>>> 6097f1b6b3b0dc794149c464070d50ba0dcb9de3
         </div>
 
         {match.params.filter === 'reviews' && (

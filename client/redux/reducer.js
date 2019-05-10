@@ -12,12 +12,8 @@ import {
   UPDATE_ORDER,
   RESET_CART_TO_EMPTY,
   SET_USER_LINEITEMS,
-<<<<<<< HEAD
-  CREATE_ORDER
-=======
   CREATE_ORDER,
   GET_IN_PROGRESS_ORDERS
->>>>>>> 6097f1b6b3b0dc794149c464070d50ba0dcb9de3
 } from './constants'
 
 export const userLineitemsReducer = (state = [], action) => {
