@@ -189,3 +189,10 @@ h3:after {
 .errors {
   color: red;
 }
+
+.single-cart-img {
+  width: 350px;
+  height: 350px;
+  margin-bottom: 30px;
+  align-items: left;
+}

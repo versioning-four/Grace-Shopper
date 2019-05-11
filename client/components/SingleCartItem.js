@@ -42,62 +42,64 @@ class SingleCartItem extends Component {
     const product = products.find(
       singleProduct => singleProduct.id === productId
     )
-    console.log(product)
     return (
       <li key={id} className="list-group-item">
-        <img src={product.image} className="single-product-img" />
-        <ul>
-          <Link to={`/products/${productId}`}>{name}</Link>{' '}
-        </ul>
-        <ul>
-          <div>
-            {`Quantity: ${quantity}`}
-            <button
-              type="button"
-              className="standard-btn"
-              onClick={() =>
-                updateCartQuantity(
-                  userId,
-                  orderId,
-                  id,
-                  cartItem,
-                  quantityChange
-                )
-              }
-              disabled={disableIncreaseButton}
-            >
-              +
-            </button>
-            <button
-              type="button"
-              className="standard-btn"
-              onClick={() =>
-                updateCartQuantity(
-                  userId,
-                  orderId,
-                  id,
-                  cartItem,
-                  -quantityChange
-                )
-              }
-              disabled={quantity - quantityChange < 0}
-            >
-              -
-            </button>
-            <label htmlFor="quantityChange">By: </label>
-            <input
-              type="text"
-              id="quantityChange"
-              name="quantityChange"
-              value={this.state.quantityChange}
-              onChange={handleQuantityChange}
-            />
-          </div>
-          {disableIncreaseButton && (
-            <small>{`You can NOT increase your order of item by ${quantityChange}. Do NOT have that amount left.`}</small>
-          )}
-        </ul>
-        <ul>{`Price: ${makePriceCurrencyFormat(totalItemPrice)}`}</ul>
+        <div className="single-cart-item">
+          <img src={product.image} className="single-cart-img" />
+          <ul>
+            <Link to={`/products/${productId}`}>{name}</Link>{' '}
+          </ul>
+          <ul>
+            <div className="single-cart-info">
+              {`Quantity: ${quantity}`}
+              <button
+                type="button"
+                className="standard-btn"
+                onClick={() =>
+                  updateCartQuantity(
+                    userId,
+                    orderId,
+                    id,
+                    cartItem,
+                    quantityChange
+                  )
+                }
+                disabled={disableIncreaseButton}
+              >
+                +
+              </button>
+              <button
+                type="button"
+                className="standard-btn"
+                onClick={() =>
+                  updateCartQuantity(
+                    userId,
+                    orderId,
+                    id,
+                    cartItem,
+                    -quantityChange
+                  )
+                }
+                disabled={quantity - quantityChange < 0}
+              >
+                -
+              </button>
+              <label htmlFor="quantityChange">By: </label>
+              <input
+                type="text"
+                id="quantityChange"
+                name="quantityChange"
+                value={this.state.quantityChange}
+                onChange={handleQuantityChange}
+              />
+            </div>
+            {disableIncreaseButton && (
+              <small>{`You can NOT increase your order of item by ${quantityChange}. Do NOT have that amount left.`}</small>
+            )}
+          </ul>
+          <ul>{`Price: ${makePriceCurrencyFormat(totalItemPrice)}`}</ul>
+        </div>
+
         <button
           type="button"
           className="remove-btn"
