@@ -25,23 +25,27 @@ class SingleCartItem extends Component {
   }
 
   render() {
-    const { cartItem, userId, orderId, removeFromCart } = this.props
+    const { cartItem, userId, orderId, removeFromCart, products } = this.props
     const { updateCartQuantity, handleQuantityChange } = this
     const { quantityChange } = this.state
 
     const {
       id,
+      productId,
       name,
       quantity,
-      productId,
       inventoryQuantity,
       totalItemPrice
     } = cartItem
     const disableIncreaseButton =
       Number(quantity) + Number(quantityChange) > inventoryQuantity
-
+    const product = products.find(
+      singleProduct => singleProduct.id === productId
+    )
+    console.log(product)
     return (
       <li key={id} className="list-group-item">
+        <img src={product.image} className="single-product-img" />
         <ul>
           <Link to={`/products/${productId}`}>{name}</Link>{' '}
         </ul>
@@ -108,11 +112,12 @@ class SingleCartItem extends Component {
   }
 }
 
-const mapStateToProps = ({ loggedInUser, userOrders }) => {
+const mapStateToProps = ({ loggedInUser, userOrders, products }) => {
   const cartOrder = userOrders.find(order => order.status === 'cart')
   return {
     userId: loggedInUser.id,
-    orderId: cartOrder && cartOrder.id
+    orderId: cartOrder && cartOrder.id,
+    products
   }
 }
 
