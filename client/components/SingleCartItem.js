@@ -44,13 +44,15 @@ class SingleCartItem extends Component {
     )
     return (
       <li key={id} className="list-group-item">
-        <div className="single-cart-item">
-          <img src={product.image} className="single-cart-img" />
-          <ul>
-            <Link to={`/products/${productId}`}>{name}</Link>{' '}
-          </ul>
-          <ul>
-            <div className="single-cart-info">
+        <div className="row align-items-center">
+          <div className="col-4 cart-img-container">
+            <img src={product.image} className="single-cart-img" />
+          </div>
+          <div className="col-8">
+            <ul>
+              <Link to={`/products/${productId}`}>{name}</Link>{' '}
+            </ul>
+            <ul>
               {`Quantity: ${quantity}`}
               <button
                 type="button"
@@ -92,23 +94,22 @@ class SingleCartItem extends Component {
                 value={this.state.quantityChange}
                 onChange={handleQuantityChange}
               />
-            </div>
-            {disableIncreaseButton && (
-              <small>{`You can NOT increase your order of item by ${quantityChange}. Do NOT have that amount left.`}</small>
-            )}
-          </ul>
-          <ul>{`Price: ${makePriceCurrencyFormat(totalItemPrice)}`}</ul>
+              {disableIncreaseButton && (
+                <small>{`You can NOT increase your order of item by ${quantityChange}. Do NOT have that amount left.`}</small>
+              )}
+            </ul>
+            <ul>{`Price: ${makePriceCurrencyFormat(totalItemPrice)}`}</ul>
+            <button
+              type="button"
+              className="remove-btn remove-cart-btn"
+              onClick={() => {
+                removeFromCart(userId, orderId, id)
+              }}
+            >
+              Remove item from cart
+            </button>
+          </div>
         </div>
-
-        <button
-          type="button"
-          className="remove-btn"
-          onClick={() => {
-            removeFromCart(userId, orderId, id)
-          }}
-        >
-          Remove item from cart
-        </button>
       </li>
     )
   }

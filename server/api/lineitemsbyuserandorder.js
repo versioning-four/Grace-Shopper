@@ -13,7 +13,6 @@ router.post('/', (req, res, next) => {
     } else {
       req.session.cart = [req.body]
     }
-    console.log(req.session.cart)
     res.json(req.body)
   }
 })

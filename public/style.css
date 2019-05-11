@@ -191,8 +191,24 @@ h3:after {
 }
 
 .single-cart-img {
-  width: 350px;
-  height: 350px;
+  float: left;
+  max-width: 60%;
+  max-height: 60%;
   margin-bottom: 30px;
   align-items: left;
+}
+
+.single-cart-info {
+  float: left;
+  margin-left: 50px;
+}
+
+.cart-img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-cart-btn {
+  margin-left: 40px;
 }
