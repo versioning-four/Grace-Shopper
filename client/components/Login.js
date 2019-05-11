@@ -33,20 +33,21 @@ class Login extends Component {
 
     return (
       <div className="login-form">
-      <form onSubmit={ev => handleSubmit(ev, this.props.history)}>
-        <label>Email</label>
-        <input
-          name="email"
-          value={email}
-          placeholder="Enter your email address"
-          onChange={handleChange}
-        />
+        <form onSubmit={ev => handleSubmit(ev, this.props.history)}>
+          <label>Email</label>
+          <input
+            name="email"
+            value={email}
+            placeholder="Enter your email address"
+            onChange={handleChange}
+          />
 
           <label>Password</label>
           <input
             name="password"
             value={password}
             placeholder="Enter your password"
+            type="password"
             onChange={handleChange}
           />
 
@@ -61,14 +62,18 @@ class Login extends Component {
               <div>{error[0]}</div>
             ))}
 
-      
-
-        <button type="submit" className="standard-btn">Log in</button>
-        <button type="button" className="standard-btn" onClick={() => history.push(`/signup`)}>
-          Sign Up
-        </button>
-      </form>
-    </div>
+          <button type="submit" className="standard-btn">
+            Log in
+          </button>
+          <button
+            type="button"
+            className="standard-btn"
+            onClick={() => history.push(`/signup`)}
+          >
+            Sign Up
+          </button>
+        </form>
+      </div>
     )
   }
 }
