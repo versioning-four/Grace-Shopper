@@ -35,7 +35,10 @@ export const getOrderLineitemsThunk = (userId, orderId) => {
 export const addToCartThunk = (userId, orderId, lineitem) => {
   return dispatch => {
     return axios
-      .post(`/api/users/${userId}/orders/${orderId}/lineitems`, lineitem)
+      .post(
+        `/api/users/${userId || 0}/orders/${orderId || 0}/lineitems`,
+        lineitem
+      )
       .then(({ data }) => dispatch(addToCart(data)))
   }
 }
@@ -44,7 +47,8 @@ export const updateLineitemThunk = (userId, orderId, lineitemid, lineitem) => {
   return dispatch => {
     return axios
       .put(
-        `/api/users/${userId}/orders/${orderId}/lineitems/${lineitemid}`,
+        `/api/users/${userId || 0}/orders/${orderId ||
+          0}/lineitems/${lineitemid}`,
         lineitem
       )
       .then(({ data }) => dispatch(updateLineitem(lineitemid, data)))
@@ -54,9 +58,12 @@ export const updateLineitemThunk = (userId, orderId, lineitemid, lineitem) => {
 export const removeFromCartThunk = (userId, orderId, lineitemId) => {
   return dispatch => {
     return axios
-      .delete(`/api/users/${userId}/orders/${orderId}/lineitems/${lineitemId}`)
+      .delete(
+        `/api/users/${userId || 0}/orders/${orderId ||
+          0}/lineitems/${lineitemId}`
+      )
       .then(() => {
-        dispatch(getOrderLineitemsThunk(userId, orderId))
+        dispatch(getOrderLineitemsThunk(userId || 0, orderId || 0))
       })
   }
 }
@@ -64,7 +71,7 @@ export const removeFromCartThunk = (userId, orderId, lineitemId) => {
 export const removeAllItemsFromCartThunk = (userId, orderId) => {
   return dispatch => {
     return axios
-      .delete(`/api/users/${userId}/orders/${orderId}/lineitems`)
+      .delete(`/api/users/${userId || 0}/orders/${orderId || 0}/lineitems`)
       .then(() => dispatch(resetCartToEmpty()))
   }
 }
