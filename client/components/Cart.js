@@ -24,6 +24,10 @@ class Cart extends Component {
       history
     } = this.props
 
+    if (!userId) {
+      return history.push('/checkoutlogin')
+    }
+
     return Promise.all([
       updateOrder(userId, currentOrder.id, {
         ...currentOrder,
@@ -64,6 +68,7 @@ class Cart extends Component {
           type="button"
           onClick={() => handleCheckout(userId, currentOrder)}
           className="standard-btn"
+          disabled={cart.length === 0}
         >
           Checkout
         </button>
@@ -120,7 +125,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(createNewOrderThunk(userId, newOrder)),
     removeAllItemsFromCart: (userId, orderId) =>
       dispatch(removeAllItemsFromCartThunk(userId, orderId)),
-    resetCartToEmpty: () => dispatch(resetCartToEmpty)
+    resetCartToEmpty: () => dispatch(resetCartToEmpty())
   }
 }
 

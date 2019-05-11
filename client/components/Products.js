@@ -18,7 +18,7 @@ class Products extends Component {
               const { id, name, price, image } = product
               return (
                 <ul key={id}>
-                  <div className="col-4">
+                  <div>
                     <li>
                       <img src={image} />
                     </li>
