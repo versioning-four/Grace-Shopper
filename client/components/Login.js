@@ -33,46 +33,72 @@ class Login extends Component {
 
     return (
       <div className="login-form">
-        <form onSubmit={ev => handleSubmit(ev, this.props.history)}>
-          <label>Email</label>
-          <input
-            name="email"
-            value={email}
-            placeholder="Enter your email address"
-            onChange={handleChange}
-          />
+        <ul className="list-group">
+          <div className="login-header">
+            <h1>
+              <img
+                src="https://image.flaticon.com/icons/svg/1689/1689081.svg"
+                width="60"
+                height="60"
+              />{' '}
+              Versioning 4
+            </h1>
+            <br />
+          </div>
+          <div className="login-subheader">
+            Log in to experience our state of the art farming products
+          </div>
+          <br />
 
-          <label>Password</label>
-          <input
-            name="password"
-            value={password}
-            placeholder="Enter your password"
-            type="password"
-            onChange={handleChange}
-          />
+          <form onSubmit={ev => handleSubmit(ev, this.props.history)}>
+            <li className="list-group-item">
+              <label>Email</label>
+              <input
+                className="form-control"
+                name="email"
+                value={email}
+                placeholder="Enter your email address"
+                onChange={handleChange}
+              />
+            </li>
 
-          {error &&
-            (Array.isArray(error) ? (
-              <ul>
-                {error.map((e, idx) => (
-                  <li key={idx}>{e}</li>
-                ))}
-              </ul>
-            ) : (
-              <div>{error[0]}</div>
-            ))}
+            <li className="list-group-item">
+              <label>Password</label>
+              <input
+                className="form-control"
+                name="password"
+                value={password}
+                placeholder="Enter your password"
+                type="password"
+                onChange={handleChange}
+              />
+            </li>
 
-          <button type="submit" className="standard-btn">
-            Log in
-          </button>
-          <button
-            type="button"
-            className="standard-btn"
-            onClick={() => history.push(`/signup`)}
-          >
-            Sign Up
-          </button>
-        </form>
+            {error &&
+              (Array.isArray(error) ? (
+                <ul>
+                  {error.map((e, idx) => (
+                    <li key={idx}>{e}</li>
+                  ))}
+                </ul>
+              ) : (
+                <div>{error[0]}</div>
+              ))}
+
+            <div className="login-buttons">
+              <button type="submit" className="standard-btn">
+                Log in
+              </button>
+              <button
+                type="button"
+                className="standard-btn"
+                onClick={() => history.push(`/signup`)}
+              >
+                Sign Up
+              </button>
+            </div>
+          </form>
+        </ul>
       </div>
     )
   }
