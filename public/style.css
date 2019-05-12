@@ -165,3 +165,43 @@ h3:after {
 .single-user {
   margin-top: 50px;
 }
+
+.cart-item-image {
+  height: auto;
+  max-height: 100px;
+}
+
+.account-lineitem-image {
+  height: auto;
+  max-height: 200px;
+}
+
+.price-color {
+  color: rgb(215, 42, 42);
+}
+
+.cart-summary {
+  margin-top: 10px;
+}
+
+.standard-btn-no-margin {
+  color: black;
+  background-color: white;
+  border: 1.5px solid black;
+  margin-bottom: 40px;
+  padding: 8px;
+}
+
+.btn-link {
+  padding-left: 0px;
+  font-size: 1.7rem;
+}
+
+.bigger-font {
+  font-size: 1.3rem;
+}
+
+.card-body,
+.card-within-card-padding {
+  padding: 5% 0;
+}
