@@ -42,7 +42,7 @@ const Orders = ({ orders, firstOrderId }) => {
               {order.lineitems.map(item => {
                 return (
                   <div key={item.id} className="card card-within-card-padding">
-                    <div className="row">
+                    <div className="row row-for-order">
                       <div className="col-sm-6 text-center">
                         <img
                           src={item.image}

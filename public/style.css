@@ -173,7 +173,7 @@ h3:after {
 
 .account-lineitem-image {
   height: auto;
-  max-height: 200px;
+  max-height: 150px;
 }
 
 .price-color {
@@ -203,5 +203,9 @@ h3:after {
 
 .card-body,
 .card-within-card-padding {
-  padding: 5% 0;
+  padding: 2% 0;
+}
+
+.row-for-order {
+  max-height: 150px;
 }
