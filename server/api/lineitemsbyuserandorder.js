@@ -1,84 +1,139 @@
+/* eslint-disable complexity */
 const router = require('express').Router()
 const { LineItem } = require('../db/models/index')
 module.exports = router
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
+  try {
+    if (req.session.userId) {
+      const lineitem = await LineItem.create(req.body)
+      res.json(lineitem)
+    } else {
+      let newItem
+      if (req.session.cart && req.session.cart.length) {
+        newItem = {
+          id: Math.max(...req.session.cart.map(item => item.id)) + 1,
+          ...req.body
+        }
+        req.session.cart.push(newItem)
+      } else {
+        newItem = { id: 0, ...req.body }
+        req.session.cart = [newItem]
+      }
+      res.json(newItem)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/', async (req, res, next) => {
+  try {
+    if (req.session.userId) {
+      const lineitems = await LineItem.findAll({
+        where: {
+          orderId: req.orderId
+        }
+      })
+      if (req.session.cart && req.session.cart.length) {
+        for (let i = 0; i < req.session.cart.length; ++i) {
+          const item = req.session.cart[i]
+          let existingLineItem = lineitems.find(
+            lineitem => lineitem.productId === item.productId
+          )
+          if (existingLineItem) {
+            const newQuantity =
+              Number(existingLineItem.quantity) + Number(item.quantity)
+            existingLineItem.quantity = newQuantity
+            await LineItem.update(
+              { quantity: newQuantity },
+              { where: { id: existingLineItem.id } }
+            )
+          } else {
+            const newLineItem = await LineItem.create({
+              orderId: req.orderId,
+              productId: item.productId,
+              quantity: item.quantity
+            })
+            lineitems.push(newLineItem)
+          }
+        }
+      }
+      res.json(lineitems)
+    } else {
+      req.session.cart = req.session.cart || []
+      res.json(req.session.cart)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:lineitemid', async (req, res, next) => {
+  try {
+    if (req.session.userId) {
+      const lineitem = await LineItem.findByPk(req.params.lineitemid)
+      const updatedLineitem = await lineitem.update(req.body)
+      res.json(updatedLineitem)
+    } else {
+      req.session.cart = req.session.cart.map(item =>
+        item.id === Number(req.params.lineitemid) ? req.body : item
+      )
+      res.json(
+        req.session.cart.find(item => item.id === Number(req.params.lineitemid))
+      )
+    }
+  } catch (err) {
+    next(err)
+  }
+
   if (req.session.userId) {
-    LineItem.create(req.body)
+    LineItem.findByPk(req.params.lineitemid)
+      .then(lineitem => lineitem.update(req.body))
       .then(lineitem => res.json(lineitem))
       .catch(next)
   } else {
-    if (req.session.cart) {
-      req.session.cart.push(req.body)
-    } else {
-      req.session.cart = [req.body]
-    }
-    console.log(req.session.cart)
-    res.json(req.body)
+    req.session.cart = req.session.cart.map(item =>
+      item.id === Number(req.params.lineitemid) ? req.body : item
+    )
+    res.json(
+      req.session.cart.find(item => item.id === Number(req.params.lineitemid))
+    )
   }
 })
 
-router.get('/', (req, res, next) => {
-  if (req.session.userId) {
-    LineItem.findAll({
-      where: {
-        orderId: req.orderId
-      }
-    })
-      .then(lineitems => {
-        if (req.session.cart && req.session.cart.length) {
-          req.session.cart.forEach(async item => {
-            let existingLineItem = lineitems.find(
-              lineitem => lineitem.productId === item.productId
-            )
-            if (existingLineItem) {
-              await LineItem.update(
-                { quantity: existingLineItem.quantity + item.quantity },
-                { where: { id: existingLineItem.id } }
-              )
-            } else {
-              const newLineItem = await LineItem.create({
-                orderId: req.orderId,
-                productId: item.productId,
-                quantity: item.quantity
-              })
-              lineitems.push(newLineItem)
-            }
-          })
+router.delete('/:lineitemid', async (req, res, next) => {
+  try {
+    if (req.session.userId) {
+      await LineItem.destroy({
+        where: {
+          id: req.params.lineitemid
         }
-        return lineitems
       })
-      .then(lineitems => res.json(lineitems))
-      .catch(next)
-  } else {
-    req.session.cart = req.session.cart || []
-    res.json(req.session.cart)
+    } else {
+      req.session.cart = req.session.cart.filter(
+        item => item.id !== Number(req.params.lineitemid)
+      )
+    }
+    res.sendStatus(204)
+  } catch (err) {
+    next(err)
   }
 })
 
-router.put('/:lineitemid', (req, res, next) => {
-  LineItem.findByPk(req.params.lineitemid)
-    .then(lineitem => lineitem.update(req.body))
-    .then(lineitem => res.json(lineitem))
-    .catch(next)
-})
-
-router.delete('/:lineitemid', (req, res, next) => {
-  LineItem.destroy({
-    where: {
-      id: req.params.lineitemid
+router.delete('/', async (req, res, next) => {
+  try {
+    if (req.session.userId) {
+      await LineItem.destroy({
+        where: {
+          orderId: req.orderId
+        }
+      })
+    } else {
+      req.session.cart = []
     }
-  })
-    .then(() => res.sendStatus(204))
-    .catch(next)
-})
-
-router.delete('/', (req, res, next) => {
-  LineItem.destroy({
-    where: {
-      orderId: req.orderId
-    }
-  })
-    .then(() => res.sendStatus(204))
-    .catch(next)
+    res.sendStatus(204)
+  } catch (err) {
+    next(err)
+  }
 })

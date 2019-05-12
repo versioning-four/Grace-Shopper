@@ -16,6 +16,7 @@ import SingleUser from './SingleUser'
 import CheckoutPage from './CheckoutPage'
 import Footer from './Footer'
 import SignUp from './SignUp'
+import CheckoutLogin from './CheckoutLogin'
 
 class App extends Component {
   componentDidMount() {
@@ -58,6 +59,7 @@ class App extends Component {
             component={SingleUser}
           />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/checkoutlogin" component={CheckoutLogin} />
         </Switch>
         <Route component={Footer} />
       </Router>

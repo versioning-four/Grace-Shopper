@@ -14,7 +14,9 @@ class SingleCartItem extends Component {
 
   updateCartQuantity = (userId, orderId, id, item, quantityChange) => {
     const itemChanged = {
-      ...item,
+      id,
+      orderId,
+      productId: item.productId,
       quantity: Number(item.quantity) + Number(quantityChange)
     }
     return this.props.updateLineitem(userId, orderId, id, itemChanged)
