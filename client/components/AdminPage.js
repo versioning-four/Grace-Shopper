@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 
 import { getInProgressOrdersThunk } from '../redux/actions/inProgessOrders'
 import { logoutUserThunk } from '../redux/actions/login'
+import { deleteProductThunk } from '../redux/actions/product'
+
+import { makePriceCurrencyFormat } from '../HelperFunctions'
 
 class AdminPage extends Component {
   componentDidMount() {
@@ -11,15 +14,7 @@ class AdminPage extends Component {
   }
 
   render() {
-    const {
-      logoutUser,
-      history,
-      match,
-      products,
-      users,
-      inProgressOrders,
-      loggedInUser
-    } = this.props
+    const { match, products, users, loggedInUser, deleteProduct } = this.props
     if (!loggedInUser.isAdmin)
       return <div>Sorry you don't have acess to this page</div>
     return (
@@ -42,21 +37,40 @@ class AdminPage extends Component {
             <button type="button">Add a Product</button>
           </div>
           <br />
-          {match.params.adminFilter === 'allproducts' &&
-            products.map(product => {
-              return (
-                <div key={product.id}>
-                  <h3>Name: {product.name}</h3>
-                  <div>Price: {product.price}</div>
-                  <div>On hand: {product.inventoryQuantity}</div>
-                  <div>
-                    <button type="button">Edit Product</button>
-                    <button type="button">Delete Product</button>
-                  </div>
-                  <br />
-                </div>
-              )
-            })}
+          <ul className="list-group">
+            {match.params.adminFilter === 'allproducts' &&
+              products.map(product => {
+                return (
+                  <li key={product.id} className="list-group-item">
+                    <div className="row">
+                      <div className="col-4 product-list">
+                        <img src={`${product.image}`} />
+                      </div>
+                      <div className="col-8">
+                        <h4>{product.name}</h4>
+                        <div>
+                          Price: {makePriceCurrencyFormat(product.price)}
+                        </div>
+                        <div>Inventory: {product.inventoryQuantity}</div>
+                        <div>
+                          <button type="button" className="standard-btn">
+                            Edit Product
+                          </button>
+                          <button
+                            type="button"
+                            className="remove-btn"
+                            onClick={() => deleteProduct(product.id)}
+                          >
+                            Delete Product
+                          </button>
+                        </div>
+                      </div>
+                      <br />
+                    </div>
+                  </li>
+                )
+              })}
+          </ul>
 
           {match.params.adminFilter === 'allusers' &&
             users.map(user => {
@@ -94,7 +108,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
   inProgOrders: () => dispatch(getInProgressOrdersThunk()),
-  logoutUser: () => dispatch(logoutUserThunk())
+  logoutUser: () => dispatch(logoutUserThunk()),
+  deleteProduct: id => dispatch(deleteProductThunk(id))
 })
 
 export default connect(

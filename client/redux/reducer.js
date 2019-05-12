@@ -13,7 +13,8 @@ import {
   RESET_CART_TO_EMPTY,
   SET_USER_LINEITEMS,
   CREATE_ORDER,
-  GET_IN_PROGRESS_ORDERS
+  GET_IN_PROGRESS_ORDERS,
+  DELETE_PRODUCT
 } from './constants'
 
 export const userLineitemsReducer = (state = [], action) => {
@@ -42,6 +43,8 @@ export const productReducer = (state = [], action) => {
       return state.map(product =>
         product.id === action.productId ? action.product : product
       )
+    case DELETE_PRODUCT:
+      return action.products
     default:
       return state
   }

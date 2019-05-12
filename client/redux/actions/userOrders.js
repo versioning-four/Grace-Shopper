@@ -38,10 +38,10 @@ export const updateOrderThunk = (userId, orderId, order) => {
   }
 }
 
-export const createNewOrderThunk = userId => {
+export const createNewOrderThunk = (userId, newOrder) => {
   return dispatch => {
     axios
-      .post(`/api/users/${userId}/orders`, { userId })
+      .post(`/api/users/${userId}/orders`, newOrder)
       .then(({ data }) => dispatch(createOrder(data)))
   }
 }
