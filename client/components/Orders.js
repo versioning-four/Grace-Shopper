@@ -79,7 +79,7 @@ const mapStateToProps = ({ userLineitems, userOrders, products }) => {
         lineitem => lineitem.orderId === order.id
       )
       order.lineitems = order.lineitems.map(item => {
-        const product = findProductInformationById(item.id, products)
+        const product = findProductInformationById(item.productId, products)
         item.price = item.quantity * product.price
         return { ...item, image: product.image, name: product.name }
       })

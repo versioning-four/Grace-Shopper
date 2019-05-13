@@ -5,7 +5,6 @@ import { updateLineitemThunk } from '../redux/actions/cart'
 class CartQuantitySelector extends Component {
   constructor(props) {
     super(props)
-    console.log('remounted')
     const { cartItem } = this.props
     this.state = {
       quantity: cartItem ? Number(cartItem.quantity) || 1 : 1,
