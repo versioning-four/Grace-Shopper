@@ -1,0 +1,35 @@
+<div style="font-size: 1.6rem">Thank you for shopping with us. View your account and order at <a
+    href={{accountLink}}>your account page</a>
+</div>
+
+<h3>Your Order Summary</h3>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each cart}}
+      <tr>
+        <td>
+          <img src={{image}} width="50px" height="auto" />
+        </td>
+        <td style="padding:50px">{{name}}</td>
+        <td style="padding:50px">{{quantity}}</td>
+        <td>{{totalItemPrice}}</td>
+      </tr>
+      {{/each}}
+
+
+    </tbody>
+
+  </table>
+  <hr color="black" />
+
+
+</div>

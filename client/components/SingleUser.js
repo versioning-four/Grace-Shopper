@@ -12,11 +12,26 @@ import AdminPage from './AdminPage'
 
 class SingleUser extends Component {
   componentDidMount() {
-    const { userId } = this.props
-    return Promise.all([
-      this.props.getAllUserOrders(userId),
-      this.props.getAllUsersLineitems(userId)
-    ])
+    if (this.props.loggedInUser.id) {
+      const { loggedInUser } = this.props
+      return Promise.all([
+        this.props.getAllUserOrders(loggedInUser.id),
+        this.props.getAllUsersLineitems(loggedInUser.id)
+      ])
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { id } = this.props.loggedInUser
+    if (
+      !prevProps.loggedInUser.id &&
+      id === Number(this.props.match.params.id)
+    ) {
+      return Promise.all([
+        this.props.getAllUserOrders(id),
+        this.props.getAllUsersLineitems(id)
+      ])
+    }
   }
 
   render() {
@@ -29,18 +44,40 @@ class SingleUser extends Component {
       history,
       match,
       userOrders,
-      logoutUser
+      logoutUser,
+      pathname,
+      userId
     } = this.props
+
     let loggedIn
     if (user) loggedIn = user.id === loggedInUser.id ? loggedInUser.id : false
-    if (!loggedIn) {
+    if (!loggedIn && !pathname.includes('myaccount')) {
       return <Reviews user={user || {}} reviews={reviews} products={products} />
     }
+
+    if (!loggedIn && pathname.includes('myaccount')) {
+      return (
+        <div>
+          You are not logged in. Go to the <Link to="/login">sign-in page</Link>{' '}
+          to log in
+        </div>
+      )
+    }
+
+    if (loggedIn && loggedInUser.id !== userId) {
+      return (
+        <div>
+          You trying to access somebody else's account :(. Go to the{' '}
+          <Link to="/login">sign-in page</Link> to log in
+        </div>
+      )
+    }
+
     return (
       <div className="single-user">
         <button
           type="button"
-          className="standard-btn"
+          className="remove-btn"
           onClick={() => {
             logoutUser().then(() => history.push('/home'))
           }}
@@ -48,16 +85,22 @@ class SingleUser extends Component {
           Logout
         </button>
         <div>
-         <Link to={`/users/${loggedIn}/orders`}>
-            <button type="button" className="standard-btn">Your orders</button>
+          <Link to={`/users/${loggedIn}/myaccount/orders`}>
+            <button type="button" className="standard-btn">
+              Your orders
+            </button>
           </Link>
 
-          <Link to={`/users/${loggedIn}/reviews`}>
-            <button type="button" className="standard-btn">Your Reviews</button>
+          <Link to={`/users/${loggedIn}/myaccount/reviews`}>
+            <button type="button" className="standard-btn">
+              Your Reviews
+            </button>
           </Link>
 
-          <Link to={`/users/${loggedIn}/admin`}>
-            <button type="button" className="standard-btn">Admin Tools</button>
+          <Link to={`/users/${loggedIn}/myaccount/admin`}>
+            <button type="button" className="standard-btn">
+              Admin Tools
+            </button>
           </Link>
         </div>
 
@@ -80,7 +123,7 @@ class SingleUser extends Component {
 
 const mapStateToProps = (
   { reviews, users, products, loggedInUser, userOrders },
-  { match: { params } }
+  { match: { params }, location: { pathname } }
 ) => {
   return {
     userOrders,
@@ -88,10 +131,13 @@ const mapStateToProps = (
       review => review.userId === loggedInUser.id
     ),
     reviews: reviews.filter(review => review.userId === Number(params.id)),
-    user: users.find(user => user.id === Number(params.id)),
+    user: loggedInUser.id
+      ? loggedInUser
+      : users.find(user => user.id === Number(params.id)),
     userId: Number(params.id),
     products,
-    loggedInUser
+    loggedInUser,
+    pathname
   }
 }
 const mapDispatchToProps = dispatch => {

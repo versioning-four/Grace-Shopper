@@ -16,6 +16,7 @@ import SingleUser from './SingleUser'
 import CheckoutPage from './CheckoutPage'
 import Footer from './Footer'
 import SignUp from './SignUp'
+import CheckoutLogin from './CheckoutLogin'
 
 class App extends Component {
   componentDidMount() {
@@ -54,10 +55,12 @@ class App extends Component {
           <Route exact path="/products/:id" component={SingleProduct} />
           <Route
             exact
-            path="/users/:id/:filter?/:adminFilter?"
+            path="/users/:id/myaccount/:filter?/:adminFilter?"
             component={SingleUser}
           />
+          <Route exact path="/users/:id/reviews" component={SingleUser} />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/checkoutlogin" component={CheckoutLogin} />
         </Switch>
         <Route component={Footer} />
       </Router>
