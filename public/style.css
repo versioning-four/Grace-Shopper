@@ -120,8 +120,8 @@ h3:after {
 }
 
 .single-product-img {
-  width: 350px;
-  height: 350px;
+  width: 250px;
+  height: 250px;
   margin-bottom: 30px;
 }
 
@@ -134,6 +134,10 @@ h3:after {
 }
 
 .cart-list {
+  margin-top: 50px;
+}
+
+.checkout-page {
   margin-top: 50px;
 }
 
@@ -153,8 +157,8 @@ h3:after {
 }
 
 .product-list img {
-  height: 280px;
-  width: 280px;
+  height: 300px;
+  width: 300px;
 }
 
 .reviews-card {
@@ -284,4 +288,24 @@ h3:after {
 
 .row-for-order {
   max-height: 150px;
+}
+
+.container {
+  display: flex;
+}
+
+ul#flex-container {
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+  display: flex;
+  align-content: center;
+}
+
+.products-li {
+  list-style-type: none;
+  width: 300px;
+  overflow-x: auto;
+  float: left;
+  margin-right: 10px;
 }

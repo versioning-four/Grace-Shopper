@@ -11,28 +11,26 @@ class Products extends Component {
     return (
       <div className="product-list">
         <CategorySelector history={history} />
+
         <h4>{`${categoryName} Products`}</h4>
+
         <div className="container">
-          <div className="row">
+          <ul id="flex-container">
             {products.map(product => {
               const { id, name, price, image } = product
               return (
-                <ul key={id}>
-                  <div className="col-4">
-                    <li>
-                      <img src={image} />
-                    </li>
-                    <li>
-                      {' '}
-                      <Link to={`/products/${id}`}>{name}</Link>{' '}
-                    </li>
-                    <li>{makePriceCurrencyFormat(price)}</li>
-                    <AddToCartButton product={product} />
-                  </div>
-                </ul>
+                <li key={id} className="products-li">
+                  <img src={image} />
+                  <br />
+                  <Link to={`/products/${id}`}>{name}</Link>
+                  <br />
+                  {makePriceCurrencyFormat(price)}
+                  <br />
+                  <AddToCartButton product={product} />
+                </li>
               )
             })}
-          </div>
+          </ul>
         </div>
       </div>
     )
