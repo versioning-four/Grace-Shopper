@@ -14,6 +14,7 @@ import {
   SET_USER_LINEITEMS,
   CREATE_ORDER,
   GET_IN_PROGRESS_ORDERS,
+  DELETE_PRODUCT
   COMPLETE_ORDER
 } from './constants'
 
@@ -43,6 +44,8 @@ export const productReducer = (state = [], action) => {
       return state.map(product =>
         product.id === action.productId ? action.product : product
       )
+    case DELETE_PRODUCT:
+      return action.products
     default:
       return state
   }

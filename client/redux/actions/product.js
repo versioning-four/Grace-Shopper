@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ALL_PRODUCTS, UPDATE_PRODUCT } from '../constants'
+import { GET_ALL_PRODUCTS, UPDATE_PRODUCT, DELETE_PRODUCT } from '../constants'
 
 const getAllProducts = products => ({
   type: GET_ALL_PRODUCTS,
@@ -25,5 +25,13 @@ export const updateProductThunk = (productId, product) => {
     return axios
       .put(`/api/products/${productId}`, product)
       .then(({ data }) => dispatch(updateProduct(productId, data)))
+  }
+}
+
+export const deleteProductThunk = productId => {
+  return dispatch => {
+    return axios
+      .delete(`/api/products/${productId}`)
+      .then(() => dispatch(getAllProductsThunk()))
   }
 }

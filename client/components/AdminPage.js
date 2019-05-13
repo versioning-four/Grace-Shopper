@@ -3,12 +3,14 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { getInProgressOrdersThunk } from '../redux/actions/inProgessOrders'
+import { logoutUserThunk } from '../redux/actions/login'
+import { deleteProductThunk } from '../redux/actions/product'
+import { makePriceCurrencyFormat } from '../HelperFunctions'
 import { completeOrderThunk } from '../redux/actions/CompleteOrder'
 
 class AdminPage extends Component {
   componentDidUpdate(prevProps) {
-    console.log('here prevProps', prevProps)
-    console.log('this props', this.props)
+    
     if (prevProps.match.path !== this.props.match.path) {
       return this.props.inProgOrders()
     }
@@ -23,16 +25,8 @@ class AdminPage extends Component {
   }
 
   render() {
-    const {
-      match,
-      products,
-      users,
-      inProgressOrders,
-      loggedInUser
-    } = this.props
-
+    const { match, products, users, inProgressOrders, loggedInUser, deleteProduct } = this.props
     const { completeOrderMethod } = this
-
     if (!loggedInUser.isAdmin)
       return <div>Sorry you don't have acess to this page</div>
     return (
@@ -63,26 +57,40 @@ class AdminPage extends Component {
             </button>
           </div>
           <br />
-          {match.params.adminFilter === 'allproducts' &&
-            products.map(product => {
-              return (
-                <div key={product.id}>
-                  <h3>Name: {product.name}</h3>
-                  <div>Price: {product.price}</div>
-                  <div>On hand: {product.inventoryQuantity}</div>
-                  <div>
-                    <button className="edit-btn" type="button">
-                      Edit Product
-                    </button>
-                    <button className="remove-btn" type="button">
-                      Delete Product
-                    </button>
-                  </div>
-                  <br />
-                </div>
-              )
-            })}
-
+          <ul className="list-group">
+            {match.params.adminFilter === 'allproducts' &&
+              products.map(product => {
+                return (
+                  <li key={product.id} className="list-group-item">
+                    <div className="row">
+                      <div className="col-4 product-list">
+                        <img src={`${product.image}`} />
+                      </div>
+                      <div className="col-8">
+                        <h4>{product.name}</h4>
+                        <div>
+                          Price: {makePriceCurrencyFormat(product.price)}
+                        </div>
+                        <div>Inventory: {product.inventoryQuantity}</div>
+                        <div>
+                          <button type="button" className="standard-btn">
+                            Edit Product
+                          </button>
+                          <button
+                            type="button"
+                            className="remove-btn"
+                            onClick={() => deleteProduct(product.id)}
+                          >
+                            Delete Product
+                          </button>
+                        </div>
+                      </div>
+                      <br />
+                    </div>
+                  </li>
+                )
+              })}
+          </ul>
           {match.params.adminFilter === 'allusers' &&
             users.map(user => {
               return (
@@ -156,6 +164,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => ({
   inProgOrders: () => dispatch(getInProgressOrdersThunk()),
+  logoutUser: () => dispatch(logoutUserThunk()),
+  deleteProduct: id => dispatch(deleteProductThunk(id))
   complete: (orderId, status) => dispatch(completeOrderThunk(orderId, status))
 })
 
