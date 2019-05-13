@@ -6,7 +6,7 @@ const Home = () => {
     <div>
       <div className="hero">
         <div className="hero-text-box">
-          <h1 style={{ 'text-align': 'center' }}>
+          <h1 style={{ textAlign: 'center' }}>
             Versioning Four - We're experts in our <strong>field...</strong>
           </h1>
         </div>

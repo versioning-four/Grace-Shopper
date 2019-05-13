@@ -22,7 +22,7 @@ const reducer = combineReducers({
   reviews: reviewsReducer,
   users: usersReducer,
   userLineitems: userLineitemsReducer,
-  inProgressOrdersReducer
+  inProgressOrders: inProgressOrdersReducer
 })
 
 let middlewares = [thunk]

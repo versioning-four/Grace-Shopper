@@ -77,7 +77,7 @@ class SingleUser extends Component {
       <div className="single-user">
         <button
           type="button"
-          className="standard-btn"
+          className="remove-btn"
           onClick={() => {
             logoutUser().then(() => history.push('/home'))
           }}
