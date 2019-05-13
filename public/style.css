@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Didot';
   font-size: 16px;
   padding-bottom: 50px;
   padding-top: 50px;
@@ -88,20 +88,18 @@ h3:after {
 }
 
 .standard-btn {
-  color: black;
-  background-color: white;
+  color: white;
+  background-color: black;
   border: 1.5px solid black;
-  margin-top: 20px;
-  margin-bottom: 40px;
+  margin: 20px 5px 40px 5px;
   padding: 8px;
 }
 
 .remove-btn {
-  color: rgb(220, 0, 0);
-  background-color: white;
+  color: white;
+  background-color: rgb(220, 0, 0);
   border: 1.5px solid rgb(220, 0, 0);
-  margin-top: 20px;
-  margin-bottom: 40px;
+  margin: 20px 5px 40px 5px;
   padding: 8px;
 }
 
@@ -164,6 +162,39 @@ h3:after {
 
 .single-user {
   margin-top: 50px;
+}
+
+.login-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Brush Script MT';
+}
+
+.login-subheader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: gray;
+  font-size: 14px;
+  font-family: 'Didot';
+}
+
+.errors {
+  color: red;
+}
+
+.single-cart-img {
+  width: 350px;
+  height: 350px;
+  margin-bottom: 30px;
+  align-items: left;
 }
 
 .cart-item-image {
