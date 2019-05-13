@@ -39,17 +39,17 @@ class AdminPage extends Component {
       <div className="admin-user">
         <br />
         <div>
-          <Link to={`/users/${loggedInUser.id}/admin/ordersinprogress`}>
+          <Link to={`/users/${loggedInUser.id}/myaccount/admin/allorders`}>
             <button className="admin-btn" type="button">
-              View all orders in progress
+               View all orders in progress
             </button>
           </Link>
-          <Link to={`/users/${loggedInUser.id}/admin/allusers`}>
+          <Link to={`/users/${loggedInUser.id}/myaccount/admin/allusers`}>
             <button className="admin-btn" type="button">
               View all current users
             </button>
           </Link>
-          <Link to={`/users/${loggedInUser.id}/admin/allproducts`}>
+          <Link to={`/users/${loggedInUser.id}/myaccount/admin/allproducts`}>
             <button className="admin-btn" type="button">
               View all current products
             </button>

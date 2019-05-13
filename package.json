@@ -5,8 +5,11 @@
   "main": "db.js",
   "dependencies": {
     "axios": "^0.18.0",
+    "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
+    "nodemailer": "^6.1.1",
+    "nodemailer-express-handlebars": "^3.0.0",
     "pg": "^7.10.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -43,7 +46,7 @@
     "postinstall": "npm run webpack",
     "webpack": "webpack",
     "webpack:dev": "npm run webpack -- --mode=development --watch",
-    "start:dev": "npm run webpack:dev & nodemon server --ignore src/ --ignore dist/ --ignore tests/",
+    "start:dev": "npm run webpack:dev & nodemon server --ignore client/ --ignore dist/ --ignore tests/",
     "test": "DATABASE_URL=postgres://localhost/grace_shopper_db_test jest ./tests/*.spec.js --watch --runInBand --verbose"
   },
   "keywords": [],

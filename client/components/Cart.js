@@ -1,62 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {
-  removeAllItemsFromCartThunk,
-  resetCartToEmpty
-} from '../redux/actions/cart'
-import { updateProductThunk } from '../redux/actions/product'
-import {
-  updateOrderThunk,
-  createNewOrderThunk
-} from '../redux/actions/userOrders'
+import { removeAllItemsFromCartThunk } from '../redux/actions/cart'
+import { checkoutAsUserThunk } from '../redux/actions/shared'
 import { makePriceCurrencyFormat } from '../HelperFunctions'
 import SingleCartItem from './SingleCartItem'
 
 class Cart extends Component {
-  handleCheckout = (userId, currentOrder) => {
-    const {
-      updateProduct,
-      updateOrder,
-      createNewOrder,
-      resetCartToEmpty,
-      cart,
-      products,
-      history
-    } = this.props
-
-    if (!userId) {
-      return history.push('/checkoutlogin')
-    }
-
-    return Promise.all([
-      updateOrder(userId, currentOrder.id, {
-        ...currentOrder,
-        status: 'in-progress'
-      }).then(() => createNewOrder(userId, { userId })),
-      cart.map(item => {
-        const selectedProduct = products.find(
-          product => product.id === item.productId
-        )
-        return updateProduct(selectedProduct.id, {
-          ...selectedProduct,
-          inventoryQuantity: selectedProduct.inventoryQuantity - item.quantity
-        })
-      })
-    ])
-      .then(() => history.push('/checkoutpage'))
-      .then(() => resetCartToEmpty())
-  }
-
   render() {
     const {
       cart,
       totalCartPrice,
-      userId,
+      user,
       currentOrder,
       removeAllItemsFromCart,
-      history
+      history,
+      products,
+      checkoutAsUser
     } = this.props
-    const { handleCheckout } = this
     return (
       <div className="cart-list">
         <ul className="list-group list-group-flush">
@@ -85,14 +45,16 @@ class Cart extends Component {
           <button
             type="button"
             className="remove-btn"
-            onClick={() => removeAllItemsFromCart(userId, currentOrder.id)}
+            onClick={() => removeAllItemsFromCart(user.id, currentOrder.id)}
           >
             Clear Cart
           </button>
 
           <button
             type="button"
-            onClick={() => handleCheckout(userId, currentOrder)}
+            onClick={() =>
+              checkoutAsUser(user, currentOrder, cart, products, history)
+            }
             className="standard-btn "
             disabled={
               cart.length === 0 || cart.some(item => item.canNotBeCheckedOut)
@@ -135,22 +97,17 @@ const mapStateToProps = ({ loggedInUser, userOrders, products, cart }) => {
     products,
     cart: cartTransformed,
     totalCartPrice,
-    userId: loggedInUser.id,
+    user: loggedInUser,
     currentOrder: userOrders.find(order => order.status === 'cart') || {}
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateProduct: (productId, product) =>
-      dispatch(updateProductThunk(productId, product)),
-    updateOrder: (userId, orderId, order) =>
-      dispatch(updateOrderThunk(userId, orderId, order)),
-    createNewOrder: (userId, newOrder) =>
-      dispatch(createNewOrderThunk(userId, newOrder)),
     removeAllItemsFromCart: (userId, orderId) =>
       dispatch(removeAllItemsFromCartThunk(userId, orderId)),
-    resetCartToEmpty: () => dispatch(resetCartToEmpty())
+    checkoutAsUser: (user, currentOrder, cart, products, history) =>
+      dispatch(checkoutAsUserThunk(user, currentOrder, cart, products, history))
   }
 }
 
