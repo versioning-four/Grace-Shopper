@@ -53,32 +53,54 @@ class Cart extends Component {
       totalCartPrice,
       userId,
       currentOrder,
-      removeAllItemsFromCart
+      removeAllItemsFromCart,
+      history
     } = this.props
     const { handleCheckout } = this
     return (
       <div className="cart-list">
-        <ul className="list-group">
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">
+            <div className="row">
+              <span className="col-sm-8" />
+              <span className="col-sm-2 text-right">Quantity</span>
+              <span className="col-sm-2 text-right">Price</span>
+            </div>
+          </li>
           {cart.map(item => (
-            <SingleCartItem cartItem={item} key={item.id} />
+            <SingleCartItem cartItem={item} key={item.id} history={history} />
           ))}
         </ul>
-        <div>{`Total Price: ${makePriceCurrencyFormat(totalCartPrice)}`}</div>
-        <button
-          type="button"
-          onClick={() => handleCheckout(userId, currentOrder)}
-          className="standard-btn"
-          disabled={cart.length === 0}
-        >
-          Checkout
-        </button>
-        <button
-          type="button"
-          className="remove-btn"
-          onClick={() => removeAllItemsFromCart(userId, currentOrder.id)}
-        >
-          Clear Cart
-        </button>
+        <div className="row cart-summary">
+          <span className="col-sm-8" />
+          <span className="col-sm-2 text-right">
+            <strong>Total Price</strong>
+          </span>
+          <span className="col-sm-2 price-color text-right">
+            {makePriceCurrencyFormat(totalCartPrice)}
+          </span>
+        </div>
+
+        <div className="d-flex justify-content-between">
+          <button
+            type="button"
+            className="remove-btn"
+            onClick={() => removeAllItemsFromCart(userId, currentOrder.id)}
+          >
+            Clear Cart
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleCheckout(userId, currentOrder)}
+            className="standard-btn "
+            disabled={
+              cart.length === 0 || cart.some(item => item.canNotBeCheckedOut)
+            }
+          >
+            Checkout
+          </button>
+        </div>
       </div>
     )
   }
@@ -86,8 +108,8 @@ class Cart extends Component {
 
 const mapStateToProps = ({ loggedInUser, userOrders, products, cart }) => {
   const productsMap = products.reduce((acc, product) => {
-    const { name, price, inventoryQuantity } = product
-    const selectedProductFields = { name, price, inventoryQuantity }
+    const { name, price, inventoryQuantity, image } = product
+    const selectedProductFields = { name, price, inventoryQuantity, image }
     acc[`productId${product.id}`] = selectedProductFields
     return acc
   }, {})
@@ -98,7 +120,10 @@ const mapStateToProps = ({ loggedInUser, userOrders, products, cart }) => {
     }))
     .map(item => ({
       ...item,
-      totalItemPrice: (item.quantity * item.price).toFixed(2)
+      totalItemPrice: (item.quantity * item.price).toFixed(2),
+      canNotBeCheckedOut:
+        ['', '0'].includes(item.quantity) ||
+        item.inventoryQuantity - item.quantity < 0
     }))
   const totalCartPrice = cartTransformed[0]
     ? cartTransformed.reduce(
