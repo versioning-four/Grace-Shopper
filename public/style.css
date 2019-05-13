@@ -94,6 +94,12 @@ h3:after {
   margin-top: 20px;
   margin-bottom: 40px;
   padding: 8px;
+  margin: 10px;
+}
+
+.standard-btn:hover {
+  background-color: black;
+  color: white;
 }
 
 .remove-btn {
@@ -103,6 +109,11 @@ h3:after {
   margin-top: 20px;
   margin-bottom: 40px;
   padding: 8px;
+}
+
+.remove-btn:hover {
+  background-color: rgb(220, 0, 0);
+  color: white;
 }
 
 .product-list-img {
@@ -164,4 +175,38 @@ h3:after {
 
 .single-user {
   margin-top: 50px;
+  text-align: center;
+}
+
+.admin-user {
+  text-align: center;
+  /* border: 1px rgba(0, 0, 0, 0.5) solid; */
+}
+.admin-btn {
+  color: rgb(25, 119, 53);
+  background-color: white;
+  border: 1.5px solid rgb(25, 119, 53);
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 8px;
+  margin: 10px;
+}
+
+.admin-btn:hover {
+  background-color: rgb(25, 119, 53);
+  color: white;
+}
+
+.edit-btn {
+  color: rgb(0, 139, 220);
+  background-color: white;
+  border: 1.5px solid rgb(0, 139, 220);
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 8px;
+}
+
+.edit-btn:hover {
+  background-color: rgb(0, 139, 220);
+  color: white;
 }
