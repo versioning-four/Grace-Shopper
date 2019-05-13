@@ -260,6 +260,8 @@ h3:after {
 
 .remove-cart-btn {
   margin-left: 40px;
+}
+
 .cart-item-image {
   height: auto;
   max-height: 100px;
@@ -302,10 +304,6 @@ h3:after {
 
 .row-for-order {
   max-height: 150px;
-}
-
-.container {
-  display: flex;
 }
 
 ul#flex-container {

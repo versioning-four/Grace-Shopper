@@ -16,7 +16,7 @@ export const findUserNameById = (id, arr) => {
 
 export const findProductNameById = (id, arr) => {
   const product = arr.find(item => item.id === id)
-  return `${product.name}`
+  if (product) return `${product.name}`
 }
 
 export const findProductInformationById = (id, arr) => {

@@ -10,7 +10,6 @@ import { completeOrderThunk } from '../redux/actions/CompleteOrder'
 
 class AdminPage extends Component {
   componentDidUpdate(prevProps) {
-    
     if (prevProps.match.path !== this.props.match.path) {
       return this.props.inProgOrders()
     }
@@ -25,7 +24,14 @@ class AdminPage extends Component {
   }
 
   render() {
-    const { match, products, users, inProgressOrders, loggedInUser, deleteProduct } = this.props
+    const {
+      match,
+      products,
+      users,
+      inProgressOrders,
+      loggedInUser,
+      deleteProduct
+    } = this.props
     const { completeOrderMethod } = this
     if (!loggedInUser.isAdmin)
       return <div>Sorry you don't have acess to this page</div>
@@ -35,7 +41,7 @@ class AdminPage extends Component {
         <div>
           <Link to={`/users/${loggedInUser.id}/myaccount/admin/allorders`}>
             <button className="admin-btn" type="button">
-               View all orders in progress
+              View all orders in progress
             </button>
           </Link>
           <Link to={`/users/${loggedInUser.id}/myaccount/admin/allusers`}>
@@ -165,7 +171,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
   inProgOrders: () => dispatch(getInProgressOrdersThunk()),
   logoutUser: () => dispatch(logoutUserThunk()),
-  deleteProduct: id => dispatch(deleteProductThunk(id))
+  deleteProduct: id => dispatch(deleteProductThunk(id)),
   complete: (orderId, status) => dispatch(completeOrderThunk(orderId, status))
 })
 
