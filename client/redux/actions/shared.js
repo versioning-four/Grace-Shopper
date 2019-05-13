@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { getOrderLineitemsThunk, removeAllItemsFromCartThunk } from './cart'
-import { setUserOrders } from './userOrders'
 import {
   getOrderLineitemsThunk,
   removeAllItemsFromCartThunk,

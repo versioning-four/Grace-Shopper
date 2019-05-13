@@ -38,7 +38,11 @@ export const loginUserThunk = user => {
 export const checkForUserThunk = () => {
   return async dispatch => {
     let { data } = await axios.get('/api/auth')
-    if (data.id && data.id !== Number(/[0-9]+/.exec(window.location.hash)[0])) {
+    if (
+      data.id &&
+      /[0-9]+/.exec(window.location.hash) &&
+      Number(/[0-9]+/.exec(window.location.hash)[0])
+    ) {
       data = {}
     }
     dispatch(setCurrentUser(data))

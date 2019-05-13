@@ -134,10 +134,10 @@ const syncAndSeed = () => {
       //CREATE ORDER DATA
       return createdSeedInstances(Order, [
         { status: 'completed', userId: 1 },
-        { userId: 1 },
+        { status: 'cart', userId: 1 },
         { status: 'completed', userId: 2 },
-        { userId: 2 },
-        { userId: 4 },
+        { status: 'cart', userId: 2 },
+        { status: 'cart', userId: 4 },
         { status: 'completed', userId: 4 },
         { status: 'completed', userId: 1 }
       ])
