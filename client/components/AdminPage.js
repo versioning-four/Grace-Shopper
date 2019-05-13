@@ -5,36 +5,56 @@ import { Link } from 'react-router-dom'
 import { getInProgressOrdersThunk } from '../redux/actions/inProgessOrders'
 import { logoutUserThunk } from '../redux/actions/login'
 import { deleteProductThunk } from '../redux/actions/product'
-
 import { makePriceCurrencyFormat } from '../HelperFunctions'
+import { completeOrderThunk } from '../redux/actions/CompleteOrder'
 
 class AdminPage extends Component {
+  componentDidUpdate(prevProps) {
+    
+    if (prevProps.match.path !== this.props.match.path) {
+      return this.props.inProgOrders()
+    }
+  }
+
   componentDidMount() {
     return this.props.inProgOrders()
   }
 
+  completeOrderMethod = (orderId, status) => {
+    return this.props.complete(orderId, status)
+  }
+
   render() {
-    const { match, products, users, loggedInUser, deleteProduct } = this.props
+    const { match, products, users, inProgressOrders, loggedInUser, deleteProduct } = this.props
+    const { completeOrderMethod } = this
     if (!loggedInUser.isAdmin)
       return <div>Sorry you don't have acess to this page</div>
     return (
-      <div>
+      <div className="admin-user">
         <br />
         <div>
-          <Link to={`/users/${loggedInUser.id}/admin/allorders`}>
-            <button type="button">View all orders in progress</button>
+          <Link to={`/users/${loggedInUser.id}/myaccount/admin/allorders`}>
+            <button className="admin-btn" type="button">
+               View all orders in progress
+            </button>
           </Link>
-          <Link to={`/users/${loggedInUser.id}/admin/allusers`}>
-            <button type="button">View all current users</button>
+          <Link to={`/users/${loggedInUser.id}/myaccount/admin/allusers`}>
+            <button className="admin-btn" type="button">
+              View all current users
+            </button>
           </Link>
-          <Link to={`/users/${loggedInUser.id}/admin/allproducts`}>
-            <button type="button">View all current products</button>
+          <Link to={`/users/${loggedInUser.id}/myaccount/admin/allproducts`}>
+            <button className="admin-btn" type="button">
+              View all current products
+            </button>
           </Link>
         </div>
         <br />
         <div>
           <div>
-            <button type="button">Add a Product</button>
+            <button className="admin-btn" type="button">
+              Add a Product
+            </button>
           </div>
           <br />
           <ul className="list-group">
@@ -71,18 +91,54 @@ class AdminPage extends Component {
                 )
               })}
           </ul>
-
           {match.params.adminFilter === 'allusers' &&
             users.map(user => {
               return (
                 <div key={user.id}>
-                  <h5>
+                  <h3>
                     {user.lastName}, {user.firstName}
-                  </h5>
+                  </h3>
                   <div>Email: {user.email}</div>
                   <div>{user.isAdmin ? 'Is an Admin' : 'Not an Admin'}</div>
                   <div>
-                    <button type="button">Delete User</button>
+                    <button className="remove-btn" type="button">
+                      Delete User
+                    </button>
+                  </div>
+                  <br />
+                </div>
+              )
+            })}
+
+          {match.params.adminFilter === 'ordersinprogress' &&
+            inProgressOrders.map(order => {
+              return (
+                <div key={order.id}>
+                  <h3>
+                    Order for {order.user.lastName}, {order.user.firstName}
+                  </h3>
+                  <div>Email: {order.user.email}</div>
+                  <div>
+                    {order.lineitems.map(lineitem => {
+                      return (
+                        <div key={lineitem.id}>
+                          <div>
+                            {lineitem.product.name} x {lineitem.quantity}
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                  <div>
+                    <button
+                      className="standard-btn"
+                      type="button"
+                      onClick={() =>
+                        completeOrderMethod(order.id, { status: 'completed' })
+                      }
+                    >
+                      Complete order
+                    </button>
                   </div>
                   <br />
                 </div>
@@ -110,6 +166,7 @@ const mapDispatchToProps = dispatch => ({
   inProgOrders: () => dispatch(getInProgressOrdersThunk()),
   logoutUser: () => dispatch(logoutUserThunk()),
   deleteProduct: id => dispatch(deleteProductThunk(id))
+  complete: (orderId, status) => dispatch(completeOrderThunk(orderId, status))
 })
 
 export default connect(

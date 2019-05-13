@@ -15,6 +15,7 @@ import {
   CREATE_ORDER,
   GET_IN_PROGRESS_ORDERS,
   DELETE_PRODUCT
+  COMPLETE_ORDER
 } from './constants'
 
 export const userLineitemsReducer = (state = [], action) => {
@@ -110,9 +111,15 @@ export const usersReducer = (state = [], action) => {
 }
 
 export const inProgressOrdersReducer = (state = [], action) => {
+  const filterInProgess = [...state].filter(
+    order => order.status === 'in-progress'
+  )
+
   switch (action.type) {
     case GET_IN_PROGRESS_ORDERS:
       return action.orders
+    case COMPLETE_ORDER:
+      return filterInProgess
     default:
       return state
   }

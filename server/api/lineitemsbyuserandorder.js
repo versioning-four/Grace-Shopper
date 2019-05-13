@@ -22,7 +22,6 @@ router.post('/', async (req, res, next) => {
       }
       res.json(newItem)
     }
-    res.json(req.body)
   } catch (err) {
     next(err)
   }

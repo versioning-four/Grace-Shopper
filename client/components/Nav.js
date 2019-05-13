@@ -8,7 +8,11 @@ const navTabs = [
   { name: 'Cart', path: '/cart' }
 ]
 
-const Nav = ({ loggedInUser }) => {
+const Nav = ({ loggedInUser, location: { pathname } }) => {
+  const usersMatch =
+    !pathname.includes('myaccount') ||
+    loggedInUser.id === Number(/[0-9]+/.exec(pathname)[0])
+  const showLoggedIn = loggedInUser.id && usersMatch
   return (
     <nav className="navbar navbar-expand-md navbar-light fixed-top">
       <Link className="navbar-brand" to="/home">
@@ -31,9 +35,9 @@ const Nav = ({ loggedInUser }) => {
         <li className="nav-item">
           <Link
             className="nav-link"
-            to={loggedInUser.id ? `/users/${loggedInUser.id}` : '/login'}
+            to={showLoggedIn ? `/users/${loggedInUser.id}/myaccount` : '/login'}
           >
-            {loggedInUser.id ? 'My Account' : 'Log In'}
+            {showLoggedIn ? 'My Account' : 'Log In'}
           </Link>
         </li>
       </ul>

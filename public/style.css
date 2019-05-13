@@ -93,6 +93,12 @@ h3:after {
   border: 1.5px solid black;
   margin: 20px 5px 40px 5px;
   padding: 8px;
+  margin: 10px;
+}
+
+.standard-btn:hover {
+  background-color: black;
+  color: white;
 }
 
 .remove-btn {
@@ -103,14 +109,19 @@ h3:after {
   padding: 8px;
 }
 
+.remove-btn:hover {
+  background-color: rgb(220, 0, 0);
+  color: white;
+}
+
 .product-list-img {
   width: 40px;
   height: 40px;
 }
 
 .single-product-img {
-  width: 350px;
-  height: 350px;
+  width: 250px;
+  height: 250px;
   margin-bottom: 30px;
 }
 
@@ -123,6 +134,10 @@ h3:after {
 }
 
 .cart-list {
+  margin-top: 50px;
+}
+
+.checkout-page {
   margin-top: 50px;
 }
 
@@ -142,8 +157,8 @@ h3:after {
 }
 
 .product-list img {
-  height: 280px;
-  width: 280px;
+  height: 300px;
+  width: 300px;
 }
 
 .reviews-card {
@@ -162,6 +177,40 @@ h3:after {
 
 .single-user {
   margin-top: 50px;
+  text-align: center;
+}
+
+.admin-user {
+  text-align: center;
+  /* border: 1px rgba(0, 0, 0, 0.5) solid; */
+}
+.admin-btn {
+  color: rgb(25, 119, 53);
+  background-color: white;
+  border: 1.5px solid rgb(25, 119, 53);
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 8px;
+  margin: 10px;
+}
+
+.admin-btn:hover {
+  background-color: rgb(25, 119, 53);
+  color: white;
+}
+
+.edit-btn {
+  color: rgb(0, 139, 220);
+  background-color: white;
+  border: 1.5px solid rgb(0, 139, 220);
+  margin-top: 20px;
+  margin-bottom: 40px;
+  padding: 8px;
+}
+
+.edit-btn:hover {
+  background-color: rgb(0, 139, 220);
+  color: white;
 }
 
 .login-buttons {
@@ -211,4 +260,66 @@ h3:after {
 
 .remove-cart-btn {
   margin-left: 40px;
+.cart-item-image {
+  height: auto;
+  max-height: 100px;
+}
+
+.account-lineitem-image {
+  height: auto;
+  max-height: 150px;
+}
+
+.price-color {
+  color: rgb(215, 42, 42);
+}
+
+.cart-summary {
+  margin-top: 10px;
+}
+
+.standard-btn-no-margin {
+  color: black;
+  background-color: white;
+  border: 1.5px solid black;
+  margin-bottom: 40px;
+  padding: 8px;
+}
+
+.btn-link {
+  padding-left: 0px;
+  font-size: 1.7rem;
+}
+
+.bigger-font {
+  font-size: 1.3rem;
+}
+
+.card-body,
+.card-within-card-padding {
+  padding: 2% 0;
+}
+
+.row-for-order {
+  max-height: 150px;
+}
+
+.container {
+  display: flex;
+}
+
+ul#flex-container {
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+  display: flex;
+  align-content: center;
+}
+
+.products-li {
+  list-style-type: none;
+  width: 300px;
+  overflow-x: auto;
+  float: left;
+  margin-right: 10px;
 }

@@ -13,6 +13,10 @@ const lineitem = require('./api/LineItem')
 const review = require('./api/Review')
 const category = require('./api/Category')
 const auth = require('./api/auth')
+const mailTransporter = require('./mailconfiguration')
+const { makePriceCurrencyFormat } = require('./helperfunctions')
+const dotenv = require('dotenv')
+dotenv.config()
 
 const port = process.env.PORT || 3000
 
@@ -60,6 +64,26 @@ app.get('/app.js', (req, res, next) =>
 app.get('/', (req, res, next) =>
   res.sendFile(path.join(__dirname, '..', 'index.html'))
 )
+
+app.post('/mail/orderconfirmation/:firstname/:email/:id', (req, res, next) => {
+  const message = {
+    to: `${req.params.firstname} <${req.params.email}>`,
+    subject: 'Your Order Summary from the Team At Grace Shopper',
+    template: 'orderconfirmation',
+    context: {
+      cart: req.body.map(item => ({
+        ...item,
+        totalItemPrice: makePriceCurrencyFormat(item.totalItemPrice)
+      })),
+      accountLink: `${process.env.BASE_URL}#/users/${req.params.id}/myaccount`
+    }
+  }
+
+  mailTransporter
+    .sendMail(message)
+    .then(info => res.json(info))
+    .catch(next)
+})
 
 //error handling
 app.use((error, req, res, next) => {
