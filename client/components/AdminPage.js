@@ -9,12 +9,6 @@ import { makePriceCurrencyFormat } from '../HelperFunctions'
 import { completeOrderThunk } from '../redux/actions/CompleteOrder'
 
 class AdminPage extends Component {
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.path !== this.props.match.path) {
-      return this.props.inProgOrders()
-    }
-  }
-
   componentDidMount() {
     return this.props.inProgOrders()
   }
@@ -39,7 +33,9 @@ class AdminPage extends Component {
       <div className="admin-user">
         <br />
         <div>
-          <Link to={`/users/${loggedInUser.id}/myaccount/admin/allorders`}>
+          <Link
+            to={`/users/${loggedInUser.id}/myaccount/admin/ordersinprogress`}
+          >
             <button className="admin-btn" type="button">
               View all orders in progress
             </button>
