@@ -41,7 +41,7 @@ export const checkForUserThunk = () => {
     if (
       data.id &&
       /[0-9]+/.exec(window.location.hash) &&
-      Number(/[0-9]+/.exec(window.location.hash)[0])
+      data.id !== Number(/[0-9]+/.exec(window.location.hash)[0])
     ) {
       data = {}
     }

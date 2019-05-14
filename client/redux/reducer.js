@@ -112,7 +112,7 @@ export const usersReducer = (state = [], action) => {
 
 export const inProgressOrdersReducer = (state = [], action) => {
   const filterInProgess = [...state].filter(
-    order => order.status === 'in-progress'
+    order => order.id !== action.order.id
   )
 
   switch (action.type) {

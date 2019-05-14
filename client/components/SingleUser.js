@@ -57,7 +57,7 @@ class SingleUser extends Component {
 
     if (!loggedIn && pathname.includes('myaccount')) {
       return (
-        <div>
+        <div style={{ marginTop: '50px' }}>
           You are not logged in. Go to the <Link to="/login">sign-in page</Link>{' '}
           to log in
         </div>
@@ -66,7 +66,7 @@ class SingleUser extends Component {
 
     if (loggedIn && loggedInUser.id !== userId) {
       return (
-        <div>
+        <div style={{ marginTop: '50px' }}>
           You trying to access somebody else's account :(. Go to the{' '}
           <Link to="/login">sign-in page</Link> to log in
         </div>
